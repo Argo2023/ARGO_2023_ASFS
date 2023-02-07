@@ -16,23 +16,33 @@ enum AIState
     EVADING
 };
 
+enum Actions
+{
+    JUMP,
+    SHOOT,
+    MOVE
+};
+
 
 public class AIScript : MonoBehaviour
 {
+    public bool jumpTrigger = false;
+    public Rigidbody2D rb;
+    public float speed = 2.0f;
+    List<Actions> actions = new List<Actions>();
     AIState state = AIState.IDLE;
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<HealthScript>().initializePlayer(100, 10); // Initialises the player
+        //GetComponent<HealthScript>().initializePlayer(100, 10); // Initialises the player
     }
 
     // Update is called once per frame
     void Update()
     {
         setEntityState(); // Asks the AI which state is it in
-
-
-
+        setAIAction();
+        actionExecution(actions);
     }
 
 
@@ -58,14 +68,10 @@ public class AIScript : MonoBehaviour
             state = AIState.EVADING;
         }
 
-
-        ///
-        /// Enable when there is a way to count all of the entities on the screen without including the current one
-        //if (enemyCount < 1)
-        //{
-        //    state = AIState.IDLE;
-        //}
-
+        if (GetComponent<HealthScript>().baseHealth <= 0)
+        {
+            state = AIState.IDLE;
+        }
 
         return state;
     }
@@ -91,5 +97,46 @@ public class AIScript : MonoBehaviour
         {
             // call functions for the AI to evade all of the enemies
         }
+
+        if (state == AIState.IDLE)
+        {
+            actions.Add(Actions.MOVE);
+            actions.Add(Actions.JUMP);
+        }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("ME IZ HERE");
+        if (collision.gameObject.CompareTag("wall"))
+        {
+            jumpTrigger = true;
+            speed = -speed;
+        }
+    }
+
+
+    void actionExecution(List<Actions> t_actions)
+    {
+
+        if (t_actions[0] == Actions.MOVE)
+        {
+            transform.position -= Vector3.right * speed * Time.deltaTime;
+        }
+        if (t_actions[0] == Actions.SHOOT)
+        {
+            // code for shoot
+        }
+        if (t_actions[0] == Actions.JUMP)
+        {
+            rb.AddForce(Vector2.up * 5.0f, ForceMode2D.Impulse);
+            t_actions.RemoveAt(0);
+        }
+        if (jumpTrigger)
+        {
+            jumpTrigger = false;
+            t_actions.RemoveAt(0);
+        }
+    }
+
 }
