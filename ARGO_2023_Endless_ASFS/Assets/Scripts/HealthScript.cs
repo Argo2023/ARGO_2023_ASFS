@@ -21,7 +21,7 @@ public class HealthScript : MonoBehaviour
     /// <param name="t_health">Pass in the value for the character to be initialised with</param>
     /// <param name="t_damage">Pass in the value for the character to be initialised with</param>
     /// <returns>if return = 0 everything ran properly, 1 is an error</returns>
-    int initializePlayer(float t_health, float t_damage)
+    public int initializePlayer(float t_health, float t_damage)
     {
         if (baseHealth == 0 && shotDamage == 0)
         {
@@ -40,7 +40,7 @@ public class HealthScript : MonoBehaviour
     /// pass in the value for damage to damage the entity
     /// </summary>
     /// <param name="t_damage"></param>
-    void entityTakesDamage(float t_damage)
+    public void entityTakesDamage(float t_damage)
     {
         baseHealth = baseHealth - t_damage;
 
@@ -55,7 +55,7 @@ public class HealthScript : MonoBehaviour
     /// Returns if the Entity is Dead or Alive
     /// </summary>
     /// <returns>alive/dead</returns>
-    bool isEntityDead()
+    public bool isEntityDead()
     {
         if (baseHealth <= 0)  
             return true;       
