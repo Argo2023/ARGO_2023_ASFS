@@ -403,7 +403,7 @@ MonoBehaviour:
   autoConnectClientBuild: 0
   sendRate: 30
   offlineScene: Assets/Scenes/Offline Scene.unity
-  onlineScene: Assets/Scenes/SampleScene.unity
+  onlineScene: Assets/Scenes/Play Screen.unity
   transport: {fileID: 864990346}
   networkAddress: localhost
   maxConnections: 100
