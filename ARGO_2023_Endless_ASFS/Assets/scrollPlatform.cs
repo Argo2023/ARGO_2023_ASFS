@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class scroll : MonoBehaviour
+public class scrollPlatform : MonoBehaviour
 {
-
     private int speed = 2;
     private float width;
     // Start is called before the first frame update
@@ -18,16 +17,9 @@ public class scroll : MonoBehaviour
     {
         transform.position += Vector3.left * speed * Time.deltaTime;
 
-        if (transform.position.x+ width / 2 <= -12)
+        if (transform.position.x + width / 2 <= -12)
         {
-            SetPosition(width);
+            Destroy(gameObject);
         }
     }
-
-    
-    public void SetPosition(float t_position)
-    {
-        transform.position = new Vector3(t_position, transform.position.y, 0f);
-    }
 }
-
