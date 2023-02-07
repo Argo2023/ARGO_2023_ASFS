@@ -67,8 +67,8 @@ public class playerScript : NetworkBehaviour
     void Update()
     {
         if (!isLocalPlayer) return;
-        else if(isLocalPlayer)
-        {
+        //else if(isLocalPlayer)
+        //{
             ////////////////////////////////////////////////////////////////////////////            <<--------- MOVEMENT
             var horizontalInput = Input.GetAxisRaw("Horizontal");
             rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
@@ -96,7 +96,7 @@ public class playerScript : NetworkBehaviour
 
             }
 
-        }
+        //}
 
 
         ////////////////////////////////////////////////////////////////////////////
