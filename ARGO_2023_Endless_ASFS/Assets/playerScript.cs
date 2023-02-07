@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class playerScript : MonoBehaviour
+public class playerScript : NetworkBehaviour
 {
     [Header("Player stuff")]
+    [SyncVar]
+    public Vector3 syncPosition;
+    [SyncVar]
+    public Quaternion syncRotation;
+
     public Rigidbody2D rb;
     public float jumpForce = 0;
     public int jumpCount = 0;
@@ -19,6 +25,7 @@ public class playerScript : MonoBehaviour
     public bool resetJump = false;
 
     [SerializeField] private float cooldown = 5;
+    
 
     /// <summary>
     /// On awake it checks if the player has an instance allready.
@@ -59,32 +66,37 @@ public class playerScript : MonoBehaviour
     /// </summary>
     void Update()
     {
-        ////////////////////////////////////////////////////////////////////////////            <<--------- MOVEMENT
-        var horizontalInput = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
+        if (!isLocalPlayer) return;
+        //else if(isLocalPlayer)
+        //{
+            ////////////////////////////////////////////////////////////////////////////            <<--------- MOVEMENT
+            var horizontalInput = Input.GetAxisRaw("Horizontal");
+            rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
 
-        if (rb.velocity.x > 0.001f)
-        {
-           // animator.SetFloat("speed", Mathf.Abs(playerSpeed));
-            transform.localScale = new Vector2(savedlocalScale.x, savedlocalScale.y);
-            m_FacingLeft = false;
-            m_FacingRight = true;
+            if (rb.velocity.x > 0.001f)
+            {
+               // animator.SetFloat("speed", Mathf.Abs(playerSpeed));
+                transform.localScale = new Vector2(savedlocalScale.x, savedlocalScale.y);
+                m_FacingLeft = false;
+                m_FacingRight = true;
           
-        }
-        else if (rb.velocity.x < -0.001f)
-        {
-            //animator.SetFloat("speed", Mathf.Abs(playerSpeed));
-            transform.localScale = new Vector2(-savedlocalScale.x, savedlocalScale.y);
-            m_FacingLeft = true;
-            m_FacingRight = false;
+            }
+            else if (rb.velocity.x < -0.001f)
+            {
+                //animator.SetFloat("speed", Mathf.Abs(playerSpeed));
+                transform.localScale = new Vector2(-savedlocalScale.x, savedlocalScale.y);
+                m_FacingLeft = true;
+                m_FacingRight = false;
            
-        }
+            }
 
-        if (rb.velocity.x == 0.0f)
-        {
-            //animator.SetFloat("speed", Mathf.Abs(0));
+            if (rb.velocity.x == 0.0f)
+            {
+                //animator.SetFloat("speed", Mathf.Abs(0));
 
-        }
+            }
+
+        //}
 
 
         ////////////////////////////////////////////////////////////////////////////
@@ -111,9 +123,22 @@ public class playerScript : MonoBehaviour
         {
             rb.gravityScale = fallingGravityScale;
         }
-
+        TransmitPosition();
+       
     }
- 
+
+    [ClientCallback]
+    void TransmitPosition()
+    {
+        CmdProvidePositionToServer(rb.transform.position);
+    }
+
+    [Command]
+    void CmdProvidePositionToServer(Vector3 pos)
+    {
+        syncPosition = pos;
+        
+    }
 
     /// <summary>
 

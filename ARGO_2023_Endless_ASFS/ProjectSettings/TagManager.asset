@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - Gun
+  - AI
+  - wall
   layers:
   - Default
   - TransparentFX
