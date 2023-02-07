@@ -20,7 +20,9 @@ enum Actions
 {
     JUMP,
     SHOOT,
-    MOVE
+    SPRINT,
+    MOVE,
+    ROLL
 };
 
 
@@ -40,9 +42,29 @@ public class AIScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        setEntityState(); // Asks the AI which state is it in
         setAIAction();
-        actionExecution(actions);
+
+        if (getEntityState() == AIState.ATTACKING)
+        {
+            attackingExecution(actions);
+        }
+
+        if (getEntityState() == AIState.CHASING)
+        {
+            chasingExecution(actions);
+        }
+
+        if (getEntityState() == AIState.EVADING)
+        {
+            evadingExecution(actions);
+        }
+
+        if (getEntityState() == AIState.IDLE)
+        {
+            idleExecution(actions);
+        }
+
+        idleExecution(actions);
     }
 
 
@@ -51,7 +73,7 @@ public class AIScript : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     /// 
-    AIState setEntityState()
+    AIState getEntityState()
     {
         if (GetComponent<HealthScript>().baseHealth > 70)
         {
@@ -79,23 +101,25 @@ public class AIScript : MonoBehaviour
 
     /// <summary>
     /// Activates a specific behaviour for the AI based on the state the AI is currently in
+    /// To make work, add wanted actions to the ENUM class and then check for them in the necessary 
+    /// Execution function and add behaviour
     /// </summary>
     /// 
     void setAIAction()
     {
         if (state == AIState.ATTACKING)
         {
-            // call functions for the AI to attack the player
+            // add actions for the player to do while attacking
         }
 
         if (state == AIState.CHASING)
         {
-            // call functions for AI chasing the player
+            // add actions for the player to do while chasing
         }
 
         if (state == AIState.EVADING)
         {
-            // call functions for the AI to evade all of the enemies
+            // add actions for the player to do while evading
         }
 
         if (state == AIState.IDLE)
@@ -105,6 +129,12 @@ public class AIScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Changes the speed of the AI
+    /// Turns the Jump Trigger to true so it can remove movement from the Actions list
+    /// so Jump can be triggered
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("ME IZ HERE");
@@ -115,17 +145,17 @@ public class AIScript : MonoBehaviour
         }
     }
 
-
-    void actionExecution(List<Actions> t_actions)
+    /// <summary>
+    /// This is a function that will handle how actions are executed. To make a more complex AI, we will need
+    /// to add more triggers and handlers for each state the AI is in.
+    /// </summary>
+    /// <param name="t_actions"></param>
+    void idleExecution(List<Actions> t_actions)
     {
 
         if (t_actions[0] == Actions.MOVE)
         {
             transform.position -= Vector3.right * speed * Time.deltaTime;
-        }
-        if (t_actions[0] == Actions.SHOOT)
-        {
-            // code for shoot
         }
         if (t_actions[0] == Actions.JUMP)
         {
@@ -137,6 +167,21 @@ public class AIScript : MonoBehaviour
             jumpTrigger = false;
             t_actions.RemoveAt(0);
         }
+    }
+
+    void evadingExecution(List<Actions> t_actions)
+    {
+
+    }
+
+    void chasingExecution(List<Actions> t_actions)
+    {
+
+    }
+
+    void attackingExecution(List<Actions> t_actions)
+    {
+
     }
 
 }
