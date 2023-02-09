@@ -20,6 +20,8 @@ public class singlePlayerScript : MonoBehaviour
     Vector2 savedlocalScale;
     public bool resetJump = false;
 
+    public bool playerAlive = true;
+
     [SerializeField] private float cooldown = 5;
     
 
@@ -120,19 +122,16 @@ public class singlePlayerScript : MonoBehaviour
         }       
     }
 
-    /// <summary>
 
-    /// </summary>
-    /// <param name="collision"></param>
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter(Collision collision)
     {
-       
-
+        if (collision.gameObject.tag == "AI")
+        {
+            playerAlive = false;
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
     }
-
-   
-
-  
 
 }
 
