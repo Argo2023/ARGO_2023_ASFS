@@ -19,6 +19,11 @@ public class singleResetJump : MonoBehaviour
             player.isGrounded = true;
             player.jumpCount = 0;
         }
+        else if(collision.gameObject.CompareTag("Platform"))
+        {
+            player.isGrounded = true;
+            player.jumpCount = 0;
+        }
     }
 
 }

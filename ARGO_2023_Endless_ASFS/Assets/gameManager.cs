@@ -91,9 +91,8 @@ public class gameManager : MonoBehaviour
         platformSpawnNum = 0;
         wallSpawnNum = 0;
         enemySpawnNum = 0;
-        //TODO: Remove all current clones of platform, enemy and wall.
-        // 
-        var platforms = GameObject.FindGameObjectsWithTag("Ground");
+
+        var platforms = GameObject.FindGameObjectsWithTag("Platform"); // change this to ground for a differnt game lmao
         var walls = GameObject.FindGameObjectsWithTag("wall"); 
         var enemies = GameObject.FindGameObjectsWithTag("AI");
         
