@@ -137,7 +137,7 @@ public class AIScript : MonoBehaviour
     /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("ME IZ HERE");
+        //Debug.Log("ME IZ HERE");
         if (collision.gameObject.CompareTag("wall"))
         {
             jumpTrigger = true;

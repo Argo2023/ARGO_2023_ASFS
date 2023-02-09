@@ -64,37 +64,33 @@ public class singlePlayerScript : MonoBehaviour
     /// </summary>
     void Update()
     {
-        //else if(isLocalPlayer)
-        //{
+        
             ////////////////////////////////////////////////////////////////////////////            <<--------- MOVEMENT
-            var horizontalInput = Input.GetAxisRaw("Horizontal");
-            rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
+        var horizontalInput = Input.GetAxisRaw("Horizontal");
+        rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
 
-            if (rb.velocity.x > 0.001f)
-            {
-               // animator.SetFloat("speed", Mathf.Abs(playerSpeed));
-                transform.localScale = new Vector2(savedlocalScale.x, savedlocalScale.y);
-                m_FacingLeft = false;
-                m_FacingRight = true;
+        if (rb.velocity.x > 0.001f)
+        {
+            // animator.SetFloat("speed", Mathf.Abs(playerSpeed));
+            transform.localScale = new Vector2(savedlocalScale.x, savedlocalScale.y);
+            m_FacingLeft = false;
+            m_FacingRight = true;
           
-            }
-            else if (rb.velocity.x < -0.001f)
-            {
-                //animator.SetFloat("speed", Mathf.Abs(playerSpeed));
-                transform.localScale = new Vector2(-savedlocalScale.x, savedlocalScale.y);
-                m_FacingLeft = true;
-                m_FacingRight = false;
+        }
+        else if (rb.velocity.x < -0.001f)
+        {
+            //animator.SetFloat("speed", Mathf.Abs(playerSpeed));
+            transform.localScale = new Vector2(-savedlocalScale.x, savedlocalScale.y);
+            m_FacingLeft = true;
+            m_FacingRight = false;
            
-            }
+        }
 
-            if (rb.velocity.x == 0.0f)
-            {
-                //animator.SetFloat("speed", Mathf.Abs(0));
+        if (rb.velocity.x == 0.0f)
+        {
+            //animator.SetFloat("speed", Mathf.Abs(0));
 
-            }
-
-        //}
-
+        }
 
         ////////////////////////////////////////////////////////////////////////////
 
@@ -125,11 +121,22 @@ public class singlePlayerScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "AI")
+        if (collision.gameObject.CompareTag("AI"))
+        {
+            playerAlive = false;
+            Debug.Log("Do something else here");
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("AI"))
         {
             playerAlive = false;
             Destroy(collision.gameObject);
-            Destroy(gameObject);
+          
         }
     }
 

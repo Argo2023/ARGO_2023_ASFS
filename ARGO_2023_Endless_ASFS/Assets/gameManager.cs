@@ -7,6 +7,7 @@ public class gameManager : MonoBehaviour
     float randNum = 0.0f;
     float offScreen = 16.0f;
     Vector2 offScreenPos;
+    public singlePlayerScript player;
     public GameObject Platform;
     public GameObject Wall;
     public GameObject Enemy;
@@ -22,6 +23,15 @@ public class gameManager : MonoBehaviour
     {
         spawnPlatform();
         offScreenPos = new Vector2(offScreen, -5.5f);
+    }
+
+    private void Update()
+    {
+        if(player.playerAlive == false)
+        {
+            Debug.Log("1111111");
+            restartGame();
+        }
     }
 
     // Update is called once per frame
@@ -69,5 +79,19 @@ public class gameManager : MonoBehaviour
     void spawnEnemy()
     {
         Instantiate(Enemy, offScreenPos, Quaternion.identity);
+    }
+
+    void restartGame()
+    {
+        Debug.Log("Game Restarted");
+
+        player.playerAlive = true;
+        player.transform.position = new Vector3(-9.0f, -1.0f, 0.0f);
+
+        platformSpawnNum = 0;
+        wallSpawnNum = 0;
+        enemySpawnNum = 0;
+        //TODO: Remove all current clones of platform, enemy and wall.
+        // 
     }
 }
