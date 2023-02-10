@@ -20,6 +20,8 @@ public class singlePlayerScript : MonoBehaviour
     Vector2 savedlocalScale;
     public bool resetJump = false;
 
+    public bool playerAlive = true;
+
     [SerializeField] private float cooldown = 5;
     
 
@@ -62,37 +64,33 @@ public class singlePlayerScript : MonoBehaviour
     /// </summary>
     void Update()
     {
-        //else if(isLocalPlayer)
-        //{
+        
             ////////////////////////////////////////////////////////////////////////////            <<--------- MOVEMENT
-            var horizontalInput = Input.GetAxisRaw("Horizontal");
-            rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
+        var horizontalInput = Input.GetAxisRaw("Horizontal");
+        rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
 
-            if (rb.velocity.x > 0.001f)
-            {
-               // animator.SetFloat("speed", Mathf.Abs(playerSpeed));
-                transform.localScale = new Vector2(savedlocalScale.x, savedlocalScale.y);
-                m_FacingLeft = false;
-                m_FacingRight = true;
+        if (rb.velocity.x > 0.001f)
+        {
+            // animator.SetFloat("speed", Mathf.Abs(playerSpeed));
+            transform.localScale = new Vector2(savedlocalScale.x, savedlocalScale.y);
+            m_FacingLeft = false;
+            m_FacingRight = true;
           
-            }
-            else if (rb.velocity.x < -0.001f)
-            {
-                //animator.SetFloat("speed", Mathf.Abs(playerSpeed));
-                transform.localScale = new Vector2(-savedlocalScale.x, savedlocalScale.y);
-                m_FacingLeft = true;
-                m_FacingRight = false;
+        }
+        else if (rb.velocity.x < -0.001f)
+        {
+            //animator.SetFloat("speed", Mathf.Abs(playerSpeed));
+            transform.localScale = new Vector2(-savedlocalScale.x, savedlocalScale.y);
+            m_FacingLeft = true;
+            m_FacingRight = false;
            
-            }
+        }
 
-            if (rb.velocity.x == 0.0f)
-            {
-                //animator.SetFloat("speed", Mathf.Abs(0));
+        if (rb.velocity.x == 0.0f)
+        {
+            //animator.SetFloat("speed", Mathf.Abs(0));
 
-            }
-
-        //}
-
+        }
 
         ////////////////////////////////////////////////////////////////////////////
 
@@ -120,19 +118,14 @@ public class singlePlayerScript : MonoBehaviour
         }       
     }
 
-    /// <summary>
-
-    /// </summary>
-    /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
-       
-
+        if (collision.gameObject.CompareTag("AI"))
+        {
+            playerAlive = false;
+            Destroy(collision.gameObject);
+        }
     }
-
-   
-
-  
 
 }
 
