@@ -11,7 +11,7 @@ public class GunController : MonoBehaviour
     public GameObject pushbackObj;
     [Header("GunProperties")]
     public float bulletSpeed;
-    //public float spread;
+    public float spread;
     public float reloadTime;
     public float timeBetweenShots;
     public float timeBetweenShooting;
@@ -22,8 +22,9 @@ public class GunController : MonoBehaviour
     public bool allowButtonHold;
     public int bulletsLeft;
     int bulletsShot;
+    Touch touch;
     //bools 
-    bool shooting;                
+    //bool shooting;                
     bool readyToShoot;
     bool reloading;
     bool isRight;
@@ -32,9 +33,6 @@ public class GunController : MonoBehaviour
     /// </summary>
     [Header("FirePoints")]
     public Transform fp1;
-    public Transform fp2;
-    public Transform fp3;
-    public int randomFirepoint = 0;
     /// <summary>
     /// Projectile of the weapon (bullet)
     /// </summary>
@@ -49,6 +47,8 @@ public class GunController : MonoBehaviour
     public AudioSource audio;
     public AudioClip clip;
 
+
+
     private void Awake()
     {
         bulletsLeft = magazineSize;
@@ -61,23 +61,28 @@ public class GunController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        if (worldPosition.x > transform.position.x)
+        if (Input.touchCount > 0)
         {
-            //Debug.Log("right");
-            isRight = true;
-        }
-        if (worldPosition.x < transform.position.x)
-        {
-            //Debug.Log("left");
-            isRight = false;
-        }
+            touch = Input.GetTouch(0);
+            //Debug.Log("Touching");
 
-        MyInput();
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(touch.position);
 
+            if (worldPosition.x > transform.position.x)
+            {
+                //  Debug.Log("right");
+                isRight = true;
+            }
+            if (worldPosition.x < transform.position.x)
+            {
+                //Debug.Log("left");
+                isRight = false;
+            }
+
+            MyInput();
+        }
     }
 
     /// <summary>
@@ -86,16 +91,15 @@ public class GunController : MonoBehaviour
     /// </summary>
     private void MyInput()
     {
-        
-        if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
-        else shooting = Input.GetKeyDown(KeyCode.Mouse0);
+        //  if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
+        //  else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
         if (Input.GetKey(KeyCode.R) && bulletsLeft < magazineSize && !reloading && availableAmmo > 0)
         {
             Reload();
         }
 
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
+        if (readyToShoot && !reloading && bulletsLeft > 0)
         {
             bulletsShot = bulletsPerTap;
             Shoot();
@@ -107,48 +111,26 @@ public class GunController : MonoBehaviour
     /// </summary>
     private void Shoot()
     {
-
         readyToShoot = false;
-        randomFirepoint = Random.Range(1, 4);
 
+        Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+        touchPosition.z = 0;
 
-        //float z = Random.Range(-spread, spread);
-        //Quaternion newRotation = transform.rotation * Quaternion.EulerRotation(0,0,z);
-        //GameObject bulletspawn = Instantiate(Projectile, fp1.position, newRotation);
-        //Rigidbody2D rbBullet = bulletspawn.GetComponent<Rigidbody2D>();
-        //rbBullet.AddForce(fp1.up * bulletSpeed, ForceMode2D.Impulse);
-        //Destroy(bulletspawn, 2.0f);
+        float x = Random.Range(-spread, spread);
+        float y = Random.Range(-spread, spread);
 
-
-
-        if (randomFirepoint == 1)
-        {
-            GameObject bulletspawn = Instantiate(Projectile, fp1.position, fp1.rotation);
-            Rigidbody2D rbBullet = bulletspawn.GetComponent<Rigidbody2D>();
-            rbBullet.AddForce(fp1.up * bulletSpeed, ForceMode2D.Impulse);
-            Destroy(bulletspawn, 2.0f);
-        }
-        if (randomFirepoint == 2)
-        {
-            GameObject bulletspawn = Instantiate(Projectile, fp2.position, fp2.rotation);
-            Rigidbody2D rbBullet = bulletspawn.GetComponent<Rigidbody2D>();
-            rbBullet.AddForce(fp2.up * bulletSpeed, ForceMode2D.Impulse);
-            Destroy(bulletspawn, 2.0f);
-        }
-        if (randomFirepoint == 3)
-        {
-            GameObject bulletspawn = Instantiate(Projectile, fp3.position, fp3.rotation);
-            Rigidbody2D rbBullet = bulletspawn.GetComponent<Rigidbody2D>();
-            rbBullet.AddForce(fp3.up * bulletSpeed, ForceMode2D.Impulse);
-            Destroy(bulletspawn, 2.0f);
-        }
-
+        Vector2 direction = new Vector3(x, y);
+        GameObject bulletspawn = Instantiate(Projectile, fp1.position, fp1.rotation);
+        Rigidbody2D rbBullet = bulletspawn.GetComponent<Rigidbody2D>();
+        Vector2 shootDirection = (touchPosition - transform.position).normalized;
+        shootDirection = shootDirection + direction;
+        rbBullet.AddForce(shootDirection * bulletSpeed, ForceMode2D.Impulse);
+        Destroy(bulletspawn, 2.0f);
 
         GameObject castingBullet = Instantiate(castings, castingPos.position, castingPos.rotation);
         Rigidbody2D rbCasting = castingBullet.GetComponent<Rigidbody2D>();
         rbCasting.AddForce(castingPos.up * -5, ForceMode2D.Impulse);
-
-
+        Destroy(castingBullet, 20.0f);
 
         bulletsLeft--;
         bulletsShot--;
@@ -161,6 +143,7 @@ public class GunController : MonoBehaviour
             audio.PlayOneShot(clip, 1.5f);
         }
     }
+
     /// <summary>
     /// just a reset of the function to be able to shoot 
     /// </summary>
