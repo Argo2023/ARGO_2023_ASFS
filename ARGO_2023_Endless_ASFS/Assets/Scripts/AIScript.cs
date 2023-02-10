@@ -10,6 +10,7 @@ using UnityEngine;
 
 enum AIState
 {
+    NOTHING,
     IDLE,
     ATTACKING,
     CHASING,
@@ -22,21 +23,25 @@ enum Actions
     SHOOT,
     SPRINT,
     MOVE,
-    ROLL
+    ROLL,
+    TILT
 };
 
 
 public class AIScript : MonoBehaviour
 {
+    public GameObject enemy;
+    public string transfer = "";
     public bool jumpTrigger = false;
+    public bool finished = false;
     public Rigidbody2D rb;
-    public float speed = 2.0f;
+    public float speed = 1.0f;
     List<Actions> actions = new List<Actions>();
-    AIState state = AIState.IDLE;
+    AIState state = AIState.NOTHING;
     // Start is called before the first frame update
     void Start()
     {
-        //GetComponent<HealthScript>().initializePlayer(100, 10); // Initialises the player
+        GetComponent<HealthScript>().initializePlayer(69, 10); // Initialises the player
     }
 
     // Update is called once per frame
@@ -44,6 +49,7 @@ public class AIScript : MonoBehaviour
     {
         setAIAction();
 
+        //Debug.Log(getEntityState());
         if (getEntityState() == AIState.ATTACKING)
         {
             attackingExecution(actions);
@@ -64,7 +70,7 @@ public class AIScript : MonoBehaviour
             idleExecution(actions);
         }
 
-        idleExecution(actions);
+        Debug.Log(rb.velocity);
     }
 
 
@@ -112,9 +118,13 @@ public class AIScript : MonoBehaviour
             // add actions for the player to do while attacking
         }
 
-        if (state == AIState.CHASING)
+        if (state == AIState.CHASING && finished != false)
         {
-            // add actions for the player to do while chasing
+            actions.Add(Actions.MOVE);
+            actions.Add(Actions.JUMP);
+            actions.Add(Actions.TILT);
+            Debug.Log(syncActions());
+            finished = false;
         }
 
         if (state == AIState.EVADING)
@@ -126,6 +136,8 @@ public class AIScript : MonoBehaviour
         {
             actions.Add(Actions.MOVE);
             actions.Add(Actions.JUMP);
+
+            
         }
     }
 
@@ -137,7 +149,6 @@ public class AIScript : MonoBehaviour
     /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("ME IZ HERE");
         if (collision.gameObject.CompareTag("wall"))
         {
             jumpTrigger = true;
@@ -176,12 +187,65 @@ public class AIScript : MonoBehaviour
 
     void chasingExecution(List<Actions> t_actions)
     {
+        //Debug.Log("Im here");
+        if (t_actions[0] == Actions.MOVE)
+        {
+            if (!(transform.position.x - enemy.transform.position.x <= 1.0f) ||
+                enemy.transform.position.x - transform.position.x >= 1.0f)
+            {
+                Debug.Log(enemy.transform.position.x - transform.position.x);
+                if (enemy.transform.position.x < transform.position.x)
+                    transform.position -= Vector3.right * speed * Time.deltaTime;
+                if(enemy.transform.position.x > transform.position.x)
+                    transform.position += Vector3.right * speed * Time.deltaTime;
+            }
+            else
+            {
+                t_actions.RemoveAt(0);
+            }
+        }
+        
+        if (t_actions[0] == Actions.JUMP)
+        {
+            //Debug.Log("HELLLOOOOO");
+            rb.AddForce(Vector2.up * 2.0f, ForceMode2D.Impulse);
+            t_actions.RemoveAt(0);
+        }
+
+        if (t_actions[0] == Actions.TILT)
+        {
+            if (enemy.transform.position.x < transform.position.x)
+            {
+                //Debug.Log("I TILT");
+                rb.AddForce(Vector2.right * 1.0f, ForceMode2D.Impulse);
+                t_actions.RemoveAt(0);
+                finished = true;
+            }
+
+            if (enemy.transform.position.x > transform.position.x)
+            {
+                //Debug.Log("I TILT");
+                rb.AddForce(Vector2.left * 1.0f, ForceMode2D.Impulse);
+                t_actions.RemoveAt(0);
+                finished = true;
+            }
+        }
 
     }
 
     void attackingExecution(List<Actions> t_actions)
     {
 
+    }
+    
+    string syncActions()
+    {
+        for (int i = 0; i < actions.Count; i++)
+        {
+            transfer += actions[i].ToString() + ", ";
+        }
+
+        return transfer;
     }
 
 }

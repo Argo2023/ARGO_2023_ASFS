@@ -47,6 +47,18 @@ public class GunController : MonoBehaviour
     public AudioSource audio;
     public AudioClip clip;
 
+    [Header("Reload")]
+    public GameObject rev6;
+    public GameObject rev5;
+    public GameObject rev4;
+    public GameObject rev3;
+    public GameObject rev2;
+    public GameObject rev1;
+    public GameObject rev0;
+
+
+
+
 
 
     private void Awake()
@@ -83,6 +95,9 @@ public class GunController : MonoBehaviour
 
             MyInput();
         }
+
+
+
     }
 
     /// <summary>
@@ -94,7 +109,7 @@ public class GunController : MonoBehaviour
         //  if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
         //  else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
-        if (Input.GetKey(KeyCode.R) && bulletsLeft < magazineSize && !reloading && availableAmmo > 0)
+        if (bulletsLeft == 0 && !reloading && availableAmmo > 0)
         {
             Reload();
         }
@@ -142,6 +157,9 @@ public class GunController : MonoBehaviour
             Invoke("Shoot", timeBetweenShots);
             audio.PlayOneShot(clip, 1.5f);
         }
+
+        clipUpdate();
+
     }
 
     /// <summary>
@@ -154,7 +172,7 @@ public class GunController : MonoBehaviour
     /// <summary>
     /// reloading with all the calculations necessary for the ammo
     /// </summary>
-    private void Reload()       
+    private void Reload()
     {
         ammoTakenToReload = bulletsLeft - magazineSize;
         availableAmmo += ammoTakenToReload;
@@ -168,6 +186,13 @@ public class GunController : MonoBehaviour
     {
         bulletsLeft -= ammoTakenToReload;
         reloading = false;
+        rev6.SetActive(true);
+        rev5.SetActive(false);
+        rev4.SetActive(false);
+        rev3.SetActive(false);
+        rev2.SetActive(false);
+        rev1.SetActive(false);
+        rev0.SetActive(false);
     }
     private void muzzleBox()
     {
@@ -176,7 +201,7 @@ public class GunController : MonoBehaviour
 
     }
 
-    void pushBack()
+    private void pushBack()
     {
         if (isRight == true)
         {
@@ -187,6 +212,80 @@ public class GunController : MonoBehaviour
         {
             pushbackObj.transform.position += new Vector3(0.07f, 0, 0);
             //lookQuaternion = muzzleFlash.transform.rotation * Quaternion.AngleAxis(0, Vector2.up);
+        }
+    }
+
+    private void clipUpdate()
+    {
+        if (bulletsLeft == 6)
+        { 
+            rev6.SetActive(true);
+            rev5.SetActive(false);
+            rev4.SetActive(false);
+            rev3.SetActive(false);
+            rev2.SetActive(false);
+            rev1.SetActive(false);
+            rev0.SetActive(false);
+        }
+        if (bulletsLeft == 5)
+        {
+            rev6.SetActive(false);
+            rev5.SetActive(true);
+            rev4.SetActive(false);
+            rev3.SetActive(false);
+            rev2.SetActive(false);
+            rev1.SetActive(false);
+            rev0.SetActive(false);
+        }
+        if (bulletsLeft == 4)
+        {
+            rev6.SetActive(false);
+            rev5.SetActive(false);
+            rev4.SetActive(true);
+            rev3.SetActive(false);
+            rev2.SetActive(false);
+            rev1.SetActive(false);
+            rev0.SetActive(false);
+        }
+        if (bulletsLeft == 3)
+        {
+            rev6.SetActive(false);
+            rev5.SetActive(false);
+            rev4.SetActive(false);
+            rev3.SetActive(true);
+            rev2.SetActive(false);
+            rev1.SetActive(false);
+            rev0.SetActive(false);
+        }
+        if (bulletsLeft == 2)
+        {
+            rev6.SetActive(false);
+            rev5.SetActive(false);
+            rev4.SetActive(false);
+            rev3.SetActive(false);
+            rev2.SetActive(true);
+            rev1.SetActive(false);
+            rev0.SetActive(false);
+        }
+        if (bulletsLeft == 1)
+        {
+            rev6.SetActive(false);
+            rev5.SetActive(false);
+            rev4.SetActive(false);
+            rev3.SetActive(false);
+            rev2.SetActive(false);
+            rev1.SetActive(true);
+            rev0.SetActive(false);
+        }
+        if (bulletsLeft == 0)
+        {
+            rev6.SetActive(false);
+            rev5.SetActive(false);
+            rev4.SetActive(false);
+            rev3.SetActive(false);
+            rev2.SetActive(false);
+            rev1.SetActive(false);
+            rev0.SetActive(true);
         }
     }
 }

@@ -44,5 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e133f4845c2891b4f9d6a45c8db96e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 4363115657234409257, guid: 77d83fcc191363a40ad93d36f53285a8, type: 3}
+  playerGO: {fileID: 4363115657234409250, guid: 77d83fcc191363a40ad93d36f53285a8, type: 3}
   Platform: {fileID: 8599006544835589896, guid: d521d919200003a46a36948253ffbfd6, type: 3}
-  testNum: 0
+  Wall: {fileID: 3814523729588053463, guid: 525fb0ce7f453c14ea7bb05b2d5dc513, type: 3}
+  Enemy: {fileID: 259810019018929261, guid: ba9cee8c20a75f24992ce315a737dfb0, type: 3}
+  platformSpawnNum: 0
+  wallSpawnNum: 0
+  enemySpawnNum: 0
