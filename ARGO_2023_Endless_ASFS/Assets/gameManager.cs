@@ -92,7 +92,7 @@ public class gameManager : MonoBehaviour
         wallSpawnNum = 0;
         enemySpawnNum = 0;
 
-        var platforms = GameObject.FindGameObjectsWithTag("Platform"); // change this to ground for a differnt game lmao
+        var platforms = GameObject.FindGameObjectsWithTag("Platform"); // change this to ground for a differnt game lmao // keep as platform for normal game.
         var walls = GameObject.FindGameObjectsWithTag("wall"); 
         var enemies = GameObject.FindGameObjectsWithTag("AI");
         
