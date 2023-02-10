@@ -23,13 +23,15 @@ enum Actions
     SHOOT,
     SPRINT,
     MOVE,
-    ROLL
+    ROLL,
+    TILT
 };
 
 
 public class AIScript : MonoBehaviour
 {
     public GameObject enemy;
+    public string transfer = "";
     public bool jumpTrigger = false;
     public bool finished = false;
     public Rigidbody2D rb;
@@ -67,6 +69,8 @@ public class AIScript : MonoBehaviour
         {
             idleExecution(actions);
         }
+
+        Debug.Log(rb.velocity);
     }
 
 
@@ -118,6 +122,8 @@ public class AIScript : MonoBehaviour
         {
             actions.Add(Actions.MOVE);
             actions.Add(Actions.JUMP);
+            actions.Add(Actions.TILT);
+            Debug.Log(syncActions());
             finished = false;
         }
 
@@ -130,6 +136,8 @@ public class AIScript : MonoBehaviour
         {
             actions.Add(Actions.MOVE);
             actions.Add(Actions.JUMP);
+
+            
         }
     }
 
@@ -182,7 +190,8 @@ public class AIScript : MonoBehaviour
         //Debug.Log("Im here");
         if (t_actions[0] == Actions.MOVE)
         {
-            if (!(transform.position.x - enemy.transform.position.x <= 1.0f))
+            if (!(transform.position.x - enemy.transform.position.x <= 1.0f) ||
+                enemy.transform.position.x - transform.position.x >= 1.0f)
             {
                 Debug.Log(enemy.transform.position.x - transform.position.x);
                 if (enemy.transform.position.x < transform.position.x)
@@ -195,13 +204,31 @@ public class AIScript : MonoBehaviour
                 t_actions.RemoveAt(0);
             }
         }
-
+        
         if (t_actions[0] == Actions.JUMP)
         {
-            Debug.Log("HELLLOOOOO");
-            rb.AddForce(Vector2.up * 5.0f, ForceMode2D.Impulse);
+            //Debug.Log("HELLLOOOOO");
+            rb.AddForce(Vector2.up * 2.0f, ForceMode2D.Impulse);
             t_actions.RemoveAt(0);
-            finished = true;
+        }
+
+        if (t_actions[0] == Actions.TILT)
+        {
+            if (enemy.transform.position.x < transform.position.x)
+            {
+                //Debug.Log("I TILT");
+                rb.AddForce(Vector2.right * 1.0f, ForceMode2D.Impulse);
+                t_actions.RemoveAt(0);
+                finished = true;
+            }
+
+            if (enemy.transform.position.x > transform.position.x)
+            {
+                //Debug.Log("I TILT");
+                rb.AddForce(Vector2.left * 1.0f, ForceMode2D.Impulse);
+                t_actions.RemoveAt(0);
+                finished = true;
+            }
         }
 
     }
@@ -209,6 +236,16 @@ public class AIScript : MonoBehaviour
     void attackingExecution(List<Actions> t_actions)
     {
 
+    }
+    
+    string syncActions()
+    {
+        for (int i = 0; i < actions.Count; i++)
+        {
+            transfer += actions[i].ToString() + ", ";
+        }
+
+        return transfer;
     }
 
 }
