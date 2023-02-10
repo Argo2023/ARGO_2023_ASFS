@@ -568,6 +568,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pushbackObj: {fileID: 124659427}
   bulletSpeed: 22
+  spread: 0.2
   reloadTime: 1
   timeBetweenShots: 0.2
   timeBetweenShooting: 0.3
@@ -577,9 +578,6 @@ MonoBehaviour:
   allowButtonHold: 1
   bulletsLeft: 0
   fp1: {fileID: 1364704562}
-  fp2: {fileID: 1872359410}
-  fp3: {fileID: 387010690}
-  randomFirepoint: 0
   Projectile: {fileID: 6786801236497178658, guid: 22eb37734888e92438aa63a9aa10367b, type: 3}
   muzzleFlash: {fileID: 8381661945622047042, guid: 1ffe21d5b42a100428b4ba4437d772b1, type: 3}
   castings: {fileID: 551706606139160747, guid: 8a9eb7cfce404494ba3e16758fb0e77b, type: 3}
