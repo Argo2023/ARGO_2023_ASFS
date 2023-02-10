@@ -34,7 +34,7 @@ public class playerScript : NetworkBehaviour
     /// </summary>
     void Awake()
     {
-       
+        
     }
 
     /// <summary>
@@ -49,6 +49,8 @@ public class playerScript : NetworkBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         savedlocalScale = transform.localScale;
+
+        
     }
 
     // Update is called once per frame
@@ -66,7 +68,11 @@ public class playerScript : NetworkBehaviour
     /// </summary>
     void Update()
     {
-        if (!isLocalPlayer) return;
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         //else if(isLocalPlayer)
         //{
             ////////////////////////////////////////////////////////////////////////////            <<--------- MOVEMENT
@@ -123,6 +129,9 @@ public class playerScript : NetworkBehaviour
         {
             rb.gravityScale = fallingGravityScale;
         }
+        //netIdentity.AssignClientAuthority(netIdentity.assetId);
+        
+
         TransmitPosition();
        
     }

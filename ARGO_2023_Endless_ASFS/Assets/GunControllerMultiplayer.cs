@@ -43,7 +43,6 @@ public class GunControllerMultiplayer : NetworkBehaviour
     public GameObject muzzleFlash;
     public GameObject castings;
 
-    [SyncVar]
     public Transform castingPos;
 
     [Header("Audio")]
@@ -63,7 +62,7 @@ public class GunControllerMultiplayer : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -97,64 +96,28 @@ public class GunControllerMultiplayer : NetworkBehaviour
     /// </summary>
     private void MyInput()
     {
-        //  if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
-        //  else shooting = Input.GetKeyDown(KeyCode.Mouse0);
+        
 
-        if (Input.GetKey(KeyCode.R) && bulletsLeft < magazineSize && !reloading && availableAmmo > 0)
+        if (bulletsLeft == 0 && !reloading && availableAmmo > 0)
         {
             Reload();
         }
 
-        if(isLocalPlayer)
-        {
+       // if (isLocalPlayer)
+       // {
             if (readyToShoot && !reloading && bulletsLeft > 0)
             {
                 bulletsShot = bulletsPerTap;
                 cmdShoot();
             }
 
-        }
+        //}
     }
 
-    /// <summary>
-    /// in this function we change the spread of the weapon, check for bullet amount and how many bullets are going out of the weapon, also we allow some time to pass between shots 
-    /// </summary>
-    //private void Shoot()
-    //{
-    //    readyToShoot = false;
-
-    //    Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-    //    touchPosition.z = 0;
-
-    //    float x = Random.Range(-spread, spread);
-    //    float y = Random.Range(-spread, spread);
-
-    //    Vector2 direction = new Vector3(x, y);
-    //    GameObject bulletspawn = Instantiate(Projectile, fp1.position, fp1.rotation);
-    //    Rigidbody2D rbBullet = bulletspawn.GetComponent<Rigidbody2D>();
-    //    Vector2 shootDirection = (touchPosition - transform.position).normalized;
-    //    shootDirection = shootDirection + direction;
-    //    rbBullet.AddForce(shootDirection * bulletSpeed, ForceMode2D.Impulse);
-    //    Destroy(bulletspawn, 2.0f);
-
-    //    GameObject castingBullet = Instantiate(castings, castingPos.position, castingPos.rotation);
-    //    Rigidbody2D rbCasting = castingBullet.GetComponent<Rigidbody2D>();
-    //    rbCasting.AddForce(castingPos.up * -5, ForceMode2D.Impulse);
-    //    Destroy(castingBullet, 20.0f);
-
-    //    bulletsLeft--;
-    //    bulletsShot--;
-    //    muzzleBox();
-    //    pushBack();
-    //    Invoke("ResetShot", timeBetweenShooting);
-    //    if (bulletsShot > 0 && bulletsLeft > 0)
-    //    {
-    //        Invoke("Shoot", timeBetweenShots);
-    //        audio.PlayOneShot(clip, 1.5f);
-    //    }
-
-
-    //}
+    void CmdPickupItem(NetworkIdentity item)
+    {
+        item.AssignClientAuthority(connectionToClient);
+    }
 
     /// <summary>
     /// just a reset of the function to be able to shoot 
@@ -205,7 +168,6 @@ public class GunControllerMultiplayer : NetworkBehaviour
     /// <summary>
     /// in this function we change the spread of the weapon, check for bullet amount and how many bullets are going out of the weapon, also we allow some time to pass between shots 
     /// </summary>
-    [Command]
     public void cmdShoot()
     {
         if(isLocalPlayer)
@@ -219,14 +181,7 @@ public class GunControllerMultiplayer : NetworkBehaviour
             float y = Random.Range(-spread, spread);
 
             Vector2 direction = new Vector3(x, y);
-            GameObject bullet = Instantiate(Projectile, fp1.position, fp1.rotation);
-            NetworkServer.Spawn(bullet);
-
-            Rigidbody2D rbBullet = bullet.GetComponent<Rigidbody2D>();
-            Vector2 shootDirection = (touchPosition - transform.position).normalized;
-            shootDirection = shootDirection + direction;
-            rbBullet.AddForce(shootDirection * bulletSpeed, ForceMode2D.Impulse);
-            Destroy(bullet, 2.0f);
+            spawnBullet(touchPosition, direction);
 
             GameObject castingBullet = Instantiate(castings, castingPos.position, castingPos.rotation);
             Rigidbody2D rbCasting = castingBullet.GetComponent<Rigidbody2D>();
@@ -246,5 +201,18 @@ public class GunControllerMultiplayer : NetworkBehaviour
 
         }
 
+    }
+
+    [Command]
+    private void spawnBullet(Vector3 touchPosition, Vector2 direction)
+    {
+        GameObject bullet = Instantiate(Projectile, fp1.position, fp1.rotation);
+
+        Rigidbody2D rbBullet = bullet.GetComponent<Rigidbody2D>();
+        Vector2 shootDirection = (touchPosition - transform.position).normalized;
+        shootDirection = shootDirection + direction;
+        rbBullet.AddForce(shootDirection * bulletSpeed, ForceMode2D.Impulse);
+        Destroy(bullet, 2.0f);
+        NetworkServer.Spawn(bullet);
     }
 }
