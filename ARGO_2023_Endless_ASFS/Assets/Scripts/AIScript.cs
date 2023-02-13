@@ -31,12 +31,16 @@ enum Actions
 public class AIScript : MonoBehaviour
 {
     public GameObject enemy;
+    public GameObject platforms;
     public string transfer = "";
     public bool jumpTrigger = false;
-    public bool finished = false;
+    public bool grounded = true;
+    public bool finished = true;
+    public bool wee = false;
     public Rigidbody2D rb;
     public float speed = 1.0f;
     List<Actions> actions = new List<Actions>();
+    List<GameObject> allPlatforms = new List<GameObject>();
     AIState state = AIState.NOTHING;
     // Start is called before the first frame update
     void Start()
@@ -47,30 +51,53 @@ public class AIScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        state = getEntityState();
+
         setAIAction();
 
         //Debug.Log(getEntityState());
-        if (getEntityState() == AIState.ATTACKING)
+        if (state == AIState.ATTACKING)
         {
             attackingExecution(actions);
         }
 
-        if (getEntityState() == AIState.CHASING)
+        if (state == AIState.CHASING)
         {
             chasingExecution(actions);
         }
 
-        if (getEntityState() == AIState.EVADING)
+        if (state == AIState.EVADING)
         {
             evadingExecution(actions);
         }
 
-        if (getEntityState() == AIState.IDLE)
+        if (state == AIState.IDLE)
         {
             idleExecution(actions);
         }
 
-        Debug.Log(rb.velocity);
+        if (Input.touchCount > 0)
+        {
+            GetComponent<HealthScript>().baseHealth = 39;
+
+            getPlatforms();
+
+            var tempBest = 0.0f;
+            for (int i = 0; i < allPlatforms.Count; i++)
+            {
+                var distance = Vector2.Distance(transform.position, allPlatforms[i].transform.position);
+
+                if (distance < tempBest)
+                {
+                    tempBest = distance;
+                    Debug.Log("ID: " + i.ToString());
+                }
+            }
+        }
+
+
+        //Debug.Log(rb.velocity);
     }
 
 
@@ -118,26 +145,30 @@ public class AIScript : MonoBehaviour
             // add actions for the player to do while attacking
         }
 
-        if (state == AIState.CHASING && finished != false)
+        if (state == AIState.CHASING && finished == true)
         {
+            Debug.Log("CHASING");
+            actions.Clear();
             actions.Add(Actions.MOVE);
             actions.Add(Actions.JUMP);
             actions.Add(Actions.TILT);
-            Debug.Log(syncActions());
             finished = false;
         }
 
         if (state == AIState.EVADING)
         {
+            actions.Clear();
+            actions.Add(Actions.JUMP);
             // add actions for the player to do while evading
         }
 
         if (state == AIState.IDLE)
         {
+            Debug.Log("IDLE");
+            actions.Clear();
             actions.Add(Actions.MOVE);
             actions.Add(Actions.JUMP);
-
-            
+            finished = false;
         }
     }
 
@@ -149,10 +180,14 @@ public class AIScript : MonoBehaviour
     /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("wall"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             jumpTrigger = true;
             speed = -speed;
+        }
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            grounded = true;
         }
     }
 
@@ -171,6 +206,7 @@ public class AIScript : MonoBehaviour
         if (t_actions[0] == Actions.JUMP)
         {
             rb.AddForce(Vector2.up * 5.0f, ForceMode2D.Impulse);
+            grounded = false;
             t_actions.RemoveAt(0);
         }
         if (jumpTrigger)
@@ -182,7 +218,36 @@ public class AIScript : MonoBehaviour
 
     void evadingExecution(List<Actions> t_actions)
     {
+        if (t_actions[0] == Actions.MOVE)
+        {
+            if (!(transform.position.x - enemy.transform.position.x <= 4.0f) ||
+                enemy.transform.position.x - transform.position.x >= 4.0f)
+            {
+                if (enemy.transform.position.x < transform.position.x)
+                    transform.position += Vector3.right * speed * Time.deltaTime;
+                if (enemy.transform.position.x > transform.position.x)
+                    transform.position -= Vector3.right * speed * Time.deltaTime;
+            }
 
+
+        }
+
+        //if (t_actions[0] == Actions.JUMP)
+        //{
+        //    getPlatforms();
+
+        //    var tempBest = 0.0f;
+        //    for (int i = 0; i < allPlatforms.Count; i++)
+        //    {
+        //        var distance = Vector2.Distance(transform.position, allPlatforms[i].transform.position);
+
+        //        if (distance < tempBest)
+        //        {
+        //            tempBest = distance;
+        //            Debug.Log("ID: " + i.ToString());
+        //        }
+        //    }
+        //}
     }
 
     void chasingExecution(List<Actions> t_actions)
@@ -190,10 +255,9 @@ public class AIScript : MonoBehaviour
         //Debug.Log("Im here");
         if (t_actions[0] == Actions.MOVE)
         {
-            if (!(transform.position.x - enemy.transform.position.x <= 1.0f) ||
-                enemy.transform.position.x - transform.position.x >= 1.0f)
+            if (!(transform.position.x - enemy.transform.position.x <= 4.0f) ||
+                enemy.transform.position.x - transform.position.x >= 4.0f)
             {
-                Debug.Log(enemy.transform.position.x - transform.position.x);
                 if (enemy.transform.position.x < transform.position.x)
                     transform.position -= Vector3.right * speed * Time.deltaTime;
                 if(enemy.transform.position.x > transform.position.x)
@@ -207,29 +271,45 @@ public class AIScript : MonoBehaviour
         
         if (t_actions[0] == Actions.JUMP)
         {
-            //Debug.Log("HELLLOOOOO");
-            rb.AddForce(Vector2.up * 2.0f, ForceMode2D.Impulse);
-            t_actions.RemoveAt(0);
+            if (grounded)
+            {
+                //Debug.Log("HELLLOOOOO");
+                rb.AddForce(Vector2.up * 6.0f, ForceMode2D.Impulse);
+                grounded = false;
+                t_actions.RemoveAt(0);
+                wee = true;
+            }
+            else
+            {
+                t_actions.RemoveAt(0);
+            }
+            
         }
 
         if (t_actions[0] == Actions.TILT)
         {
-            if (enemy.transform.position.x < transform.position.x)
+            if ((enemy.transform.position.x > transform.position.x && wee == true) || grounded == true)
             {
-                //Debug.Log("I TILT");
-                rb.AddForce(Vector2.right * 1.0f, ForceMode2D.Impulse);
+                rb.AddForce(Vector2.right * 10.0f, ForceMode2D.Impulse);
                 t_actions.RemoveAt(0);
                 finished = true;
+                wee = false;
+
             }
 
-            if (enemy.transform.position.x > transform.position.x)
+            if (enemy.transform.position.x < transform.position.x && wee == true || grounded == true)
             {
-                //Debug.Log("I TILT");
-                rb.AddForce(Vector2.left * 1.0f, ForceMode2D.Impulse);
+                rb.AddForce(Vector2.left * 10.0f, ForceMode2D.Impulse);
                 t_actions.RemoveAt(0);
                 finished = true;
+                wee = false;
             }
         }
+
+
+        // add shooting etc for chase mode
+
+
 
     }
 
@@ -242,10 +322,36 @@ public class AIScript : MonoBehaviour
     {
         for (int i = 0; i < actions.Count; i++)
         {
-            transfer += actions[i].ToString() + ", ";
+            transfer += actions[i].ToString() + ",";
         }
 
         return transfer;
+    }
+
+    void getPlatforms()
+    {
+        var objects = GameObject.FindGameObjectsWithTag("Platform");
+         
+        for (int i = 0; i < objects.Length; i++)
+        {
+            if (allPlatforms.Count == 0)
+            {
+                for (int k = 0; k < objects.Length; k++)
+                {
+                    allPlatforms.Add(objects[k]);
+                }    
+            }
+
+            for (int j = 0; j < allPlatforms.Count;j++)
+            {
+                if (objects[i].Equals(allPlatforms[j]))
+                {
+                    break;
+                }
+                
+            }
+
+        }
     }
 
 }
