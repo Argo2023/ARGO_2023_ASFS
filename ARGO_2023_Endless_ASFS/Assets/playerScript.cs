@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.InputSystem;
 
 public class playerScript : NetworkBehaviour
 {
@@ -25,7 +26,8 @@ public class playerScript : NetworkBehaviour
     public bool resetJump = false;
 
     [SerializeField] private float cooldown = 5;
-    
+
+    private Vector2 movement;
 
     /// <summary>
     /// On awake it checks if the player has an instance allready.
@@ -77,7 +79,8 @@ public class playerScript : NetworkBehaviour
         //{
             ////////////////////////////////////////////////////////////////////////////            <<--------- MOVEMENT
             var horizontalInput = Input.GetAxisRaw("Horizontal");
-            rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
+        //  rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
+            rb.MovePosition(rb.position + movement * Time.fixedDeltaTime);
 
             if (rb.velocity.x > 0.001f)
             {
@@ -134,6 +137,11 @@ public class playerScript : NetworkBehaviour
 
         TransmitPosition();
        
+    }
+
+    private void OnMove(InputValue value)
+    {
+        movement = value.Get<Vector2>();
     }
 
     [ClientCallback]
