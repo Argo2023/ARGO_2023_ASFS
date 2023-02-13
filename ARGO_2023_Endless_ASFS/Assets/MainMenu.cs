@@ -30,7 +30,7 @@ public class MainMenu : MonoBehaviour
     public void multiplayerSelectFunction()
     {
         Debug.Log("mp select");
-        SceneManager.LoadScene("MultiPlayerSelection");
+        SceneManager.LoadScene("Lobby");
     }
     /// <summary>
     /// This Function will bring us to settings screen
@@ -53,7 +53,7 @@ public class MainMenu : MonoBehaviour
     /// </summary>
     public void mp()
     {
-        SceneManager.LoadScene("MP");
+        SceneManager.LoadScene("Play Screen");
     }
     /// <summary>
     /// This Function will bring us back to main menu
