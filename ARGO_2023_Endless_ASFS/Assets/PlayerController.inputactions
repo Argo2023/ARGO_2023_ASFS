@@ -25,12 +25,12 @@
                 },
                 {
                     "name": "Fire",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "838f8003-5b23-4570-a142-e653869c93d2",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -168,22 +168,11 @@
                 },
                 {
                     "name": "",
-                    "id": "05f6913d-c316-48b2-a6bb-e225f14c7960",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Fire",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "886e731e-7071-4ae4-95c0-e61739dad6fd",
                     "path": "<Touchscreen>/primaryTouch/tap",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Touch",
+                    "groups": "Touch",
                     "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -206,6 +195,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "XR",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ddb582e0-9ac9-483e-bf72-20b0e7675df6",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "Tap",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false

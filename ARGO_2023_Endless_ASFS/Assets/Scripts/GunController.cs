@@ -57,11 +57,6 @@ public class GunController : MonoBehaviour
     public GameObject rev1;
     public GameObject rev0;
 
-    public float inputVal;
-
-
-
-
     private void Awake()
     {
         bulletsLeft = magazineSize;
@@ -98,16 +93,11 @@ public class GunController : MonoBehaviour
 
         }
 
-        if (inputVal > 0)
-        {
-            CheckCanShoot();
-        }
-
     }
 
     public void OnFire(InputValue value)
     {
-        inputVal = value.Get<float>();
+        CheckCanShoot();
     }
 
     /// <summary>
