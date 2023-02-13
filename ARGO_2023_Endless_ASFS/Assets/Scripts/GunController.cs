@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GunController : MonoBehaviour
 {
@@ -56,7 +57,7 @@ public class GunController : MonoBehaviour
     public GameObject rev1;
     public GameObject rev0;
 
-
+    public float inputVal;
 
 
 
@@ -93,18 +94,27 @@ public class GunController : MonoBehaviour
                 isRight = false;
             }
 
-            MyInput();
+          //  CheckCanShoot();
+
         }
 
+        if (inputVal > 0)
+        {
+            CheckCanShoot();
+        }
 
+    }
 
+    public void OnFire(InputValue value)
+    {
+        inputVal = value.Get<float>();
     }
 
     /// <summary>
     /// here we allow user of the gun to shoot, first it checks if we can hold the button of tap continiesly or not, we also check if the player reloaded or not
     /// we also are telling the gun how much bullets to spawn per tap
     /// </summary>
-    private void MyInput()
+    private void CheckCanShoot()
     {
         //  if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
         //  else shooting = Input.GetKeyDown(KeyCode.Mouse0);
