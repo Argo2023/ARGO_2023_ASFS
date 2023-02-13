@@ -425,6 +425,13 @@ MonoBehaviour:
   audio: {fileID: 3451685909183977624}
   clip: {fileID: 8300000, guid: e011d9e436daf5c4fa39bd712790357c, type: 3}
   Player: {fileID: 3067008405859980731}
+  rev6: {fileID: 0}
+  rev5: {fileID: 0}
+  rev4: {fileID: 0}
+  rev3: {fileID: 0}
+  rev2: {fileID: 0}
+  rev1: {fileID: 0}
+  rev0: {fileID: 0}
 --- !u!1 &3067008405920969909
 GameObject:
   m_ObjectHideFlags: 0

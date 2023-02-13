@@ -73,8 +73,7 @@ public class playerScript : NetworkBehaviour
             return;
         }
 
-        //else if(isLocalPlayer)
-        //{
+        
             ////////////////////////////////////////////////////////////////////////////            <<--------- MOVEMENT
             var horizontalInput = Input.GetAxisRaw("Horizontal");
             rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
@@ -102,7 +101,6 @@ public class playerScript : NetworkBehaviour
 
             }
 
-        //}
 
 
         ////////////////////////////////////////////////////////////////////////////
@@ -129,9 +127,7 @@ public class playerScript : NetworkBehaviour
         {
             rb.gravityScale = fallingGravityScale;
         }
-        //netIdentity.AssignClientAuthority(netIdentity.assetId);
         
-
         TransmitPosition();
        
     }
@@ -161,7 +157,9 @@ public class playerScript : NetworkBehaviour
 
    
 
-  
+
+
+
 
 }
 
