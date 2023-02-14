@@ -70,7 +70,7 @@ public class AIScript : MonoBehaviour
             idleExecution(actions);
         }
 
-        Debug.Log(rb.velocity);
+       // Debug.Log(rb.velocity);
     }
 
 

@@ -127,5 +127,31 @@ public class singlePlayerScript : MonoBehaviour
         }
     }
 
+    //public void OnMoveLeft()
+    //{
+    //    transform.position = new Vector3(transform.position.x + playerSpeed, transform.position.y, transform.position.z);
+    //}
+
+    //public void OnMoveRight()
+    //{
+    //    print("aaaaaaaaa");
+    //}
+
+    public void OnMoveJump()
+    {
+        if(isGrounded == true)
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            //animator.SetBool("isJumping", true);
+            jumpCount += 1;
+            if (jumpCount == allowedJumps)
+            {
+                isGrounded = false;
+            }
+        }
+
+    }
+
+
 }
 
