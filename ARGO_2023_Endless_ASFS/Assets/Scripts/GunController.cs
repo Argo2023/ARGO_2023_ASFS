@@ -151,11 +151,12 @@ public class GunController : MonoBehaviour
         bulletsShot--;
         muzzleBox();
         pushBack();
+        audio.PlayOneShot(clip, 1.5f);
         Invoke("ResetShot", timeBetweenShooting);
+        CameraShake.instance.shakeCamera(0.2f);
         if (bulletsShot > 0 && bulletsLeft > 0)
         {
             Invoke("Shoot", timeBetweenShots);
-            audio.PlayOneShot(clip, 1.5f);
         }
 
         clipUpdate();
