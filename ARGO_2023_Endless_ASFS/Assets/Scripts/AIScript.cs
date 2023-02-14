@@ -427,6 +427,13 @@ public class AIScript : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// Returns a value that will be used in decision making for the AI
+    /// Gathers distances from all of the relevant GameObjects and decides on danger of each Entity
+    /// The lower the weight, the higher the risk AI is currently in
+    /// </summary>
+    /// <returns></returns>
     float evaluateDistance()
     { 
 
@@ -523,13 +530,17 @@ public class AIScript : MonoBehaviour
     //    return IDOfEntity;
     //}
 
-
+    ///Takes the AI health and uses it in deciding what Aciton should the AI Take
     float evaluateHealth()
     { 
         return GetComponent<HealthScript>().baseHealth; 
     }
 
-
+    /// <summary>
+    /// Evaluates in how big of a risk AI is in. If it is really close to the Entity, It will return a low
+    /// value, indication that the AI is in HIGH RISK.
+    /// </summary>
+    /// <returns></returns>
     float evaluateShooting()
     {
         float closestValue = float.MaxValue;
@@ -562,6 +573,10 @@ public class AIScript : MonoBehaviour
         return 0.0f;
     }
 
+    /// <summary>
+    /// Based on the results from the evaluations, this will use a neural network to decide what decision
+    /// it should make.
+    /// </summary>
     void choosingBehaviour()
     {
         float weight = 0.0f;
