@@ -425,6 +425,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3271129219086154012, guid: 51c1dbd6b77107e48a3df1e4d73a3e25, type: 3}
+      propertyPath: Enemy
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3271129219086154014, guid: 51c1dbd6b77107e48a3df1e4d73a3e25, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -500,11 +504,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 259810019018929250, guid: ba9cee8c20a75f24992ce315a737dfb0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.36
+      value: -5.68
       objectReference: {fileID: 0}
     - target: {fileID: 259810019018929250, guid: ba9cee8c20a75f24992ce315a737dfb0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.04
+      value: -1.98
       objectReference: {fileID: 0}
     - target: {fileID: 259810019018929250, guid: ba9cee8c20a75f24992ce315a737dfb0, type: 3}
       propertyPath: m_LocalPosition.z

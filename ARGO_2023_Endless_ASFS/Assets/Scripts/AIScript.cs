@@ -34,6 +34,7 @@ public class AIScript : MonoBehaviour
     public GameObject platforms;
     List<Actions> actions = new List<Actions>();
     List<GameObject> allPlatforms = new List<GameObject>();
+    List<GameObject> allGameObjects = new List<GameObject>();
     AIState state = AIState.NOTHING;
 
     public string transfer = "";
@@ -61,7 +62,6 @@ public class AIScript : MonoBehaviour
 
         setAIAction();
 
-        //Debug.Log(getEntityState());
         if (state == AIState.ATTACKING)
         {
             attackingExecution(actions);
@@ -237,14 +237,15 @@ public class AIScript : MonoBehaviour
                 if (enemy.transform.position.x > transform.position.x)
                     transform.position -= Vector3.right * speed * Time.deltaTime;
             }
-
-
         }
 
         if (t_actions[0] == Actions.JUMP)
         {
             getPlatforms();
             
+            /// Gets the closest platform to the AI the script is running on.
+            /// Tries to get to the player, by jumping on the platforms
+
             for (int i = 0; i < allPlatforms.Count; i++)
             {
                 var distance = Vector2.Distance(transform.position, allPlatforms[i].transform.position);
@@ -262,7 +263,10 @@ public class AIScript : MonoBehaviour
             Debug.Log("Distance to Player: " + distanceToPlayer.ToString());
             Debug.Log("Closest platform: " + tempBest.ToString());
 
-
+            /// If the player is on the ground, it looks if the player is closer to the AI or is the
+            /// platform closer to the AI, which will decide if the AI jumps on the platform.
+            /// It runs a coroutine that after 0.2 of a second pushes the AI in a direction to
+            /// Mimic player movement trying to climb a platform
             if (grounded)
             {
                 if (tempBest < distanceToPlayer)
@@ -353,11 +357,7 @@ public class AIScript : MonoBehaviour
                 wee = false;
             }
         }
-
-
         // add shooting etc for chase mode
-
-
 
     }
 
@@ -381,7 +381,7 @@ public class AIScript : MonoBehaviour
     /// Currently does not handle deleting from the list, when new platforms are in, and old ones are despawned
     /// </summary>
 
-    void getPlatforms()
+    GameObject[] getPlatforms()
     {
         checkForDeadPlatforms();
 
@@ -413,6 +413,8 @@ public class AIScript : MonoBehaviour
                 allPlatforms.Add(objects[i]);
             }
         }
+
+        return objects;
     }
 
     void checkForDeadPlatforms()
@@ -425,5 +427,149 @@ public class AIScript : MonoBehaviour
             }
         }
     }
+    float evaluateDistance()
+    { 
 
+        int IDOfEntity = 0;
+        var players = GameObject.FindGameObjectsWithTag("Player");
+        var platforms = getPlatforms();
+        var otherAI = GameObject.FindGameObjectsWithTag("AI");
+
+
+        fillListWithPlayers(players);
+        fillListWithPlatforms(platforms);
+        fillListWithAI(otherAI);
+
+        int numberOfEntities = players.Length + platforms.Length + otherAI.Length;
+
+        float closestValue = float.MaxValue;
+
+        for (int i = 0; i < numberOfEntities; i++)
+        {
+            float distance = Vector2.Distance(transform.position, allGameObjects[i].transform.position);
+
+            if (distance < closestValue)
+            {
+                closestValue = distance;
+                IDOfEntity = i;
+                Debug.Log("Closest Entity ID: " + IDOfEntity.ToString());
+            }
+        }
+
+        if (allGameObjects[IDOfEntity].tag == "Platform")
+        {
+            return closestValue * 50;
+        }
+
+        if (allGameObjects[IDOfEntity].tag == "Player")
+        {
+            return closestValue / 50;
+        }
+
+        if (allGameObjects[IDOfEntity].tag == "AI")
+        {
+            return closestValue;
+        }
+
+
+        return 0.0f;
+        
+    }
+
+    void fillListWithPlayers(GameObject[] t_players)
+    {
+        for (int i = 0; i < t_players.Length; i++)
+        {
+            allGameObjects.Add(t_players[i]);
+        }
+    }
+
+    void fillListWithPlatforms(GameObject[] t_platforms)
+    {
+        for (int i = 0; i < t_platforms.Length; i++)
+        {
+            allGameObjects.Add(t_platforms[i]);
+        }
+    }
+
+    void fillListWithAI(GameObject[] t_AI)
+    {
+        for (int i = 0; i < t_AI.Length; i++)
+        {
+            allGameObjects.Add(t_AI[i]);
+        }
+    }
+
+    /// REFACTOR THIS CODE
+
+
+    //int getClosestEntity(ref List<GameObject> t_allObjects)
+    //{
+    //    int IDOfEntity = 0;
+    //    float closestValue = float.MaxValue;
+
+    //    for (int i = 0; i < t_allObjects.Count; i++)
+    //    {
+    //        float distance = Vector2.Distance(transform.position, t_allObjects[i].transform.position);
+
+    //        if (distance < closestValue)
+    //        {
+    //            closestValue = distance;
+    //            IDOfEntity = i;
+    //            Debug.Log("Closest Entity ID: " + IDOfEntity.ToString());
+    //        }
+    //    }
+
+    //    return IDOfEntity;
+    //}
+
+
+    float evaluateHealth()
+    { 
+        return GetComponent<HealthScript>().baseHealth; 
+    }
+
+
+    float evaluateShooting()
+    {
+        float closestValue = float.MaxValue;
+
+        for (int i = 0; i < allGameObjects.Count; i++)
+        {
+            float distance = Vector2.Distance(transform.position, allGameObjects[i].transform.position);
+
+            if (distance < closestValue)
+            {
+                closestValue = distance;
+            }
+        }
+
+        if (closestValue > 0 && closestValue < 2.0f)
+        {
+            return closestValue / 100;
+        }
+
+        if (closestValue >= 2.0f && closestValue < 10.0f)
+        {
+            return closestValue * 2;
+        }
+
+        if (closestValue > 10)
+        {
+            return closestValue * 20;
+        }
+
+        return 0.0f;
+    }
+
+    void choosingBehaviour()
+    {
+        float weight = 0.0f;
+
+        weight = evaluateDistance() + evaluateHealth() + evaluateShooting();
+
+
+    }
+
+    
 }
