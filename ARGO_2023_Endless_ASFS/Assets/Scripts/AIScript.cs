@@ -328,29 +328,53 @@ public class AIScript : MonoBehaviour
         return transfer;
     }
 
+    /// <summary>
+    /// Method for finding all of the platforms that are currently spawned in the scene.
+    /// Currently does not handle deleting from the list, when new platforms are in, and old ones are despawned
+    /// </summary>
+
     void getPlatforms()
     {
+        checkForDeadPlatforms();
+
+        bool maybeNotIn = false;
         var objects = GameObject.FindGameObjectsWithTag("Platform");
          
+        if (allPlatforms.Count == 0)
+        {
+            for(int i = 0; i < objects.Length; i++)
+            {
+                allPlatforms.Add(objects[i]);
+            }
+        }
+
         for (int i = 0; i < objects.Length; i++)
         {
-            if (allPlatforms.Count == 0)
-            {
-                for (int k = 0; k < objects.Length; k++)
-                {
-                    allPlatforms.Add(objects[k]);
-                }    
-            }
-
             for (int j = 0; j < allPlatforms.Count;j++)
             {
+                maybeNotIn = false;
                 if (objects[i].Equals(allPlatforms[j]))
                 {
+                    maybeNotIn = true;
                     break;
                 }
-                
             }
 
+            if (maybeNotIn == false)
+            {
+                allPlatforms.Add(objects[i]);
+            }
+        }
+    }
+
+    void checkForDeadPlatforms()
+    {
+        for (int i = 0; i < allPlatforms.Count; i++)
+        {
+            if (allPlatforms[i] == null)
+            {
+                allPlatforms.RemoveAt(i);
+            }
         }
     }
 
