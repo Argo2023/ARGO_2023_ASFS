@@ -1450,6 +1450,7 @@ MonoBehaviour:
   OnOff: 0
   bloodEffect: {fileID: 3821681655754814266, guid: 0e02995cfc3dd7c4896560a0b1792772, type: 3}
   fp1: {fileID: 1089057077}
+  sprite: {fileID: 124659428}
 --- !u!4 &1089057077
 Transform:
   m_ObjectHideFlags: 0
