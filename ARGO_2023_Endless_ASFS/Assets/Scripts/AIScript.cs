@@ -32,16 +32,21 @@ public class AIScript : MonoBehaviour
 {
     public GameObject enemy;
     public GameObject platforms;
+    List<Actions> actions = new List<Actions>();
+    List<GameObject> allPlatforms = new List<GameObject>();
+    AIState state = AIState.NOTHING;
+
     public string transfer = "";
     public bool jumpTrigger = false;
     public bool grounded = true;
     public bool finished = true;
     public bool wee = false;
     public Rigidbody2D rb;
+    float tempBest = float.MaxValue;
     public float speed = 1.0f;
-    List<Actions> actions = new List<Actions>();
-    List<GameObject> allPlatforms = new List<GameObject>();
-    AIState state = AIState.NOTHING;
+    public int ID = 0;
+
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -189,6 +194,10 @@ public class AIScript : MonoBehaviour
         {
             grounded = true;
         }
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            grounded = true;
+        }
     }
 
     /// <summary>
@@ -232,22 +241,61 @@ public class AIScript : MonoBehaviour
 
         }
 
-        //if (t_actions[0] == Actions.JUMP)
-        //{
-        //    getPlatforms();
+        if (t_actions[0] == Actions.JUMP)
+        {
+            getPlatforms();
+            
+            for (int i = 0; i < allPlatforms.Count; i++)
+            {
+                var distance = Vector2.Distance(transform.position, allPlatforms[i].transform.position);
 
-        //    var tempBest = 0.0f;
-        //    for (int i = 0; i < allPlatforms.Count; i++)
-        //    {
-        //        var distance = Vector2.Distance(transform.position, allPlatforms[i].transform.position);
+                if (distance < tempBest)
+                {
+                    tempBest = distance;
+                    Debug.Log("ID: " + i.ToString());
+                    ID = i;
+                }
+            }
 
-        //        if (distance < tempBest)
-        //        {
-        //            tempBest = distance;
-        //            Debug.Log("ID: " + i.ToString());
-        //        }
-        //    }
-        //}
+            float distanceToPlayer = Vector2.Distance(transform.position, enemy.transform.position);
+
+            Debug.Log("Distance to Player: " + distanceToPlayer.ToString());
+            Debug.Log("Closest platform: " + tempBest.ToString());
+
+
+            if (grounded)
+            {
+                if (tempBest < distanceToPlayer)
+                {
+                    if (transform.position.x - allPlatforms[ID].transform.position.x < 0)
+                    {
+                        grounded = false;
+                        rb.AddForce(Vector2.up * 10.0f, ForceMode2D.Impulse);
+
+                        StartCoroutine(platformJumpRight());
+                    }
+                    else
+                    {
+                        grounded = false;
+                        rb.AddForce(Vector2.up * 10.0f, ForceMode2D.Impulse);
+
+                        StartCoroutine(platformJumpLeft());
+                    }
+                }
+            }
+        }
+    }
+
+    IEnumerator platformJumpRight()
+    {
+        yield return new WaitForSeconds(0.2f);
+        rb.AddForce(Vector2.right * 2.0f, ForceMode2D.Impulse);   
+    }
+
+    IEnumerator platformJumpLeft()
+    {
+        yield return new WaitForSeconds(0.2f);
+        rb.AddForce(Vector2.left * 2.0f, ForceMode2D.Impulse);
     }
 
     void chasingExecution(List<Actions> t_actions)
