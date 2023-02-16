@@ -22,6 +22,11 @@ public class singlePlayerScript : MonoBehaviour
 
     public bool playerAlive = true;
 
+    public Joystick joystick;
+
+    bool testingOnPC = false; //change to true if you want to test the game using mouse and key :)
+
+
     [SerializeField] private float cooldown = 5;
     
 
@@ -64,10 +69,17 @@ public class singlePlayerScript : MonoBehaviour
     /// </summary>
     void Update()
     {
-        
             ////////////////////////////////////////////////////////////////////////////            <<--------- MOVEMENT
-        var horizontalInput = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
+        if(testingOnPC == false)
+        {
+            var horizontalInput = joystick.Horizontal;
+            rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
+        }
+        else if(testingOnPC == true)
+        {
+            var horizontalInput = Input.GetAxisRaw("Horizontal");
+            rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
+        }
 
         if (rb.velocity.x > 0.001f)
         {
@@ -126,6 +138,32 @@ public class singlePlayerScript : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
+
+    //public void OnMoveLeft()
+    //{
+    //    transform.position = new Vector3(transform.position.x + playerSpeed, transform.position.y, transform.position.z);
+    //}
+
+    //public void OnMoveRight()
+    //{
+    //    print("aaaaaaaaa");
+    //}
+
+    public void OnMoveJump()
+    {
+        if(isGrounded == true)
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            //animator.SetBool("isJumping", true);
+            jumpCount += 1;
+            if (jumpCount == allowedJumps)
+            {
+                isGrounded = false;
+            }
+        }
+
+    }
+
 
 }
 
