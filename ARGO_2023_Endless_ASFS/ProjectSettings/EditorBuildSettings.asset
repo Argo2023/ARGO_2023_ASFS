@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/SP.unity
     guid: 82774f20cfbb3e14683bb1749465a78f
   - enabled: 1
-    path: Assets/Scenes/MultiPlayerSelection.unity
+    path: Assets/Scenes/RoomReadyUp.unity
     guid: efa161949c5b5c5469aab1386c8c30a3
   - enabled: 1
     path: Assets/Scenes/MP.unity
