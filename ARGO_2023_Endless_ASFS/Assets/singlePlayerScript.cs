@@ -22,6 +22,9 @@ public class singlePlayerScript : MonoBehaviour
 
     public bool playerAlive = true;
 
+    public Joystick joystick;
+
+
     [SerializeField] private float cooldown = 5;
     
 
@@ -64,9 +67,8 @@ public class singlePlayerScript : MonoBehaviour
     /// </summary>
     void Update()
     {
-        
             ////////////////////////////////////////////////////////////////////////////            <<--------- MOVEMENT
-        var horizontalInput = Input.GetAxisRaw("Horizontal");
+        var horizontalInput = joystick.Horizontal;
         rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
 
         if (rb.velocity.x > 0.001f)
