@@ -41,7 +41,7 @@ public class AIScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<HealthScript>().initializePlayer(69, 10); // Initialises the player
+        //GetComponent<HealthScript>().initializePlayer(69, 10); // Initialises the player
     }
 
     // Update is called once per frame
@@ -70,7 +70,7 @@ public class AIScript : MonoBehaviour
             idleExecution(actions);
         }
 
-        Debug.Log(rb.velocity);
+       // Debug.Log(rb.velocity);
     }
 
 

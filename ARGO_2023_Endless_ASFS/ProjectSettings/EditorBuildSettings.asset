@@ -23,10 +23,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SP1.unity
     guid: 8bbd787f4ab868b47b9ca3e460a3d1d5
-  - enabled: 1
-    path: Assets/Scenes/Offline Scene.unity
-    guid: 7cf4fd5ab58774e45ba543906139b25f
-  - enabled: 1
-    path: Assets/Scenes/Lobby.unity
-    guid: 526f9dbe21e4dcc4988b6f680cc44b3f
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: c387f74010a06a14c9338b114240781e, type: 2}
