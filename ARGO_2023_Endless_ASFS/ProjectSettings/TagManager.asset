@@ -9,6 +9,7 @@ TagManager:
   - AI
   - wall
   - Platform
+  - Joystick
   layers:
   - Default
   - TransparentFX

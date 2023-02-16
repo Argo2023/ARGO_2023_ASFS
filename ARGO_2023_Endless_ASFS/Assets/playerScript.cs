@@ -29,6 +29,14 @@ public class playerScript : NetworkBehaviour
 
     private Vector2 movement;
 
+    public Joystick joystick;
+    //public GameObject theJoystick;
+    //public GameObject canvas;
+
+    bool testingOnPC = false;
+    public PlayerInput playerInput;
+    
+
     /// <summary>
     /// On awake it checks if the player has an instance allready.
     /// if this is the case then the instance gameobject is removed.
@@ -52,7 +60,15 @@ public class playerScript : NetworkBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         savedlocalScale = transform.localScale;
 
-        
+        //theJoystick = GameObject.Find("Fixed Joystick (1)");
+        //canvas = GameObject.Find("Canvas Multi");
+        //joystick = canvas.GetComponent<Joystick>();
+        joystick = FindObjectOfType<Joystick>();
+        //playerInput = FindObjectOfType<PlayerInput>();
+
+
+
+       // playerInput.uiInputModule =
     }
 
     // Update is called once per frame
@@ -75,37 +91,42 @@ public class playerScript : NetworkBehaviour
             return;
         }
 
-        //else if(isLocalPlayer)
-        //{
-            ////////////////////////////////////////////////////////////////////////////            <<--------- MOVEMENT
+        
+
+        ////////////////////////////////////////////////////////////////////////////            <<--------- MOVEMENT
+        if (testingOnPC == false)
+        {
+            var horizontalInput = joystick.Horizontal;
+            rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
+        }
+        else if (testingOnPC == true)
+        {
             var horizontalInput = Input.GetAxisRaw("Horizontal");
-        //  rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
-            rb.MovePosition(rb.position + movement * Time.fixedDeltaTime);
+            rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
+        }
 
-            if (rb.velocity.x > 0.001f)
-            {
-               // animator.SetFloat("speed", Mathf.Abs(playerSpeed));
-                transform.localScale = new Vector2(savedlocalScale.x, savedlocalScale.y);
-                m_FacingLeft = false;
-                m_FacingRight = true;
-          
-            }
-            else if (rb.velocity.x < -0.001f)
-            {
-                //animator.SetFloat("speed", Mathf.Abs(playerSpeed));
-                transform.localScale = new Vector2(-savedlocalScale.x, savedlocalScale.y);
-                m_FacingLeft = true;
-                m_FacingRight = false;
-           
-            }
+        if (rb.velocity.x > 0.001f)
+        {
+            // animator.SetFloat("speed", Mathf.Abs(playerSpeed));
+            transform.localScale = new Vector2(savedlocalScale.x, savedlocalScale.y);
+            m_FacingLeft = false;
+            m_FacingRight = true;
 
-            if (rb.velocity.x == 0.0f)
-            {
-                //animator.SetFloat("speed", Mathf.Abs(0));
+        }
+        else if (rb.velocity.x < -0.001f)
+        {
+            //animator.SetFloat("speed", Mathf.Abs(playerSpeed));
+            transform.localScale = new Vector2(-savedlocalScale.x, savedlocalScale.y);
+            m_FacingLeft = true;
+            m_FacingRight = false;
 
-            }
+        }
 
-        //}
+        if (rb.velocity.x == 0.0f)
+        {
+            //animator.SetFloat("speed", Mathf.Abs(0));
+
+        }
 
 
         ////////////////////////////////////////////////////////////////////////////
@@ -133,16 +154,16 @@ public class playerScript : NetworkBehaviour
             rb.gravityScale = fallingGravityScale;
         }
         //netIdentity.AssignClientAuthority(netIdentity.assetId);
-        
+
 
         TransmitPosition();
        
     }
 
-    private void OnMove(InputValue value)
-    {
-        movement = value.Get<Vector2>();
-    }
+    //private void OnMove(InputValue value)
+    //{
+    //    movement = value.Get<Vector2>();
+    //}
 
     [ClientCallback]
     void TransmitPosition()

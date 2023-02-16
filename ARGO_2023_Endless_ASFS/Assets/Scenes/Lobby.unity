@@ -2123,6 +2123,18 @@ PrefabInstance:
       propertyPath: roomSlots.Array.size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6329059101444065514, guid: 91b022e96231d0d4fbe743ef7f453f0a, type: 3}
+      propertyPath: spawnPrefabs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6329059101444065514, guid: 91b022e96231d0d4fbe743ef7f453f0a, type: 3}
+      propertyPath: spawnPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 6786801236497178658, guid: a3756fc4b46a03847bd5115ebbeb1297, type: 3}
+    - target: {fileID: 6329059101444065514, guid: 91b022e96231d0d4fbe743ef7f453f0a, type: 3}
+      propertyPath: spawnPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 551706606139160747, guid: 410d10b3c447d24428f6226889288a4e, type: 3}
     - target: {fileID: 6329059101444065517, guid: 91b022e96231d0d4fbe743ef7f453f0a, type: 3}
       propertyPath: m_Name
       value: Network Room Manager
