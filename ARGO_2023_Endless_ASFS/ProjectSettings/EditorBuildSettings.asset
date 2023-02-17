@@ -9,18 +9,24 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: ffd164d60632d0442b87d1bef25b7729
   - enabled: 1
-    path: Assets/Scenes/Play Screen.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 0
     path: Assets/Scenes/SP.unity
     guid: 82774f20cfbb3e14683bb1749465a78f
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: 526f9dbe21e4dcc4988b6f680cc44b3f
   - enabled: 1
     path: Assets/Scenes/RoomReadyUp.unity
     guid: efa161949c5b5c5469aab1386c8c30a3
   - enabled: 1
+    path: Assets/Scenes/Play Screen.unity
+    guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/Scenes/Offline Scene.unity
+    guid: 7cf4fd5ab58774e45ba543906139b25f
+  - enabled: 0
     path: Assets/Scenes/MP.unity
     guid: e4de0b14ae2ce3345950b902f59a4037
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SP1.unity
     guid: 8bbd787f4ab868b47b9ca3e460a3d1d5
   m_configObjects:
