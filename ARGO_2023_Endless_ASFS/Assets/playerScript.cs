@@ -25,6 +25,7 @@ public class playerScript : NetworkBehaviour
     public bool m_FacingLeft = false;
     Vector2 savedlocalScale;
     public bool resetJump = false;
+    public bool isPlayerAlive = true;
 
     [SerializeField] private float cooldown = 5;
 
@@ -154,17 +155,12 @@ public class playerScript : NetworkBehaviour
         {
             rb.gravityScale = fallingGravityScale;
         }
-        //netIdentity.AssignClientAuthority(netIdentity.assetId);
 
 
         TransmitPosition();
        
     }
 
-    //private void OnMove(InputValue value)
-    //{
-    //    movement = value.Get<Vector2>();
-    //}
 
     public void OnMoveJump()
     {
@@ -200,7 +196,11 @@ public class playerScript : NetworkBehaviour
     /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
-       
+        if(collision.gameObject.CompareTag("Bullet"))
+        {
+            isPlayerAlive = false;
+            Destroy(collision.gameObject);
+        }
 
     }
 

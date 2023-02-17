@@ -10,6 +10,8 @@ TagManager:
   - wall
   - Platform
   - Joystick
+  - Player Multiplayer
+  - Bullet
   layers:
   - Default
   - TransparentFX
