@@ -73,7 +73,7 @@ public class gameManager : MonoBehaviour
 
     void spawnWall()
     {
-        Instantiate(Wall, offScreenPos, Quaternion.identity);
+        //Instantiate(Wall, offScreenPos, Quaternion.identity);
     }
 
     void spawnEnemy()
