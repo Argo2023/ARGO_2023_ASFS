@@ -2120,6 +2120,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3187443718326235064, guid: c022841452d8ccd42ac8c209722733d8, type: 3}
     - target: {fileID: 6329059101444065514, guid: 91b022e96231d0d4fbe743ef7f453f0a, type: 3}
+      propertyPath: playerSpawnMethod
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6329059101444065514, guid: 91b022e96231d0d4fbe743ef7f453f0a, type: 3}
       propertyPath: roomSlots.Array.size
       value: 0
       objectReference: {fileID: 0}
