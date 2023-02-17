@@ -22,7 +22,7 @@ public class gameManager : MonoBehaviour
     void Start()
     {
         spawnPlatform();
-        offScreenPos = new Vector2(offScreen, -5.5f);
+        offScreenPos = new Vector2(offScreen, -4.5f);
     }
 
     private void Update()
