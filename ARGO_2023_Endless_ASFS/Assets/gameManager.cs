@@ -5,16 +5,20 @@ using UnityEngine;
 public class gameManager : MonoBehaviour
 {
     float randNum = 0.0f;
+    float randNum2 = 0.0f;
     float offScreen = 16.0f;
     Vector2 offScreenPos;
+    Vector2 aboveScreenPos;
     public singlePlayerScript player;
     public GameObject Platform;
     public GameObject Wall;
     public GameObject Enemy;
+    public GameObject Powerup;
 
     public int platformSpawnNum = 0;
     public int wallSpawnNum = 0;
     public int enemySpawnNum = 0;
+    public int powerupSpawnNum = 0;
 
 
 
@@ -22,7 +26,8 @@ public class gameManager : MonoBehaviour
     void Start()
     {
         spawnPlatform();
-        offScreenPos = new Vector2(offScreen, -5.5f);
+        offScreenPos = new Vector2(offScreen, -4.5f);
+        aboveScreenPos = new Vector2(0, 9);
     }
 
     private void Update()
@@ -40,6 +45,7 @@ public class gameManager : MonoBehaviour
         platformSpawnNum++;
         wallSpawnNum++;
         enemySpawnNum++;
+        powerupSpawnNum++;
 
         if (platformSpawnNum >= 200)
         {
@@ -59,6 +65,12 @@ public class gameManager : MonoBehaviour
             spawnEnemy();
         }
 
+        if(powerupSpawnNum >= 300)
+        {
+            powerupSpawnNum = 0;
+            spawnPowerup();
+        }
+
     }
 
 
@@ -73,12 +85,19 @@ public class gameManager : MonoBehaviour
 
     void spawnWall()
     {
-        Instantiate(Wall, offScreenPos, Quaternion.identity);
+        //Instantiate(Wall, offScreenPos, Quaternion.identity);
     }
 
     void spawnEnemy()
     {
         Instantiate(Enemy, offScreenPos, Quaternion.identity);
+    }
+
+    void spawnPowerup()
+    {
+        randNum2 = Random.Range(-6.5f, 6.5f);
+        Vector3 pos2 = new Vector3(randNum2, aboveScreenPos.y, 0);
+        Instantiate(Powerup, pos2, Quaternion.identity);
     }
 
     void restartGame()
