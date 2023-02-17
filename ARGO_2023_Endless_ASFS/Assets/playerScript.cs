@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 public class playerScript : NetworkBehaviour
 {
@@ -29,12 +30,11 @@ public class playerScript : NetworkBehaviour
 
     private Vector2 movement;
 
+    [Header("New Movement System Properties")]
     public Joystick joystick;
-    //public GameObject theJoystick;
-    //public GameObject canvas;
-
-    bool testingOnPC = false;
     public PlayerInput playerInput;
+    bool testingOnPC = false;
+    public EventSystem eventSystem;
     
 
     /// <summary>
@@ -60,15 +60,16 @@ public class playerScript : NetworkBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         savedlocalScale = transform.localScale;
 
-        //theJoystick = GameObject.Find("Fixed Joystick (1)");
-        //canvas = GameObject.Find("Canvas Multi");
-        //joystick = canvas.GetComponent<Joystick>();
+        if (!isLocalPlayer)
+        {
+            GetComponent<PlayerInput>().enabled = false;
+            return;
+        }
+
         joystick = FindObjectOfType<Joystick>();
-        //playerInput = FindObjectOfType<PlayerInput>();
+        playerInput = GetComponent<PlayerInput>();
 
-
-
-       // playerInput.uiInputModule =
+        eventSystem = FindObjectOfType<EventSystem>();
     }
 
     // Update is called once per frame
@@ -164,6 +165,21 @@ public class playerScript : NetworkBehaviour
     //{
     //    movement = value.Get<Vector2>();
     //}
+
+    public void OnMoveJump()
+    {
+        if (isGrounded == true)
+        {
+            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            //animator.SetBool("isJumping", true);
+            jumpCount += 1;
+            if (jumpCount == allowedJumps)
+            {
+                isGrounded = false;
+            }
+        }
+
+    }
 
     [ClientCallback]
     void TransmitPosition()

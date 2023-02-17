@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: -7316113321737543786}
   - component: {fileID: 1108549786222382570}
   - component: {fileID: -4550294026046362567}
-  - component: {fileID: 8024400797571995202}
+  - component: {fileID: 7595408163420555271}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -348,6 +348,8 @@ MonoBehaviour:
   resetJump: 0
   cooldown: 5
   joystick: {fileID: 0}
+  playerInput: {fileID: 0}
+  eventSystem: {fileID: 0}
 --- !u!114 &4770344781734872352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,7 +448,7 @@ MonoBehaviour:
   showRoomGUI: 1
   readyToBegin: 0
   index: 0
---- !u!114 &8024400797571995202
+--- !u!114 &7595408163420555271
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -459,8 +461,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: affad20383eefc04e8ecf0145f85c14b, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 1686519561613041689, guid: 6e9c5b46062f4b2489dee12f287645c1, type: 3}
+  m_NotificationBehavior: 1
+  m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
       m_Calls: []
