@@ -427,7 +427,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 196659507}
   shakeDuration: 0
-  shakeAmount: 0.7
+  shakeAmount: 0.2
 --- !u!114 &283760909
 MonoBehaviour:
   m_ObjectHideFlags: 0
