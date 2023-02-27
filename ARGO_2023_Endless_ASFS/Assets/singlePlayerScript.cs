@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
+using UnityEngine.SceneManagement;
 
 public class singlePlayerScript : MonoBehaviour
 {
@@ -28,7 +28,15 @@ public class singlePlayerScript : MonoBehaviour
 
 
     [SerializeField] private float cooldown = 5;
-    
+
+    [Header("UI Related Vars")]
+    public Healthbar healthbar;
+    public int maxHealth = 5;
+    public int currentHealth;
+
+    public static singlePlayerScript instance = null;
+    public Camera cam;
+    float timer;
 
     /// <summary>
     /// On awake it checks if the player has an instance allready.
@@ -37,7 +45,14 @@ public class singlePlayerScript : MonoBehaviour
     /// </summary>
     void Awake()
     {
-       
+          if(instance == null)
+        {
+            instance = this;
+        }
+        else if(instance != this)
+        {
+            Destroy(gameObject);
+        }
     }
 
     /// <summary>
@@ -52,6 +67,9 @@ public class singlePlayerScript : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         savedlocalScale = transform.localScale;
+
+        currentHealth = maxHealth;
+        healthbar.setMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
@@ -127,17 +145,94 @@ public class singlePlayerScript : MonoBehaviour
         else if (rb.velocity.y < 0)
         {
             rb.gravityScale = fallingGravityScale;
-        }       
+        }
+
+        //currently reloading the main game scene again we can change this to do anything we need it to - Adam
+        if (isPlayerDead() == true)
+        {
+            StartCoroutine(Killcam());
+        }
+
+        // if(IsVisibleFrom(gameObject.GetComponent<Renderer>(), cam) == false)
+        // {
+        //     Debug.Log("Player should take damage he is outside the camera view");
+        //     TakeDamage(1);
+        // }
+
+        if(timer > 0)
+        {
+            timer -= Time.deltaTime;
+        }
+        
     }
+
+    void FixedUpdate()
+    {
+        if(IsVisibleFrom(gameObject.GetComponent<Renderer>(), cam) == false)
+        {
+            Debug.Log("Player should take damage he is outside the camera view");
+            if(timer <= 0)
+            {
+                TakeDamage(1);
+            }
+        }
+    }
+
+    IEnumerator Killcam()
+    {
+
+        yield return new WaitForSeconds(6.0f);
+        Debug.Log("The Player Died - Do our restart scene ");
+        SceneManager.LoadScene("SP Adam");
+    }
+
+    IEnumerator OutsideZone()
+    {
+        while (true)
+        {
+            TakeDamage(1);
+
+            yield return new WaitForSeconds(2.0f);
+        }
+    }
+
+    public void TakeDamage(int t_damage)
+    {
+        timer =1;
+        currentHealth -= t_damage;
+        healthbar.setHealth(currentHealth);
+        if (isPlayerDead())
+        {
+            //playerAlive = false;
+            gameObject.transform.position = new Vector2(74, 60);
+
+        }
+    }
+
+    bool isPlayerDead() // checks if the player is dead
+    {
+        if (currentHealth <= 0)
+            return true;
+        else
+            return false;
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("AI"))
         {
-            playerAlive = false;
-            Destroy(collision.gameObject);
+            //playerAlive = false;
+            TakeDamage(1);
         }
     }
+
+    public bool IsVisibleFrom(Renderer renderer, Camera camera)
+    {
+        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(camera);
+        return GeometryUtility.TestPlanesAABB(planes, renderer.bounds);
+    }
+
 
     //public void OnMoveLeft()
     //{
@@ -148,6 +243,8 @@ public class singlePlayerScript : MonoBehaviour
     //{
     //    print("aaaaaaaaa");
     //}
+
+
 
     public void OnMoveJump()
     {
