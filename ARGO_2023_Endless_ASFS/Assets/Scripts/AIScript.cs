@@ -96,7 +96,7 @@ public class AIScript : MonoBehaviour
                 if (distance < tempBest)
                 {
                     tempBest = distance;
-                    Debug.Log("ID: " + i.ToString());
+                    //Debug.Log("ID: " + i.ToString());
                 }
             }
         }
@@ -152,7 +152,7 @@ public class AIScript : MonoBehaviour
 
         if (state == AIState.CHASING && finished == true)
         {
-            Debug.Log("CHASING");
+           // Debug.Log("CHASING");
             actions.Clear();
             actions.Add(Actions.MOVE);
             actions.Add(Actions.JUMP);
@@ -169,7 +169,7 @@ public class AIScript : MonoBehaviour
 
         if (state == AIState.IDLE)
         {
-            Debug.Log("IDLE");
+            //Debug.Log("IDLE");
             actions.Clear();
             actions.Add(Actions.MOVE);
             actions.Add(Actions.JUMP);
@@ -253,15 +253,15 @@ public class AIScript : MonoBehaviour
                 if (distance < tempBest)
                 {
                     tempBest = distance;
-                    Debug.Log("ID: " + i.ToString());
+                    //Debug.Log("ID: " + i.ToString());
                     ID = i;
                 }
             }
 
             float distanceToPlayer = Vector2.Distance(transform.position, enemy.transform.position);
 
-            Debug.Log("Distance to Player: " + distanceToPlayer.ToString());
-            Debug.Log("Closest platform: " + tempBest.ToString());
+            //Debug.Log("Distance to Player: " + distanceToPlayer.ToString());
+            //Debug.Log("Closest platform: " + tempBest.ToString());
 
             /// If the player is on the ground, it looks if the player is closer to the AI or is the
             /// platform closer to the AI, which will decide if the AI jumps on the platform.
@@ -459,7 +459,7 @@ public class AIScript : MonoBehaviour
             {
                 closestValue = distance;
                 IDOfEntity = i;
-                Debug.Log("Closest Entity ID: " + IDOfEntity.ToString());
+                //Debug.Log("Closest Entity ID: " + IDOfEntity.ToString());
             }
         }
 

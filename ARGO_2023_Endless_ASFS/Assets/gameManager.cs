@@ -14,12 +14,14 @@ public class gameManager : MonoBehaviour
     public GameObject Wall;
     public GameObject Enemy;
     public GameObject Powerup;
+    public GameObject AlcoholPowerup;
 
     public int platformSpawnNum = 0;
     public int wallSpawnNum = 0;
     public int enemySpawnNum = 0;
     public int powerupSpawnNum = 0;
 
+    bool spawnedOnce = false;
 
 
     // Start is called before the first frame update
@@ -69,6 +71,7 @@ public class gameManager : MonoBehaviour
         {
             powerupSpawnNum = 0;
             spawnPowerup();
+            spawnAlcohol();
         }
 
     }
@@ -91,6 +94,17 @@ public class gameManager : MonoBehaviour
     void spawnEnemy()
     {
         Instantiate(Enemy, offScreenPos, Quaternion.identity);
+    }
+
+    void spawnAlcohol()
+    {
+        if (!spawnedOnce)
+        {
+            spawnedOnce = true;
+            randNum2 = Random.Range(-6.5f, 6.5f);
+            Vector3 pos2 = new Vector3(randNum2, aboveScreenPos.y, 0);
+            Instantiate(AlcoholPowerup, pos2, Quaternion.identity);
+        }
     }
 
     void spawnPowerup()

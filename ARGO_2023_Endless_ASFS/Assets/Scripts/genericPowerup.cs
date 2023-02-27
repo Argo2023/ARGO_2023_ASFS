@@ -5,9 +5,11 @@ using UnityEngine;
 public class genericPowerup : MonoBehaviour
 {
     public GameObject powerUp;
+    Camera cam;
     public Vector3 initialPos;
     public Vector3 newPos;
     public Vector3 testPos;
+    Vector3 newCamPos;
 
 
     private float upperLimit, lowerLimit;
@@ -15,6 +17,7 @@ public class genericPowerup : MonoBehaviour
     public bool movingDown, movingUp;
 
     public bool initialLowering;
+    public bool finished = true;
 
     public int startY = 0;
 
@@ -36,7 +39,7 @@ public class genericPowerup : MonoBehaviour
         movingDown = false;
         movingUp = false;
         startY = 4;
-
+        cam = Camera.main;
         Player = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -47,25 +50,33 @@ public class genericPowerup : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if(initialLowering == true && testPos.y <= startY)
+        if (powerUp.CompareTag("Alcohol"))
         {
-            initialLowering = false;
-            newPos = testPos;
-            upperLimit = testPos.y - 0.4f;
-            lowerLimit = testPos.y + 0.4f;
-            movingDown = true;
+            
         }
-
-        if (movingDown == true && newPos.y < upperLimit)
+        else
         {
-            movingDown = false;
-            movingUp = true;
-        }
+            if (initialLowering == true && testPos.y <= startY)
+            {
+                initialLowering = false;
+                newPos = testPos;
+                upperLimit = testPos.y - 0.4f;
+                lowerLimit = testPos.y + 0.4f;
+                movingDown = true;
+            }
 
-        if (movingUp == true && newPos.y > lowerLimit)
-        {
-            movingUp = false;
-            movingDown = true;
+            if (movingDown == true && newPos.y < upperLimit)
+            {
+                movingDown = false;
+                movingUp = true;
+            }
+
+            if (movingUp == true && newPos.y > lowerLimit)
+            {
+                movingUp = false;
+                movingDown = true;
+            }
+
         }
     }
 
@@ -74,26 +85,33 @@ public class genericPowerup : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        if(initialLowering)
+        if (powerUp.CompareTag("Alcohol"))
         {
-            testPos.y = testPos.y - 0.05f;
-            powerUp.transform.position = testPos;
+            Debug.Log(cam.transform.position);
         }
-
-        if (movingDown)
+        else
         {
-            newPos.y = newPos.y - 0.005f;
-            powerUp.transform.position = newPos;
+            if (initialLowering)
+            {
+                testPos.y = testPos.y - 0.05f;
+                powerUp.transform.position = testPos;
+            }
 
-        }
-        if (movingUp)
-        {
-            newPos.y = newPos.y + 0.005f;
-            powerUp.transform.position = newPos;
-        }
+            if (movingDown)
+            {
+                newPos.y = newPos.y - 0.005f;
+                powerUp.transform.position = newPos;
 
-        // powerUp.transform.position = newPos;
-        powerUp.transform.Rotate(0.0f, 0.0f, 1.0f, Space.Self);
+            }
+            if (movingUp)
+            {
+                newPos.y = newPos.y + 0.005f;
+                powerUp.transform.position = newPos;
+            }
+
+            // powerUp.transform.position = newPos;
+            powerUp.transform.Rotate(0.0f, 0.0f, 1.0f, Space.Self);
+        }
     }
 
     /// <summary>
@@ -103,11 +121,42 @@ public class genericPowerup : MonoBehaviour
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
             powerUp.active = false;
-            Debug.Log("OKAYY");
+            //Debug.Log("OKAYY");
+        }
+    }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && powerUp.tag == "Alcohol")
+        {;
+            //Debug.Log("ME HEEEREEEEEEEE");
+            powerUp.transform.position = new Vector3(3000.0f, transform.position.y, transform.position.z);
+            StartCoroutine(moveCamera());
+        }
+    }
+
+
+    IEnumerator moveCamera()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            cam = Camera.main;
+            newCamPos = new Vector3(cam.transform.position.x + Random.Range(-4.0f, 4.0f),
+                                    cam.transform.position.y + Random.Range(-1.0f, 1.0f),
+                                    -10.0f);
+            float time = 0;
+            Vector3 startPos = cam.transform.localPosition;
+            while (time < 5.0f)
+            {
+                cam.transform.localPosition = Vector3.Lerp(startPos, newCamPos, time / 5.0f);
+                time += Time.deltaTime;
+                Debug.Log(cam.transform.localPosition);
+                yield return null;
+            }
+            time = 0.0f;
         }
     }
 }

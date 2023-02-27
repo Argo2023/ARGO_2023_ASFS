@@ -9,6 +9,8 @@ TagManager:
   - AI
   - wall
   - Platform
+  - Pickup
+  - Alcohol
   layers:
   - Default
   - TransparentFX
