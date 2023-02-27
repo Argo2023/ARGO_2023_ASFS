@@ -32,4 +32,26 @@ public class seanTest
 
         UnityEngine.Assertions.Assert.IsFalse(explosion.GetComponent<ParticleSystem>().isPlaying);
     }
+
+    [UnityTest]
+    public IEnumerator DustPlaysWhenPlayerJumps()
+    {
+        Vector3 playerPos = new Vector3(0, 0, 0);
+        Vector3 platformPos = new Vector3(0, -2, 0);
+
+
+        GameObject player = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/singlePl"), playerPos, Quaternion.identity);
+        GameObject dust = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/DustParticle"));
+        GameObject platform = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Platform"), platformPos, Quaternion.identity);
+
+        yield return new WaitForSeconds(1f);
+
+        player.GetComponent<singlePlayerScript>().isGrounded = true;
+        player.GetComponent<singlePlayerScript>().OnMoveJump();
+
+        yield return new WaitForSeconds(0.1f);
+
+        UnityEngine.Assertions.Assert.IsFalse(player.GetComponent<singlePlayerScript>().dust.isPlaying);
+    }
+
 }

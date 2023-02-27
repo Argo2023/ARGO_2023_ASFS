@@ -26,6 +26,7 @@ public class singlePlayerScript : MonoBehaviour
 
     bool testingOnPC = false; //change to true if you want to test the game using mouse and key :)
 
+    public ParticleSystem dust;
 
     [SerializeField] private float cooldown = 5;
     
@@ -127,7 +128,8 @@ public class singlePlayerScript : MonoBehaviour
         else if (rb.velocity.y < 0)
         {
             rb.gravityScale = fallingGravityScale;
-        }       
+        } 
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -151,7 +153,8 @@ public class singlePlayerScript : MonoBehaviour
 
     public void OnMoveJump()
     {
-        if(isGrounded == true)
+        createDust();
+        if (isGrounded == true)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             //animator.SetBool("isJumping", true);
@@ -162,6 +165,11 @@ public class singlePlayerScript : MonoBehaviour
             }
         }
 
+    }
+
+    public void createDust()
+    {
+        dust.Play();
     }
 
 
