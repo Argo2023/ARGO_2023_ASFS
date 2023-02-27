@@ -5,9 +5,9 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
 
-public class TestAdamHealth
+public class TestAdamHealth 
 {
-    
+
     // A Test behaves as an ordinary method
     [Test]
     public void TestAdamHealthSimplePasses()
@@ -42,5 +42,28 @@ public class TestAdamHealth
         Assert.Greater(initialValue, damageTaken);
 
         
+    }
+
+
+    [UnityTest]
+    public IEnumerator checkForDeathMessage()
+    {
+        GameObject player = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/singlePl"));
+        Healthbar hpBar = MonoBehaviour.Instantiate(Resources.Load<Healthbar>("Prefabs/Health bar 1"));
+        Camera cams = MonoBehaviour.Instantiate(Resources.Load<Camera>("Prefabs/Main Camera"));
+        TextMesh deathText1 = MonoBehaviour.Instantiate(Resources.Load<TextMesh>("Prefabs/Death Text"));
+        TextMesh deathText2 = MonoBehaviour.Instantiate(Resources.Load<TextMesh>("Prefabs/Death Text 2"));
+
+        hpBar.GetComponent<Healthbar>().setMaxHealth(player.GetComponent<singlePlayerScript>().maxHealth);
+        player.GetComponent<singlePlayerScript>().deathText= deathText1;
+        player.GetComponent<singlePlayerScript>().deathTextTwo = deathText2;
+        player.GetComponent<singlePlayerScript>().cam = cams;
+
+        player.gameObject.GetComponent<singlePlayerScript>().cam.enabled = true;
+        player.gameObject.GetComponent<singlePlayerScript>().currentHealth = 0;
+
+        yield return null;
+
+        Assert.True(player.GetComponent<singlePlayerScript>().cam.enabled == false);
     }
 }

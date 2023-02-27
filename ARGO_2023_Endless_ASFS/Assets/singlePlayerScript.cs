@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class singlePlayerScript : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class singlePlayerScript : MonoBehaviour
 
     bool testingOnPC = false; //change to true if you want to test the game using mouse and key :)
 
+    public static singlePlayerScript instance = null; 
 
     [SerializeField] private float cooldown = 5;
 
@@ -33,10 +35,12 @@ public class singlePlayerScript : MonoBehaviour
     public Healthbar healthbar;
     public int maxHealth = 5;
     public int currentHealth;
-
-    public static singlePlayerScript instance = null;
     public Camera cam;
+    public Camera cam2;
     float timer;
+    public TextMesh deathText;
+    public TextMesh deathTextTwo;
+
 
     /// <summary>
     /// On awake it checks if the player has an instance allready.
@@ -45,7 +49,7 @@ public class singlePlayerScript : MonoBehaviour
     /// </summary>
     void Awake()
     {
-          if(instance == null)
+        if(instance == null)
         {
             instance = this;
         }
@@ -70,6 +74,14 @@ public class singlePlayerScript : MonoBehaviour
 
         currentHealth = maxHealth;
         healthbar.setMaxHealth(maxHealth);
+
+        deathText.gameObject.active = false;
+        deathTextTwo.gameObject.active = false;
+
+        cam = Camera.main;
+        cam.enabled = true;
+        cam2.enabled = false;
+        
     }
 
     // Update is called once per frame
@@ -180,7 +192,6 @@ public class singlePlayerScript : MonoBehaviour
 
     IEnumerator Killcam()
     {
-
         yield return new WaitForSeconds(6.0f);
         Debug.Log("The Player Died - Do our restart scene ");
         SceneManager.LoadScene("SP Adam");
@@ -204,12 +215,15 @@ public class singlePlayerScript : MonoBehaviour
         if (isPlayerDead())
         {
             //playerAlive = false;
-            gameObject.transform.position = new Vector2(74, 60);
-
+            gameObject.transform.position = new Vector2(20.12f, 4.11f);
+            deathText.gameObject.active = true;
+            deathTextTwo.gameObject.active = true;
+            cam.enabled = false;
+            cam2.enabled = true;
         }
     }
 
-    bool isPlayerDead() // checks if the player is dead
+    public bool isPlayerDead() // checks if the player is dead
     {
         if (currentHealth <= 0)
             return true;
