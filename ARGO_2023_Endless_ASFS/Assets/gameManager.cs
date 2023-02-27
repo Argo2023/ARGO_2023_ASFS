@@ -15,6 +15,7 @@ public class gameManager : MonoBehaviour
     public GameObject Enemy;
     public GameObject Powerup;
     public GameObject AlcoholPowerup;
+    public GameObject DynamitePowerup;
 
     public int platformSpawnNum = 0;
     public int wallSpawnNum = 0;
@@ -65,6 +66,7 @@ public class gameManager : MonoBehaviour
         {
             enemySpawnNum = 0;
             spawnEnemy();
+            spawnDynamite();
         }
 
         if(powerupSpawnNum >= 300)
@@ -95,7 +97,9 @@ public class gameManager : MonoBehaviour
     {
         Instantiate(Enemy, offScreenPos, Quaternion.identity);
     }
-
+    /// <summary>
+    /// Instantiates the Alcohol Powerup on a random position above the screen
+    /// </summary>
     void spawnAlcohol()
     {
         if (!spawnedOnce)
@@ -106,7 +110,18 @@ public class gameManager : MonoBehaviour
             Instantiate(AlcoholPowerup, pos2, Quaternion.identity);
         }
     }
-
+    /// <summary>
+    /// Instatiates the Dynamite Powerup
+    /// </summary>
+    void spawnDynamite()
+    {
+        randNum2 = Random.Range(-6.5f, 6.5f);
+        Vector3 pos2 = new Vector3(randNum2, aboveScreenPos.y, 0);
+        Instantiate(DynamitePowerup, pos2, Quaternion.identity);
+    }
+    /// <summary>
+    /// Instantiates the health powerup
+    /// </summary>
     void spawnPowerup()
     {
         randNum2 = Random.Range(-6.5f, 6.5f);

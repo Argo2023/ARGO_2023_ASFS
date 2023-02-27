@@ -11,6 +11,8 @@ TagManager:
   - Platform
   - Pickup
   - Alcohol
+  - Dynamite
+  - ExplosionRange
   layers:
   - Default
   - TransparentFX

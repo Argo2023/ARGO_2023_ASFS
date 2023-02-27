@@ -657,6 +657,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3271129219086154012, guid: 51c1dbd6b77107e48a3df1e4d73a3e25, type: 3}
+      propertyPath: Enemy
+      value: 
+      objectReference: {fileID: 259810019018929261, guid: ba9cee8c20a75f24992ce315a737dfb0, type: 3}
+    - target: {fileID: 3271129219086154012, guid: 51c1dbd6b77107e48a3df1e4d73a3e25, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 124659432}
@@ -664,6 +668,10 @@ PrefabInstance:
       propertyPath: AlcoholPowerup
       value: 
       objectReference: {fileID: 3838806434068058794, guid: 1fcc5a206d80cf2459c5e903b7cd8f68, type: 3}
+    - target: {fileID: 3271129219086154012, guid: 51c1dbd6b77107e48a3df1e4d73a3e25, type: 3}
+      propertyPath: DynamitePowerup
+      value: 
+      objectReference: {fileID: 3728903845385605910, guid: ee7efc6a628bd99418dbed705480aa72, type: 3}
     - target: {fileID: 3271129219086154014, guid: 51c1dbd6b77107e48a3df1e4d73a3e25, type: 3}
       propertyPath: m_Name
       value: GameManager

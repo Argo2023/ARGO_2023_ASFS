@@ -5,11 +5,18 @@ using UnityEngine;
 public class genericPowerup : MonoBehaviour
 {
     public GameObject powerUp;
+    public CircleCollider2D circle;
     Camera cam;
     public Vector3 initialPos;
     public Vector3 newPos;
     public Vector3 testPos;
+    
     Vector3 newCamPos;
+
+    public AudioSource fuseAudio;
+    public AudioSource explosionAudio;
+    public AudioClip explosionClip;
+    public AudioClip fuseClip;
 
 
     private float upperLimit, lowerLimit;
@@ -18,6 +25,8 @@ public class genericPowerup : MonoBehaviour
 
     public bool initialLowering;
     public bool finished = true;
+    public bool dynamiteExploded = false;
+    public bool isTimeForCollision = false;
 
     public int startY = 0;
 
@@ -50,7 +59,7 @@ public class genericPowerup : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (powerUp.CompareTag("Alcohol"))
+        if (powerUp.CompareTag("Alcohol") || powerUp.CompareTag("Dynamite"))
         {
             
         }
@@ -85,7 +94,7 @@ public class genericPowerup : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        if (powerUp.CompareTag("Alcohol"))
+        if (powerUp.CompareTag("Alcohol") || powerUp.CompareTag("Dynamite"))
         {
             Debug.Log(cam.transform.position);
         }
@@ -131,14 +140,45 @@ public class genericPowerup : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player") && powerUp.tag == "Alcohol")
-        {;
+        {
             //Debug.Log("ME HEEEREEEEEEEE");
             powerUp.transform.position = new Vector3(3000.0f, transform.position.y, transform.position.z);
             StartCoroutine(moveCamera());
         }
+
+        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("AI")) && powerUp.tag == "Dynamite")
+        {
+            if (!dynamiteExploded)
+            {
+                StartCoroutine(dynamiteExplosion());
+            }          
+        }
+
+        if (isTimeForCollision == true && collision.gameObject.CompareTag("Player"))
+        {
+            isTimeForCollision = false;
+            // Damage Player
+            //collision.gameObject.GetComponent<HealthScript>().entityTakesDamage(50.0f);
+            explosionAudio.PlayOneShot(explosionClip, 0.4f);
+            powerUp.transform.position = new Vector3(3000.0f, transform.position.y, transform.position.z);
+        }
+
+        if (isTimeForCollision && collision.gameObject.CompareTag("AI"))
+        {
+            isTimeForCollision = false;
+            // Damage the AI that was colliding with the dynamite
+            //collision.gameObject.GetComponent<HealthScript>().entityTakesDamage(50.0f);
+            explosionAudio.PlayOneShot(explosionClip, 0.4f);
+            powerUp.transform.position = new Vector3(3000.0f, transform.position.y, transform.position.z);
+        }
     }
 
-
+    /// <summary>
+    /// Moving the camera to make the drunk effect and make the game more difficult
+    /// Gets the position of the camera and gives it an altered value it has to move to
+    /// Does this over a fixed amount of time of 5 seconds
+    /// </summary>
+    /// <returns></returns>
     IEnumerator moveCamera()
     {
         for(int i = 0; i < 3; i++)
@@ -153,10 +193,25 @@ public class genericPowerup : MonoBehaviour
             {
                 cam.transform.localPosition = Vector3.Lerp(startPos, newCamPos, time / 5.0f);
                 time += Time.deltaTime;
-                Debug.Log(cam.transform.localPosition);
+                //Debug.Log(cam.transform.localPosition);
                 yield return null;
             }
             time = 0.0f;
         }
+    }
+
+    /// <summary>
+    /// Starts the audio when you collide with the Dynamite powerup
+    /// This will also trigger the explosion and give damage to anyone near it
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator dynamiteExplosion()
+    {
+        dynamiteExploded = true;
+        fuseAudio.PlayOneShot(fuseClip, 0.1f);
+        Debug.Log("Audio played");
+        yield return new WaitForSeconds(2.0f);
+  
+        isTimeForCollision = true;
     }
 }
