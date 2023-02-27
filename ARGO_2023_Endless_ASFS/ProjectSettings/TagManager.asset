@@ -9,6 +9,7 @@ TagManager:
   - AI
   - wall
   - Platform
+  - Pickup
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Player
   - Gun
   - Casing
-  - 
+  - obstacle
   - 
   - 
   - 

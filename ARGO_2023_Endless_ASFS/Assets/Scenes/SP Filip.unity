@@ -614,7 +614,7 @@ RectTransform:
   - {fileID: 1108767655}
   - {fileID: 1505039203}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -654,10 +654,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Platform: {fileID: 8599006544835589896, guid: d521d919200003a46a36948253ffbfd6, type: 3}
   Enemy: {fileID: 0}
-  Obstacle: {fileID: 0}
+  Obstacle: {fileID: 7505382837173284324, guid: e119360c637ad4d409f92b582a95dce8, type: 3}
+  Tumble: {fileID: 4720752310309451968, guid: 9bd19310b43c28b449038af594292127, type: 3}
   randomSpawnNum: 0
+  randomSpawnTumble: 0
   randomPlatformNum: 0
+  chanceToSpawnCactus: 0
   allowSpawn: 0
+  allowSpawnTwo: 0
   floor: {fileID: 0}
 --- !u!114 &684408955
 MonoBehaviour:
@@ -694,11 +698,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3271129219086154015, guid: 51c1dbd6b77107e48a3df1e4d73a3e25, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.609453
+      value: 12.72
       objectReference: {fileID: 0}
     - target: {fileID: 3271129219086154015, guid: 51c1dbd6b77107e48a3df1e4d73a3e25, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.99
+      value: 1.36
       objectReference: {fileID: 0}
     - target: {fileID: 3271129219086154015, guid: 51c1dbd6b77107e48a3df1e4d73a3e25, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1478,7 +1482,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3376618700247106828, guid: ea9e064d9aa8cbf47b34f17edb3326fc, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3376618700247106828, guid: ea9e064d9aa8cbf47b34f17edb3326fc, type: 3}
       propertyPath: m_LocalPosition.x

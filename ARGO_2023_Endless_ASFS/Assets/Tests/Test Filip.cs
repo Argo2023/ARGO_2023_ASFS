@@ -38,4 +38,35 @@ public class TestFilip
         Assert.Less(platform.transform.position.x, 3.74f);
         
     }
+
+
+
+    [UnityTest]
+    public IEnumerator CactusSpawnMove()
+    {
+        GameObject floor = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/floor"));
+        GameObject cactus = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/cactus"));
+        // Use the Assert class to test conditions.
+        // Use yield to skip a frame.
+        yield return new WaitForSeconds(4.0f);
+
+
+        Assert.Less(cactus.transform.position.x, 3.74f);
+
+    }
+
+
+    [UnityTest]
+    public IEnumerator TumbleSpawnMove()
+    {
+        GameObject floor = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/floor"));
+        GameObject Tumble = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Tumble"));
+        // Use the Assert class to test conditions.
+        // Use yield to skip a frame.
+        yield return new WaitForSeconds(4.0f);
+
+
+        Assert.Less(Tumble.transform.position.x, 3.74f);
+
+    }
 }
