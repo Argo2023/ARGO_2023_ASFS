@@ -54,4 +54,26 @@ public class seanTest
         UnityEngine.Assertions.Assert.IsFalse(player.GetComponent<singlePlayerScript>().dust.isPlaying);
     }
 
+    [UnityTest]
+    public IEnumerator BulletImpactPlaysWithBulletCollision()
+    {
+        bool test = false;
+        Vector3 platformPos = new Vector3(0, 4, 0);
+        Vector3 bulletPos = new Vector3(0, 4, 0);
+        GameObject platform = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Platform"), platformPos, Quaternion.identity);
+        GameObject bullet = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/bullet"), platformPos, Quaternion.identity);
+
+
+        yield return new WaitForSeconds(0.05f);
+
+
+        ParticleSystem[] bulletImpacts = GameObject.FindObjectsOfType<ParticleSystem>();
+        if(bulletImpacts.Length > 0)
+        {
+            test = true;
+        }
+
+        UnityEngine.Assertions.Assert.IsTrue(test);
+    }
+
 }
