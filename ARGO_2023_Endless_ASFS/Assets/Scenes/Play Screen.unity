@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 000000006b285700c128942973728e1e
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -497,6 +497,7 @@ MonoBehaviour:
   playerSpawnMethod: 1
   spawnPrefabs:
   - {fileID: 6786801236497178658, guid: a3756fc4b46a03847bd5115ebbeb1297, type: 3}
+  - {fileID: 8599006544835589896, guid: 3d29d36889db94f4391dc7f4d19a19e9, type: 3}
   timeInterpolationGui: 0
 --- !u!4 &864990345
 Transform:

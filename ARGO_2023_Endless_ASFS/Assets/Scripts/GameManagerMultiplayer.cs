@@ -26,6 +26,10 @@ public class GameManagerMultiplayer : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //if (!isServer)
+        //{
+        //    return;
+        //}
         spawnPlatform();
         offScreenPos = new Vector2(offScreen, 3.5f);
 
@@ -52,6 +56,7 @@ public class GameManagerMultiplayer : NetworkBehaviour
         if (platformSpawnNum >= 200)
         {
             platformSpawnNum = 0;
+           
             spawnPlatform();
         }
 
@@ -68,29 +73,27 @@ public class GameManagerMultiplayer : NetworkBehaviour
         //}
     }
 
-    
+    [Server]
     void spawnPlatform()
     {
+  
         // -3 to 5 is the amount of leeway for Y value
         randNum = Random.Range(-3, 5);
         Vector3 pos = new Vector3(offScreen, randNum, 0);
 
-        Instantiate(Platform, pos, Quaternion.identity);
+        GameObject smallPlatform = Instantiate(Platform, pos, Quaternion.identity);
 
-        NetworkServer.Spawn(Platform);
+        NetworkServer.Spawn(smallPlatform);
     }
 
+   // [Server]
     //void spawnWall()
     //{
     //    Instantiate(Wall, offScreenPos, Quaternion.identity);
     //    NetworkServer.Spawn(Wall);
     //}
 
-    //[Command]
-    //void spawnEnemy()
-    //{
-    //    Instantiate(Enemy, offScreenPos, Quaternion.identity);
-    //}
+   
 
     void restartGame()
     {
