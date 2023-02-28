@@ -10,7 +10,7 @@ using UnityEngine;
 public class HealthScript : MonoBehaviour
 {
     public GameObject entity;
-    public float baseHealth; // this is the character health
+    public float baseHealth = 2; // this is the character health
     public float shotDamage; // this is the damage a character will deal with every shot
 
 
@@ -35,19 +35,22 @@ public class HealthScript : MonoBehaviour
         }
     }
 
+
     /// <summary>
     /// function that needs to be called if the character takes damage.
     /// pass in the value for damage to damage the entity
     /// </summary>
     /// <param name="t_damage"></param>
-    public void entityTakesDamage(float t_damage)
+    public void entityTakesDamage(float t_health, float t_damage)
     {
-        baseHealth = baseHealth - t_damage;
+        baseHealth -= t_damage;
 
         if (isEntityDead())
         {
             Destroy(entity); // Destroys the entity this script is attached to
         }
+
+        baseHealth = t_health;
     }
 
     /// <summary>
@@ -62,4 +65,6 @@ public class HealthScript : MonoBehaviour
         else
             return false;
     }
+
+   
 }

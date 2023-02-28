@@ -409,15 +409,7 @@ MonoBehaviour:
   m_FacingLeft: 0
   resetJump: 0
   playerAlive: 1
-  joystick: {fileID: 0}
   cooldown: 5
-  healthbar: {fileID: 566787375680011155, guid: 051ab645d5a59874c9b6ae14fa0b09ce, type: 3}
-  maxHealth: 5
-  currentHealth: 0
-  cam: {fileID: 6972715311229685327, guid: 2b1cb772a5b553b468d0c87f2f1a4e7a, type: 3}
-  cam2: {fileID: 3976172673863219173, guid: 514d50b31600fb8448ef0dc4b7eb0213, type: 3}
-  deathText: {fileID: 6081134607157703894, guid: 276228c63c3fa844ba5921ed2a6c09c3, type: 3}
-  deathTextTwo: {fileID: 2020306544225617417, guid: 61bf1aa09d4037d4db4bcd493f28cbb7, type: 3}
 --- !u!1 &4363115657497776448
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,7 +547,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pushbackObj: {fileID: 4363115657234409250}
   bulletSpeed: 22
-  spread: 0
   reloadTime: 1
   timeBetweenShots: 0.2
   timeBetweenShooting: 0.3
@@ -565,19 +556,15 @@ MonoBehaviour:
   allowButtonHold: 1
   bulletsLeft: 0
   fp1: {fileID: 4363115656327953651}
+  fp2: {fileID: 4363115656566091315}
+  fp3: {fileID: 4363115657497776451}
+  randomFirepoint: 0
   Projectile: {fileID: 6786801236497178658, guid: 22eb37734888e92438aa63a9aa10367b, type: 3}
   muzzleFlash: {fileID: 8381661945622047042, guid: 1ffe21d5b42a100428b4ba4437d772b1, type: 3}
   castings: {fileID: 551706606139160747, guid: 8a9eb7cfce404494ba3e16758fb0e77b, type: 3}
   castingPos: {fileID: 4363115657174573243}
   audio: {fileID: 4363115657780265227}
   clip: {fileID: 8300000, guid: e011d9e436daf5c4fa39bd712790357c, type: 3}
-  rev6: {fileID: 0}
-  rev5: {fileID: 0}
-  rev4: {fileID: 0}
-  rev3: {fileID: 0}
-  rev2: {fileID: 0}
-  rev1: {fileID: 0}
-  rev0: {fileID: 0}
 --- !u!82 &4363115657780265227
 AudioSource:
   m_ObjectHideFlags: 0

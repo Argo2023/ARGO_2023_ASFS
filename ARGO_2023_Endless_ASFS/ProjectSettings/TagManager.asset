@@ -10,6 +10,7 @@ TagManager:
   - wall
   - Platform
   - Pickup
+  - Bullet
   layers:
   - Default
   - TransparentFX

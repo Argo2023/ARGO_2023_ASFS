@@ -1,6 +1,13 @@
+
 //using System.Collections;
 //using System.Collections.Generic;
 //using UnityEngine;
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
 
 //public class gameManager : MonoBehaviour
 //{
@@ -20,6 +27,12 @@
 //    public int enemySpawnNum = 0;
 //    public int powerupSpawnNum = 0;
 
+    [Header("Scoring")]
+    public static int score;
+    public int displayScore;
+    public Text scoreUI;
+
+
 
 
 //    // Start is called before the first frame update
@@ -38,6 +51,33 @@
 //            restartGame();
 //        }
 //    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        spawnPlatform();
+        offScreenPos = new Vector2(offScreen, -4.5f);
+        aboveScreenPos = new Vector2(0, 9);
+
+        score = 0;
+        displayScore = 0;
+    }
+
+    private void Update()
+    {
+        if(player.playerAlive == false)
+        {
+            Debug.Log("1111111");
+            restartGame();
+        }
+
+        if (score != displayScore)
+        {
+            displayScore = score;
+            scoreUI.text = displayScore.ToString();
+        }
+    }
+
 
 //    // Update is called once per frame
 //    void FixedUpdate()
