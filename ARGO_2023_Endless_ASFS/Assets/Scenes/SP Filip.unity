@@ -675,6 +675,7 @@ RectTransform:
   - {fileID: 1610470713}
   - {fileID: 1108767655}
   - {fileID: 1505039203}
+  - {fileID: 624986034}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -702,7 +703,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3271129219086154014, guid: 51c1dbd6b77107e48a3df1e4d73a3e25, type: 3}
   m_PrefabInstance: {fileID: 691643494}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &562007162
+--- !u!114 &562007160
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -736,7 +737,89 @@ MonoBehaviour:
   allowSpawn: 0
   allowSpawnTwo: 0
   allowSpawnEnemies: 0
-  floor: {fileID: 0}
+  displayScore: 0
+  scoreUI: {fileID: 624986035}
+  floor: {fileID: 3376618700247106827, guid: ea9e064d9aa8cbf47b34f17edb3326fc, type: 3}
+--- !u!1 &624986033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 624986034}
+  - component: {fileID: 624986036}
+  - component: {fileID: 624986035}
+  m_Layer: 5
+  m_Name: Score Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &624986034
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624986033}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 4.0256, y: 4.0256, z: 4.0256}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 450928342}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 959, y: 903}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &624986035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624986033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 997a43b767814dd0a7642ec9b78cba41, type: 3}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Score: '
+--- !u!222 &624986036
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624986033}
+  m_CullTransparentMesh: 1
 --- !u!114 &684408955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -810,7 +893,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3271129219086154012, guid: 51c1dbd6b77107e48a3df1e4d73a3e25, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 51c1dbd6b77107e48a3df1e4d73a3e25, type: 3}
 --- !u!1 &761918646
 GameObject:
@@ -2362,6 +2446,22 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: f02d5999e6d489c4caefb1be382f6a08, type: 3}
+    - target: {fileID: 4363115657234409254, guid: 77d83fcc191363a40ad93d36f53285a8, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 4363115657234409254, guid: 77d83fcc191363a40ad93d36f53285a8, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 0.93
+      objectReference: {fileID: 0}
+    - target: {fileID: 4363115657234409254, guid: 77d83fcc191363a40ad93d36f53285a8, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.99
+      objectReference: {fileID: 0}
+    - target: {fileID: 4363115657234409254, guid: 77d83fcc191363a40ad93d36f53285a8, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.93
+      objectReference: {fileID: 0}
     - target: {fileID: 4363115657234409257, guid: 77d83fcc191363a40ad93d36f53285a8, type: 3}
       propertyPath: joystick
       value: 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class gameLoop : MonoBehaviour
 {
@@ -42,7 +43,13 @@ public class gameLoop : MonoBehaviour
     public bool allowSpawn = false;
     public bool allowSpawnTwo = false;
     public bool allowSpawnEnemies = false;
-    
+
+
+    [Header("Scoring")]
+    public static int score;
+    public int displayScore;
+    public Text scoreUI;
+
 
     [Header("floor Script for speed")]
     public scroll floor;
@@ -62,6 +69,10 @@ public class gameLoop : MonoBehaviour
 
         floor = FindObjectOfType<scroll>();
 
+
+        //scoring
+        score = 0;
+        displayScore = 0;
     }
 
     // Update is called once per frame
@@ -81,6 +92,19 @@ public class gameLoop : MonoBehaviour
         if (allowSpawnEnemies == true)
         {
             StartCoroutine(EnemiesSpawn());
+        }
+
+
+        //if (player.playerAlive == false)
+        //{
+            
+        //    restartGame();
+        //}
+
+        if (score != displayScore)
+        {
+            displayScore = score;
+            scoreUI.text = displayScore.ToString();
         }
     }
 

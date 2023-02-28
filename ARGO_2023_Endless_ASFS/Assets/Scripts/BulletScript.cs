@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    public gameManager gameManager;
+    public gameLoop gameManager;
 
     private void Start()
     {
-        gameManager = FindObjectOfType<gameManager>();    
+        gameManager = FindObjectOfType<gameLoop>();    
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -24,7 +24,7 @@ public class BulletScript : MonoBehaviour
                 Destroy(collision.gameObject);
             }
 
-            gameManager.score += 10;
+            gameLoop.score += 10;
         }
 
         if (collision.gameObject.CompareTag("Obstacle"))

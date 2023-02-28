@@ -70,12 +70,12 @@ public class TestAdamHealth
     [UnityTest]
     public IEnumerator checkScore()
     {
-        gameManager gameMan = MonoBehaviour.Instantiate(Resources.Load<gameManager>("Prefabs/GameManager"));
+        gameLoop gameMan = MonoBehaviour.Instantiate(Resources.Load<gameLoop>("Prefabs/gameloop"));
         //GameObject bullet = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Bullet"));
 
-        int prevScore = gameManager.score;
-        gameManager.score++;
-        int scoreIncrement = gameManager.score;
+        int prevScore = gameLoop.score;
+        gameLoop.score++;
+        int scoreIncrement = gameLoop.score;
         yield return new WaitForSeconds(0.1f);
 
         Assert.Less(prevScore, scoreIncrement);
