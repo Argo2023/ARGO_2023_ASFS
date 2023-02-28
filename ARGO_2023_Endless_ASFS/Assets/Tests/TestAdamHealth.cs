@@ -66,4 +66,19 @@ public class TestAdamHealth
 
         Assert.True(player.GetComponent<singlePlayerScript>().cam.enabled == false);
     }
+
+    [UnityTest]
+    public IEnumerator checkScore()
+    {
+        gameManager gameMan = MonoBehaviour.Instantiate(Resources.Load<gameManager>("Prefabs/GameManager"));
+        //GameObject bullet = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Bullet"));
+
+        int prevScore = gameManager.score;
+        gameManager.score++;
+        int scoreIncrement = gameManager.score;
+        yield return new WaitForSeconds(0.1f);
+
+        Assert.Less(prevScore, scoreIncrement);
+
+    }
 }
