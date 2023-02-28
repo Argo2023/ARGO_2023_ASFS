@@ -7,7 +7,7 @@ public class gameLoop : MonoBehaviour
 
     [Header("Objects To Spawn")]
     public GameObject Platform;
-    public GameObject Enemy;
+    public GameObject EnemyObj;
     public GameObject Obstacle;
     public GameObject Tumble;
 
@@ -15,18 +15,34 @@ public class gameLoop : MonoBehaviour
     public int randomSpawnNum;
     public int randomSpawnTumble;
     public int randomPlatformNum;
+    public int chanceToSpawnCactus;
     private Vector2 offScreen;
     private Vector2 SecondPlatformInRow;
     private Vector2 ThirdPlatformInRow;
     private Vector2 Third2PlatformInRow;
     private Vector2 offScreenTumble;
 
+    [Header("Enemies properties")]
+    public float timeBetweenWaves;
+    public float timeBetweenEnemies;
+    public int maxEnemiesPerWave;
+    public int enemiesSpawned;
+    public int waveNum = 0;
+    public bool nextWave;
+    public int randomSpawn;
 
-    public int chanceToSpawnCactus;
+    [Header("Enemies spawns")]
+    public Transform pos1;
+    public Transform pos2;
+    public Transform pos3;
+    public Transform pos4;
 
 
+    [Header("Bools")]
     public bool allowSpawn = false;
     public bool allowSpawnTwo = false;
+    public bool allowSpawnEnemies = false;
+    
 
     [Header("floor Script for speed")]
     public scroll floor;
@@ -36,6 +52,7 @@ public class gameLoop : MonoBehaviour
     {
         allowSpawn = true;
         allowSpawnTwo = true;
+        allowSpawnEnemies = true;
         offScreen = new Vector2(20.0f, -1.3f);
         offScreenTumble = new Vector2(18.1f, -4.49f);
         SecondPlatformInRow = new Vector2(20.0f, 0.0f);
@@ -61,7 +78,60 @@ public class gameLoop : MonoBehaviour
         {
             StartCoroutine(SpawnTumble());
         }
+        if (allowSpawnEnemies == true)
+        {
+            StartCoroutine(EnemiesSpawn());
+        }
     }
+
+
+
+
+
+    IEnumerator EnemiesSpawn()
+    {
+        allowSpawnEnemies = false;
+        if(enemiesSpawned == maxEnemiesPerWave)
+        {
+            nextWave = true;
+        }
+        if (nextWave == true)
+        {
+            yield return new WaitForSeconds(timeBetweenWaves);
+            waveNum++;
+            maxEnemiesPerWave += 1;
+            enemiesSpawned = 0;
+            nextWave = false;
+        }
+        yield return new WaitForSeconds(timeBetweenEnemies);
+        if (enemiesSpawned < maxEnemiesPerWave)
+        {
+             randomSpawn = chanceToSpawnCactus = Random.Range(0,5);
+                if(randomSpawn == 1)
+                { 
+                    GameObject enemy = Instantiate(EnemyObj, pos1.position, pos1.rotation);
+                    enemiesSpawned++;
+                }
+                if (randomSpawn == 2)
+                {
+                    GameObject enemy = Instantiate(EnemyObj, pos2.position, pos2.rotation);
+                    enemiesSpawned++;
+                }
+                if (randomSpawn == 3)
+                {
+                    GameObject enemy = Instantiate(EnemyObj, pos3.position, pos3.rotation);
+                    enemiesSpawned++;
+                }
+                if (randomSpawn == 4)
+                {
+                    GameObject enemy = Instantiate(EnemyObj, pos4.position, pos4.rotation);
+                    enemiesSpawned++;
+                }
+        }
+
+        allowSpawnEnemies = true;
+    }
+
 
 
     IEnumerator SpawnTumble()
@@ -71,7 +141,6 @@ public class gameLoop : MonoBehaviour
 
         GameObject tumbleweed = Instantiate(Tumble, offScreenTumble, Quaternion.identity);
         allowSpawnTwo = true;
-
     }
 
 

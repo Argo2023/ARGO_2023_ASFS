@@ -63,10 +63,23 @@ public class TestFilip
         GameObject Tumble = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Tumble"));
         // Use the Assert class to test conditions.
         // Use yield to skip a frame.
+        yield return new WaitForSeconds(10.0f);
+
+        Assert.Less(Tumble.transform.position.x, 18.9f);
+
+    }
+
+    [UnityTest]
+    public IEnumerator EnemiesSpawnMove()
+    {
+    
+        GameObject floor = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/floor"));
+        GameObject enemy = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/ZeAIFIFI"));
+        // Use the Assert class to test conditions.
+        // Use yield to skip a frame.
         yield return new WaitForSeconds(4.0f);
 
-
-        Assert.Less(Tumble.transform.position.x, 3.74f);
+        Assert.Less(enemy.transform.position.x, 3.74f);
 
     }
 }
