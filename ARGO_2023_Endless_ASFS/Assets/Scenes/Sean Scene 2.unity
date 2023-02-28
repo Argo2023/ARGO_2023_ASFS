@@ -199,6 +199,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 31338759}
   m_CullTransparentMesh: 1
+--- !u!198 &78645168 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8640403855140764635, guid: 77d83fcc191363a40ad93d36f53285a8, type: 3}
+  m_PrefabInstance: {fileID: 4363115657110798785}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &124659432 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4363115657234409257, guid: 77d83fcc191363a40ad93d36f53285a8, type: 3}
@@ -294,11 +299,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!198 &171432284 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 946674587285950909, guid: 77d83fcc191363a40ad93d36f53285a8, type: 3}
-  m_PrefabInstance: {fileID: 4363115657110798785}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &196659504
 GameObject:
   m_ObjectHideFlags: 0
@@ -1936,7 +1936,7 @@ PrefabInstance:
     - target: {fileID: 4363115657234409257, guid: 77d83fcc191363a40ad93d36f53285a8, type: 3}
       propertyPath: dust
       value: 
-      objectReference: {fileID: 171432284}
+      objectReference: {fileID: 78645168}
     - target: {fileID: 4363115657234409257, guid: 77d83fcc191363a40ad93d36f53285a8, type: 3}
       propertyPath: joystick
       value: 
