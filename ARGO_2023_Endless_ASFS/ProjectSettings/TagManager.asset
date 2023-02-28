@@ -10,6 +10,8 @@ TagManager:
   - wall
   - Platform
   - Pickup
+  - Explosion
+  - BulletImpact
   - Bullet
   layers:
   - Default

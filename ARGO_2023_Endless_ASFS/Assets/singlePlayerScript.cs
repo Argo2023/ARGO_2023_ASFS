@@ -27,6 +27,7 @@ public class singlePlayerScript : MonoBehaviour
 
     bool testingOnPC = false; //change to true if you want to test the game using mouse and key :)
 
+    public ParticleSystem dust;
     public static singlePlayerScript instance = null; 
 
     [SerializeField] private float cooldown = 5;
@@ -99,13 +100,13 @@ public class singlePlayerScript : MonoBehaviour
     /// </summary>
     void Update()
     {
-            ////////////////////////////////////////////////////////////////////////////            <<--------- MOVEMENT
-        if(testingOnPC == false)
+        ////////////////////////////////////////////////////////////////////////////            <<--------- MOVEMENT
+        if (testingOnPC == false)
         {
             var horizontalInput = joystick.Horizontal;
             rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
         }
-        else if(testingOnPC == true)
+        else if (testingOnPC == true)
         {
             var horizontalInput = Input.GetAxisRaw("Horizontal");
             rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
@@ -117,7 +118,7 @@ public class singlePlayerScript : MonoBehaviour
             transform.localScale = new Vector2(savedlocalScale.x, savedlocalScale.y);
             m_FacingLeft = false;
             m_FacingRight = true;
-          
+
         }
         else if (rb.velocity.x < -0.001f)
         {
@@ -125,7 +126,7 @@ public class singlePlayerScript : MonoBehaviour
             transform.localScale = new Vector2(-savedlocalScale.x, savedlocalScale.y);
             m_FacingLeft = true;
             m_FacingRight = false;
-           
+
         }
 
         if (rb.velocity.x == 0.0f)
@@ -159,6 +160,7 @@ public class singlePlayerScript : MonoBehaviour
             rb.gravityScale = fallingGravityScale;
         }
 
+
         //currently reloading the main game scene again we can change this to do anything we need it to - Adam
         if (isPlayerDead() == true)
         {
@@ -171,12 +173,13 @@ public class singlePlayerScript : MonoBehaviour
         //     TakeDamage(1);
         // }
 
-        if(timer > 0)
+        if (timer > 0)
         {
             timer -= Time.deltaTime;
         }
-        
     }
+        
+    
 
     void FixedUpdate()
     {
@@ -262,7 +265,8 @@ public class singlePlayerScript : MonoBehaviour
 
     public void OnMoveJump()
     {
-        if(isGrounded == true)
+        createDust();
+        if (isGrounded == true)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             //animator.SetBool("isJumping", true);
@@ -275,6 +279,14 @@ public class singlePlayerScript : MonoBehaviour
 
     }
 
+    public void createDust()
+    {
+        dust.Play();
+    }
 
+   
 }
+
+
+
 
