@@ -27,10 +27,10 @@ public class BulletScript : MonoBehaviour
             gameLoop.score += 10;
         }
 
-        if (collision.gameObject.CompareTag("Obstacle"))
-        {
-            Destroy(gameObject);
-        }
+        //if (collision.gameObject.CompareTag("Obstacle"))
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 
 }
