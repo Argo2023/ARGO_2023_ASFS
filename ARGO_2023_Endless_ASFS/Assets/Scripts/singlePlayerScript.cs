@@ -197,7 +197,7 @@ public class singlePlayerScript : MonoBehaviour
     {
         yield return new WaitForSeconds(6.0f);
         Debug.Log("The Player Died - Do our restart scene ");
-        SceneManager.LoadScene("SP Adam");
+        SceneManager.LoadScene("SP Filip");
     }
 
     IEnumerator OutsideZone()
