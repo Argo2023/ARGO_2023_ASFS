@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class singlePlayerScript : MonoBehaviour
 {
@@ -26,9 +27,21 @@ public class singlePlayerScript : MonoBehaviour
 
     bool testingOnPC = false; //change to true if you want to test the game using mouse and key :)
 
+    public ParticleSystem dust;
+    public static singlePlayerScript instance = null; 
 
     [SerializeField] private float cooldown = 5;
-    
+
+    [Header("UI Related Vars")]
+    public Healthbar healthbar;
+    public int maxHealth = 5;
+    public int currentHealth;
+    public Camera cam;
+    public Camera cam2;
+    float timer;
+    public TextMesh deathText;
+    public TextMesh deathTextTwo;
+
 
     /// <summary>
     /// On awake it checks if the player has an instance allready.
@@ -37,7 +50,14 @@ public class singlePlayerScript : MonoBehaviour
     /// </summary>
     void Awake()
     {
-       
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else if(instance != this)
+        {
+            Destroy(gameObject);
+        }
     }
 
     /// <summary>
@@ -52,6 +72,17 @@ public class singlePlayerScript : MonoBehaviour
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         savedlocalScale = transform.localScale;
+
+        currentHealth = maxHealth;
+        healthbar.setMaxHealth(maxHealth);
+
+        deathText.gameObject.active = false;
+        deathTextTwo.gameObject.active = false;
+
+        cam = Camera.main;
+        cam.enabled = true;
+        cam2.enabled = false;
+        
     }
 
     // Update is called once per frame
@@ -69,13 +100,13 @@ public class singlePlayerScript : MonoBehaviour
     /// </summary>
     void Update()
     {
-            ////////////////////////////////////////////////////////////////////////////            <<--------- MOVEMENT
-        if(testingOnPC == false)
+        ////////////////////////////////////////////////////////////////////////////            <<--------- MOVEMENT
+        if (testingOnPC == false)
         {
             var horizontalInput = joystick.Horizontal;
             rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
         }
-        else if(testingOnPC == true)
+        else if (testingOnPC == true)
         {
             var horizontalInput = Input.GetAxisRaw("Horizontal");
             rb.velocity = new Vector2(horizontalInput * playerSpeed, rb.velocity.y);
@@ -87,7 +118,7 @@ public class singlePlayerScript : MonoBehaviour
             transform.localScale = new Vector2(savedlocalScale.x, savedlocalScale.y);
             m_FacingLeft = false;
             m_FacingRight = true;
-          
+
         }
         else if (rb.velocity.x < -0.001f)
         {
@@ -95,7 +126,7 @@ public class singlePlayerScript : MonoBehaviour
             transform.localScale = new Vector2(-savedlocalScale.x, savedlocalScale.y);
             m_FacingLeft = true;
             m_FacingRight = false;
-           
+
         }
 
         if (rb.velocity.x == 0.0f)
@@ -127,17 +158,98 @@ public class singlePlayerScript : MonoBehaviour
         else if (rb.velocity.y < 0)
         {
             rb.gravityScale = fallingGravityScale;
-        }       
+        }
+
+
+        //currently reloading the main game scene again we can change this to do anything we need it to - Adam
+        if (isPlayerDead() == true)
+        {
+            StartCoroutine(Killcam());
+        }
+
+        // if(IsVisibleFrom(gameObject.GetComponent<Renderer>(), cam) == false)
+        // {
+        //     Debug.Log("Player should take damage he is outside the camera view");
+        //     TakeDamage(1);
+        // }
+
+        if (timer > 0)
+        {
+            timer -= Time.deltaTime;
+        }
     }
+        
+    
+
+    void FixedUpdate()
+    {
+        if(IsVisibleFrom(gameObject.GetComponent<Renderer>(), cam) == false)
+        {
+            Debug.Log("Player should take damage he is outside the camera view");
+            if(timer <= 0)
+            {
+                TakeDamage(1);
+            }
+        }
+    }
+
+    IEnumerator Killcam()
+    {
+        yield return new WaitForSeconds(6.0f);
+        Debug.Log("The Player Died - Do our restart scene ");
+        SceneManager.LoadScene("SP Filip");
+    }
+
+    IEnumerator OutsideZone()
+    {
+        while (true)
+        {
+            TakeDamage(1);
+
+            yield return new WaitForSeconds(2.0f);
+        }
+    }
+
+    public void TakeDamage(int t_damage)
+    {
+        timer =1;
+        currentHealth -= t_damage;
+        healthbar.setHealth(currentHealth);
+        if (isPlayerDead())
+        {
+            //playerAlive = false;
+            gameObject.transform.position = new Vector2(20.12f, 4.11f);
+            deathText.gameObject.active = true;
+            deathTextTwo.gameObject.active = true;
+            cam.enabled = false;
+            cam2.enabled = true;
+        }
+    }
+
+    public bool isPlayerDead() // checks if the player is dead
+    {
+        if (currentHealth <= 0)
+            return true;
+        else
+            return false;
+    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("AI"))
         {
-            playerAlive = false;
-            Destroy(collision.gameObject);
+            //playerAlive = false;
+            TakeDamage(1);
         }
     }
+
+    public bool IsVisibleFrom(Renderer renderer, Camera camera)
+    {
+        Plane[] planes = GeometryUtility.CalculateFrustumPlanes(camera);
+        return GeometryUtility.TestPlanesAABB(planes, renderer.bounds);
+    }
+
 
     //public void OnMoveLeft()
     //{
@@ -149,9 +261,12 @@ public class singlePlayerScript : MonoBehaviour
     //    print("aaaaaaaaa");
     //}
 
+
+
     public void OnMoveJump()
     {
-        if(isGrounded == true)
+        createDust();
+        if (isGrounded == true)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             //animator.SetBool("isJumping", true);
@@ -164,6 +279,14 @@ public class singlePlayerScript : MonoBehaviour
 
     }
 
+    public void createDust()
+    {
+        dust.Play();
+    }
 
+   
 }
+
+
+
 

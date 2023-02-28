@@ -9,8 +9,9 @@ TagManager:
   - AI
   - wall
   - Platform
-  - Joystick
-  - Player Multiplayer
+  - Pickup
+  - Explosion
+  - BulletImpact
   - Bullet
   layers:
   - Default
@@ -22,7 +23,7 @@ TagManager:
   - Player
   - Gun
   - Casing
-  - 
+  - obstacle
   - 
   - 
   - 

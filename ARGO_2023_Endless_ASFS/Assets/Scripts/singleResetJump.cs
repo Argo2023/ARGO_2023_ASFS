@@ -16,11 +16,13 @@ public class singleResetJump : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
+            player.createDust();
             player.isGrounded = true;
             player.jumpCount = 0;
         }
         else if(collision.gameObject.CompareTag("Platform"))
         {
+            player.createDust();
             player.isGrounded = true;
             player.jumpCount = 0;
         }
