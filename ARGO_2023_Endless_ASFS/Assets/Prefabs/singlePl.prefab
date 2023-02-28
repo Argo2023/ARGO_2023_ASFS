@@ -283,7 +283,6 @@ Transform:
   m_Children:
   - {fileID: 4363115657780265222}
   - {fileID: 4363115657147195036}
-  - {fileID: 946674587285950882}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -410,9 +409,15 @@ MonoBehaviour:
   m_FacingLeft: 0
   resetJump: 0
   playerAlive: 1
-  joystick: {fileID: 2929252283123773951, guid: b934c735cbeb7da4aab6d87573af5bc0, type: 3}
-  dust: {fileID: 5003318153368583380, guid: c7442c45e3bb956469adf5d0f84bd447, type: 3}
+  joystick: {fileID: 0}
   cooldown: 5
+  healthbar: {fileID: 566787375680011155, guid: 051ab645d5a59874c9b6ae14fa0b09ce, type: 3}
+  maxHealth: 5
+  currentHealth: 0
+  cam: {fileID: 6972715311229685327, guid: 2b1cb772a5b553b468d0c87f2f1a4e7a, type: 3}
+  cam2: {fileID: 3976172673863219173, guid: 514d50b31600fb8448ef0dc4b7eb0213, type: 3}
+  deathText: {fileID: 6081134607157703894, guid: 276228c63c3fa844ba5921ed2a6c09c3, type: 3}
+  deathTextTwo: {fileID: 2020306544225617417, guid: 61bf1aa09d4037d4db4bcd493f28cbb7, type: 3}
 --- !u!1 &4363115657497776448
 GameObject:
   m_ObjectHideFlags: 0
@@ -753,65 +758,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1001 &5209566216911170921
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 4363115657234409252}
-    m_Modifications:
-    - target: {fileID: 5003318153368583371, guid: c7442c45e3bb956469adf5d0f84bd447, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5003318153368583371, guid: c7442c45e3bb956469adf5d0f84bd447, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.09
-      objectReference: {fileID: 0}
-    - target: {fileID: 5003318153368583371, guid: c7442c45e3bb956469adf5d0f84bd447, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 5003318153368583371, guid: c7442c45e3bb956469adf5d0f84bd447, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5003318153368583371, guid: c7442c45e3bb956469adf5d0f84bd447, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5003318153368583371, guid: c7442c45e3bb956469adf5d0f84bd447, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5003318153368583371, guid: c7442c45e3bb956469adf5d0f84bd447, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5003318153368583371, guid: c7442c45e3bb956469adf5d0f84bd447, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5003318153368583371, guid: c7442c45e3bb956469adf5d0f84bd447, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5003318153368583371, guid: c7442c45e3bb956469adf5d0f84bd447, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5003318153368583371, guid: c7442c45e3bb956469adf5d0f84bd447, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5003318153368583382, guid: c7442c45e3bb956469adf5d0f84bd447, type: 3}
-      propertyPath: m_Name
-      value: DustParticle
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c7442c45e3bb956469adf5d0f84bd447, type: 3}
---- !u!4 &946674587285950882 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5003318153368583371, guid: c7442c45e3bb956469adf5d0f84bd447, type: 3}
-  m_PrefabInstance: {fileID: 5209566216911170921}
-  m_PrefabAsset: {fileID: 0}

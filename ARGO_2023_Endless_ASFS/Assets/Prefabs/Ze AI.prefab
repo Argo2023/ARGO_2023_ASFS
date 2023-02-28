@@ -110,6 +110,7 @@ MonoBehaviour:
   wee: 0
   rb: {fileID: 259810019018929251}
   speed: 2
+  ID: 0
 --- !u!114 &259810019018929263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,9 +123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 969664c30eb9151479a40abd5101c8d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 0}
-  baseHealth: 0
-  shotDamage: 0
+  entity: {fileID: 259810019018929261}
+  baseHealth: 2
+  shotDamage: 1
 --- !u!61 &259810019018929262
 BoxCollider2D:
   m_ObjectHideFlags: 0
