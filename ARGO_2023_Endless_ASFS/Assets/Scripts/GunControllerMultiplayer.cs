@@ -96,8 +96,6 @@ public class GunControllerMultiplayer : NetworkBehaviour
     /// </summary>
     private void MyInput()
     {
-        
-
         if (bulletsLeft == 0 && !reloading && availableAmmo > 0)
         {
             Reload();
