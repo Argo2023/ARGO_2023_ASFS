@@ -580,7 +580,7 @@ GameObject:
   m_Component:
   - component: {fileID: 510724906}
   - component: {fileID: 510724905}
-  - component: {fileID: 510724904}
+  - component: {fileID: 510724907}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -588,26 +588,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &510724904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 510724903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
 --- !u!114 &510724905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -638,6 +618,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &510724907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510724903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_PointAction: {fileID: -1654692200621890270, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MoveAction: {fileID: -8784545083839296357, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_SubmitAction: {fileID: 392368643174621059, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_CancelAction: {fileID: 7727032971491509709, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_LeftClickAction: {fileID: 3001919216989983466, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MiddleClickAction: {fileID: -2185481485913320682, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_RightClickAction: {fileID: -4090225696740746782, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
 --- !u!1 &648540234
 GameObject:
   m_ObjectHideFlags: 0
@@ -2120,9 +2130,41 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3187443718326235064, guid: c022841452d8ccd42ac8c209722733d8, type: 3}
     - target: {fileID: 6329059101444065514, guid: 91b022e96231d0d4fbe743ef7f453f0a, type: 3}
+      propertyPath: playerSpawnMethod
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6329059101444065514, guid: 91b022e96231d0d4fbe743ef7f453f0a, type: 3}
       propertyPath: roomSlots.Array.size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6329059101444065514, guid: 91b022e96231d0d4fbe743ef7f453f0a, type: 3}
+      propertyPath: spawnPrefabs.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6329059101444065514, guid: 91b022e96231d0d4fbe743ef7f453f0a, type: 3}
+      propertyPath: spawnPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 6786801236497178658, guid: a3756fc4b46a03847bd5115ebbeb1297, type: 3}
+    - target: {fileID: 6329059101444065514, guid: 91b022e96231d0d4fbe743ef7f453f0a, type: 3}
+      propertyPath: spawnPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 551706606139160747, guid: 410d10b3c447d24428f6226889288a4e, type: 3}
+    - target: {fileID: 6329059101444065514, guid: 91b022e96231d0d4fbe743ef7f453f0a, type: 3}
+      propertyPath: spawnPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 8599006544835589896, guid: 3d29d36889db94f4391dc7f4d19a19e9, type: 3}
+    - target: {fileID: 6329059101444065514, guid: 91b022e96231d0d4fbe743ef7f453f0a, type: 3}
+      propertyPath: spawnPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 3376618700247106830, guid: b21806d01e5f70d4da0a03bda47b735a, type: 3}
+    - target: {fileID: 6329059101444065514, guid: 91b022e96231d0d4fbe743ef7f453f0a, type: 3}
+      propertyPath: spawnPrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 3814523729588053463, guid: 4f0fc628586d16141925f6939eb95e56, type: 3}
+    - target: {fileID: 6329059101444065514, guid: 91b022e96231d0d4fbe743ef7f453f0a, type: 3}
+      propertyPath: spawnPrefabs.Array.data[5]
+      value: 
+      objectReference: {fileID: 3814523729588053463, guid: 4f0fc628586d16141925f6939eb95e56, type: 3}
     - target: {fileID: 6329059101444065517, guid: 91b022e96231d0d4fbe743ef7f453f0a, type: 3}
       propertyPath: m_Name
       value: Network Room Manager
