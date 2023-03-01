@@ -194,9 +194,10 @@ GameObject:
   - component: {fileID: -7316113321737543786}
   - component: {fileID: 1108549786222382570}
   - component: {fileID: -4550294026046362567}
+  - component: {fileID: 7595408163420555271}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Player
+  m_TagString: Player Multiplayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -329,7 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f3de095993fd4b4fbff251e8a7dde17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
+  syncDirection: 1
   syncMode: 0
   syncInterval: 0.1
   syncPosition: {x: 0, y: 0, z: 0}
@@ -345,7 +346,11 @@ MonoBehaviour:
   m_FacingRight: 1
   m_FacingLeft: 0
   resetJump: 0
+  isPlayerAlive: 1
   cooldown: 5
+  joystick: {fileID: 0}
+  playerInput: {fileID: 0}
+  eventSystem: {fileID: 0}
 --- !u!114 &4770344781734872352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -444,6 +449,36 @@ MonoBehaviour:
   showRoomGUI: 1
   readyToBegin: 0
   index: 0
+--- !u!114 &7595408163420555271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3067008405859980731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: affad20383eefc04e8ecf0145f85c14b, type: 3}
+  m_NotificationBehavior: 1
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &3067008405920969909
 GameObject:
   m_ObjectHideFlags: 0
