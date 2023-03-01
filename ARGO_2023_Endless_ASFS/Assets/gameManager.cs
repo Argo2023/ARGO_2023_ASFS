@@ -16,11 +16,13 @@ public class gameManager : MonoBehaviour
     public GameObject Powerup;
     public GameObject AlcoholPowerup;
     public GameObject DynamitePowerup;
+    public GameObject DoubleDamageBullet;
 
     public int platformSpawnNum = 0;
     public int wallSpawnNum = 0;
     public int enemySpawnNum = 0;
     public int powerupSpawnNum = 0;
+    public int doubleBullet = 0;
 
     bool spawnedOnce = false;
 
@@ -49,6 +51,8 @@ public class gameManager : MonoBehaviour
         wallSpawnNum++;
         enemySpawnNum++;
         powerupSpawnNum++;
+        doubleBullet++;
+
 
         if (platformSpawnNum >= 200)
         {
@@ -65,8 +69,7 @@ public class gameManager : MonoBehaviour
         if (enemySpawnNum >= 125)
         {
             enemySpawnNum = 0;
-            spawnEnemy();
-            spawnDynamite();
+            spawnEnemy();          
         }
 
         if(powerupSpawnNum >= 300)
@@ -74,6 +77,13 @@ public class gameManager : MonoBehaviour
             powerupSpawnNum = 0;
             spawnPowerup();
             spawnAlcohol();
+        }
+
+        if (doubleBullet >= 500)
+        {
+            doubleBullet = 0;
+            spawnDynamite();
+            spawnBullet();
         }
 
     }
@@ -118,6 +128,13 @@ public class gameManager : MonoBehaviour
         randNum2 = Random.Range(-6.5f, 6.5f);
         Vector3 pos2 = new Vector3(randNum2, aboveScreenPos.y, 0);
         Instantiate(DynamitePowerup, pos2, Quaternion.identity);
+    }
+
+    void spawnBullet()
+    {
+        randNum2 = Random.Range(-6.5f, 6.5f);
+        Vector3 pos2 = new Vector3(randNum2, aboveScreenPos.y, 0);
+        Instantiate(DoubleDamageBullet, pos2, Quaternion.identity);
     }
     /// <summary>
     /// Instantiates the health powerup

@@ -198,6 +198,21 @@ public class AIScript : MonoBehaviour
         {
             grounded = true;
         }
+
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            GameObject bullet = GameObject.FindGameObjectWithTag("DoubleDamage");
+
+            if (bullet.GetComponent<genericPowerup>().isDoubleDamageBullet == true)
+            {
+                GetComponent<HealthScript>().entityTakesDamage(20);
+                bullet.GetComponent<genericPowerup>().isDoubleDamageBullet = false;
+            }
+            else
+            {
+                GetComponent<HealthScript>().entityTakesDamage(10);
+            }               
+        }
     }
 
     /// <summary>

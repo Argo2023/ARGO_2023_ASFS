@@ -27,6 +27,7 @@ public class genericPowerup : MonoBehaviour
     public bool finished = true;
     public bool dynamiteExploded = false;
     public bool isTimeForCollision = false;
+    public bool isDoubleDamageBullet = false;
 
     public int startY = 0;
 
@@ -94,9 +95,9 @@ public class genericPowerup : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        if (powerUp.CompareTag("Alcohol") || powerUp.CompareTag("Dynamite"))
+        if (powerUp.CompareTag("Alcohol") || powerUp.CompareTag("Dynamite") || powerUp.tag == "DoubleDamage")
         {
-            Debug.Log(cam.transform.position);
+            //Debug.Log(cam.transform.position);
         }
         else
         {
@@ -152,6 +153,12 @@ public class genericPowerup : MonoBehaviour
             {
                 StartCoroutine(dynamiteExplosion());
             }          
+        }
+        
+        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("AI")) && powerUp.tag == "DoubleDamage")
+        {
+            powerUp.transform.position = new Vector3(3000.0f, transform.position.y, transform.position.z);
+            isDoubleDamageBullet = true;
         }
 
         if (isTimeForCollision == true && collision.gameObject.CompareTag("Player"))
