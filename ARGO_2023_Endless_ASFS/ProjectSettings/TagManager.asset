@@ -10,9 +10,13 @@ TagManager:
   - wall
   - Platform
   - Pickup
+  - Alcohol
+  - Dynamite
+  - ExplosionRange
+  - Bullet
+  - DoubleDamage
   - Explosion
   - BulletImpact
-  - Bullet
   layers:
   - Default
   - TransparentFX
