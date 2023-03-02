@@ -103,9 +103,16 @@ public class gameLoop : MonoBehaviour
 
         if (score != displayScore)
         {
+            if (displayScore % 100 == 0)
+            {
+                AudioManager.Instance.Score.Play();
+
+            }
             displayScore = score;
             scoreUI.text = displayScore.ToString();
         }
+
+       
     }
 
 

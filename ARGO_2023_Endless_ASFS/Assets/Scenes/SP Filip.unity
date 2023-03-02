@@ -385,6 +385,10 @@ PrefabInstance:
       propertyPath: timeBetweenShooting
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 4363115657780265227, guid: 77d83fcc191363a40ad93d36f53285a8, type: 3}
+      propertyPath: m_Volume
+      value: 0.451
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77d83fcc191363a40ad93d36f53285a8, type: 3}
 --- !u!1 &97969354 stripped
@@ -1065,6 +1069,18 @@ MonoBehaviour:
   displayScore: 0
   scoreUI: {fileID: 624986035}
   floor: {fileID: 3376618700247106827, guid: ea9e064d9aa8cbf47b34f17edb3326fc, type: 3}
+--- !u!114 &562007161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562007159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: effba0364269d844495c1fb973d89229, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &624986033
 GameObject:
   m_ObjectHideFlags: 0
