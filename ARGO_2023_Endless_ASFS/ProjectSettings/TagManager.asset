@@ -15,6 +15,8 @@ TagManager:
   - ExplosionRange
   - Bullet
   - DoubleDamage
+  - Explosion
+  - BulletImpact
   layers:
   - Default
   - TransparentFX
@@ -25,7 +27,7 @@ TagManager:
   - Player
   - Gun
   - Casing
-  - 
+  - obstacle
   - 
   - 
   - 
@@ -60,4 +62,7 @@ TagManager:
     locked: 0
   - name: 3
     uniqueID: 512651891
+    locked: 0
+  - name: 4
+    uniqueID: 3793033879
     locked: 0

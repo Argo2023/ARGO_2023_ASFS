@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class scrollPlatform : MonoBehaviour
+public class scrollPlatformMultiplayer : NetworkBehaviour
 {
     private int speed = 2;
     private float width;
@@ -15,6 +16,11 @@ public class scrollPlatform : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        //if (!isServer)
+        //{
+        //    return;
+        //}
+
         transform.position += Vector3.left * speed * Time.deltaTime;
 
         if (transform.position.x + width / 2 <= -12)

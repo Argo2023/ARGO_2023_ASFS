@@ -4,30 +4,37 @@ using UnityEngine;
 
 public class scroll : MonoBehaviour
 {
+    [SerializeField]
+    public float speed = 0;
+    private Material material;
+    private float offsetX;
 
-    private int speed = 2;
-    private float width;
     // Start is called before the first frame update
     void Start()
     {
-        width = transform.localScale.x;
+        // width = transform.localScale.x;
+        material = GetComponent<Renderer>().material;
+        speed = 0;
+        offsetX = 0f;
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// In the update we scroll the texture so it looks like its moving to the side.
+    /// </summary>
     void FixedUpdate()
     {
-        transform.position += Vector3.left * speed * Time.deltaTime;
-
-        if (transform.position.x+ width / 2 <= -12)
+        if (speed < 0.06)
         {
-            SetPosition(width);
+            speed += 0.00001f;                                                            
         }
+        offsetX += Time.deltaTime * speed;
+        material.mainTextureOffset = new Vector2(offsetX, 0);
+
+        if (offsetX > 1f)
+        {
+            offsetX -= 1f;
+        }
+
     }
 
-    
-    public void SetPosition(float t_position)
-    {
-        transform.position = new Vector3(t_position, transform.position.y, 0f);
-    }
 }
-

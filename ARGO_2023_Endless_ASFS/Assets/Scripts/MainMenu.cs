@@ -22,7 +22,7 @@ public class MainMenu : MonoBehaviour
     public void singleplayerFunction()
     {
         Debug.Log("sp");
-        SceneManager.LoadScene("SP");
+        SceneManager.LoadScene("SP Filip");
     }
     /// <summary>
     /// This Function will bring us to multiplayer selection screen
