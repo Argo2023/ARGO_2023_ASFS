@@ -347,6 +347,9 @@ MonoBehaviour:
   m_FacingLeft: 0
   resetJump: 0
   isPlayerAlive: 1
+  health: 3
+  winText: {fileID: 1550822953327590832, guid: bb0691db9941b6d48a10e4359350bd7e, type: 3}
+  loseText: {fileID: 4868816041838537400, guid: 54eb95d840fad3b49b38dcf0bd66ae35, type: 3}
   cooldown: 5
   joystick: {fileID: 0}
   playerInput: {fileID: 0}
