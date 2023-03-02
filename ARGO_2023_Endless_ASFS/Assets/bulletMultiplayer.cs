@@ -15,7 +15,7 @@ public class bulletMultiplayer : MonoBehaviour
         //    Debug.Log("Take Damage bro");
         //}
 
-        if(collision.gameObject.CompareTag("Platform Multiplayer"))
+        if(collision.gameObject.CompareTag("Platform"))
         {
             Destroy(gameObject);
         }

@@ -41,7 +41,7 @@ public class HealthScript : MonoBehaviour
     /// pass in the value for damage to damage the entity
     /// </summary>
     /// <param name="t_damage"></param>
-    public void entityTakesDamage(float t_health, float t_damage)
+    public void entityTakesDamage(float t_damage)
     {
         baseHealth -= t_damage;
 
@@ -49,8 +49,6 @@ public class HealthScript : MonoBehaviour
         {
             Destroy(entity); // Destroys the entity this script is attached to
         }
-
-        baseHealth = t_health;
     }
 
     /// <summary>
