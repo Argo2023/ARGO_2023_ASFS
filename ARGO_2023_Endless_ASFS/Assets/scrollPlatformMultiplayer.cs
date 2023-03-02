@@ -10,16 +10,22 @@ public class scrollPlatformMultiplayer : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!isServer)
+        {
+            return;
+        }
+
         width = transform.localScale.x;
     }
 
+    
     // Update is called once per frame
     void FixedUpdate()
     {
-        //if (!isServer)
-        //{
-        //    return;
-        //}
+        if (!isServer)
+        {
+            return;
+        }
 
         transform.position += Vector3.left * speed * Time.deltaTime;
 

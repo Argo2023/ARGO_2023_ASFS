@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using UnityEngine.UI;
 
 public class GameManagerMultiplayer : NetworkBehaviour
 {
@@ -10,13 +11,17 @@ public class GameManagerMultiplayer : NetworkBehaviour
     float offScreen = 16.0f;
     Vector2 offScreenPos;
     public playerScript multiPlayer;
+    public List<GameObject> multiplayerS;
     public GameObject Platform;
     public GameObject Wall;
     public GameObject Enemy;
 
-    public int platformSpawnNum = 0;
+    public float platformSpawnTimerFinal = 3;
+    public float platformSpawnTimer = 0;
     public int wallSpawnNum = 0;
     public int enemySpawnNum = 0;
+    public Text winText;
+    public Text loseText;
 
     [Header("Multiplayer Vars")]
     [SyncVar]
@@ -26,37 +31,32 @@ public class GameManagerMultiplayer : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //if (!isServer)
-        //{
-        //    return;
-        //}
+        if (!isServer)
+        {
+            return;
+        }
+
         spawnPlatform();
+
         offScreenPos = new Vector2(offScreen, 3.5f);
 
         multiPlayer = FindObjectOfType<playerScript>();
+        multiplayerS.Add(GameObject.FindGameObjectWithTag("Player Multiplayer"));
+
     }
 
     void Update()
     {
-        /*if (multiPlayer.isPlayerAlive == false)
+        if (!isServer)
         {
-            Debug.Log("Multiplayer player Dead");
-            restartGame();
-        }*/
+            return;
+        }
 
-    }
+        platformSpawnTimer += Time.deltaTime;
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        platformSpawnNum++;
-        //wallSpawnNum++;
-       // enemySpawnNum++;
-
-        if (platformSpawnNum >= 200)
+        if (platformSpawnTimer >= platformSpawnTimerFinal)
         {
-            platformSpawnNum = 0;
-           
+            platformSpawnTimer = 0;
             spawnPlatform();
         }
 
@@ -66,11 +66,19 @@ public class GameManagerMultiplayer : NetworkBehaviour
         //    spawnWall();
         //}
 
-        //if (enemySpawnNum >= 125)
+        //for(int i = 0; i < multiplayerS.Count; i++)
         //{
-        //    enemySpawnNum = 0;
-        //    spawnEnemy();
+        //    if(multiplayerS[i].gameObject.GetComponent<playerScript>().alive == false)
+        //    {
+        //        multiplayerS[i].gameObject.GetComponent<playerScript>().loseText.enabled = true;
+        //        Debug.Log("Player died display lose text");
+        //    }
         //}
+
+
+        //NetworkManager nm = FindObjectOfType<NetworkManager>();
+        //Debug.Log(nm.networkAddress.ToString());
+        //Debug.Log(nm.numPlayers.ToString());
     }
 
     [Server]
@@ -83,7 +91,7 @@ public class GameManagerMultiplayer : NetworkBehaviour
 
         GameObject smallPlatform = Instantiate(Platform, pos, Quaternion.identity);
 
-        //NetworkServer.Spawn(smallPlatform);
+        NetworkServer.Spawn(smallPlatform);
     }
 
    // [Server]
@@ -101,7 +109,6 @@ public class GameManagerMultiplayer : NetworkBehaviour
 
         multiPlayer.isPlayerAlive = true;
 
-        platformSpawnNum = 0;
         wallSpawnNum = 0;
         enemySpawnNum = 0;
 
