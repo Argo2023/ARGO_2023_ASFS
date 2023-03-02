@@ -83,7 +83,7 @@ public class GameManagerMultiplayer : NetworkBehaviour
 
         GameObject smallPlatform = Instantiate(Platform, pos, Quaternion.identity);
 
-        NetworkServer.Spawn(smallPlatform);
+        //NetworkServer.Spawn(smallPlatform);
     }
 
    // [Server]
