@@ -22,10 +22,12 @@ public class BulletScript : MonoBehaviour
         if (collision.gameObject.CompareTag("AI"))
         {
             Destroy(gameObject);
+            //collision.gameObject.GetComponent<HealthScript>().baseHealth -= 2;
+            collision.gameObject.GetComponent<HealthScript>().entityTakesDamage(collision.gameObject.GetComponent<HealthScript>().shotDamage);
             Destroy(collision.gameObject);
-            collision.gameObject.GetComponent<HealthScript>().baseHealth -= 2;
+            
 
-            if(collision.gameObject.GetComponent<HealthScript>().baseHealth <= 0)
+            if (collision.gameObject.GetComponent<HealthScript>().baseHealth <= 0)
             {
                 Destroy(collision.gameObject);
             }

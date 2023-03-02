@@ -53,56 +53,30 @@ public class AIScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //GetComponent<HealthScript>().initializePlayer(69, 10); // Initialises the player
+        GetComponent<HealthScript>().initializePlayer(100, 10); // Initialises the player
         savedlocalScale = transform.localScale;
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+        getPlatforms();
 
-        state = getEntityState();
-
-        setAIAction();
-
-        if (state == AIState.ATTACKING)
+        var tempBest = 0.0f;
+        for (int i = 0; i < allPlatforms.Count; i++)
         {
-            attackingExecution(actions);
-        }
+            var distance = Vector2.Distance(transform.position, allPlatforms[i].transform.position);
 
-        if (state == AIState.CHASING)
-        {
-            chasingExecution(actions);
-        }
-
-        if (state == AIState.EVADING)
-        {
-            evadingExecution(actions);
-        }
-
-        if (state == AIState.IDLE)
-        {
-            idleExecution(actions);
-        }
-
-        if (Input.touchCount > 0)
-        {
-            GetComponent<HealthScript>().baseHealth = 39;
-
-            getPlatforms();
-
-            var tempBest = 0.0f;
-            for (int i = 0; i < allPlatforms.Count; i++)
+            if (distance < tempBest)
             {
-                var distance = Vector2.Distance(transform.position, allPlatforms[i].transform.position);
-
-                if (distance < tempBest)
-                {
-                    tempBest = distance;
-                    Debug.Log("ID: " + i.ToString());
-                }
+                tempBest = distance;
             }
         }
+
+        choosingBehaviour();
+
+        
         if (rb.velocity.x > 0.001f)
         {
             transform.localScale = new Vector2(savedlocalScale.x, savedlocalScale.y);
@@ -111,80 +85,8 @@ public class AIScript : MonoBehaviour
         {
             transform.localScale = new Vector2(-savedlocalScale.x, savedlocalScale.y);
         }
-            //Debug.Log(rb.velocity);
-        }
-
-
-    /// <summary>
-    /// Returns the state the AI should be in, depending on the Health Points the AI currently has
-    /// </summary>
-    /// <returns></returns>
-    /// 
-    AIState getEntityState()
-    {
-        if (GetComponent<HealthScript>().baseHealth > 70)
-        {
-            state = AIState.ATTACKING;
-        }
-
-        if (GetComponent<HealthScript>().baseHealth < 70)
-        {
-            state = AIState.CHASING;
-        }
-
-        if (GetComponent<HealthScript>().baseHealth < 40)
-        {
-            state = AIState.EVADING;
-        }
-
-        if (GetComponent<HealthScript>().baseHealth <= 0)
-        {
-            state = AIState.IDLE;
-        }
-
-        return state;
     }
 
-
-    /// <summary>
-    /// Activates a specific behaviour for the AI based on the state the AI is currently in
-    /// To make work, add wanted actions to the ENUM class and then check for them in the necessary 
-    /// Execution function and add behaviour
-    /// </summary>
-    /// 
-    void setAIAction()
-    {
-        if (state == AIState.ATTACKING)
-        {
-            // add actions for the player to do while attacking
-        }
-
-        if (state == AIState.CHASING && finished == true)
-        {
-            Debug.Log("CHASING");
-            actions.Clear();
-            actions.Add(Actions.MOVE);
-            actions.Add(Actions.JUMP);
-            actions.Add(Actions.TILT);
-            finished = false;
-        }
-
-        if (state == AIState.EVADING)
-        {
-            actions.Clear();
-            actions.Add(Actions.JUMP);
-            // add actions for the player to do while evading
-        }
-
-        if (state == AIState.IDLE)
-        {
-            Debug.Log("IDLE");
-            actions.Clear();
-            actions.Add(Actions.MOVE);
-            actions.Add(Actions.JUMP);
-            finished = false;
-        }
-    }
 
     /// <summary>
     /// Changes the speed of the AI
@@ -206,6 +108,23 @@ public class AIScript : MonoBehaviour
         if (collision.gameObject.CompareTag("Platform"))
         {
             grounded = true;
+        }
+
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+
+            GameObject bullet = GameObject.FindGameObjectWithTag("DoubleDamage");
+
+            if (bullet.GetComponent<genericPowerup>().isDoubleDamageBullet == true)
+            {
+                GetComponent<HealthScript>().entityTakesDamage(20);
+                bullet.GetComponent<genericPowerup>().isDoubleDamageBullet = false;
+            }
+            else
+            {
+                GetComponent<HealthScript>().entityTakesDamage(10);
+            }
+            Destroy(collision.gameObject);
         }
     }
 
@@ -236,10 +155,11 @@ public class AIScript : MonoBehaviour
 
     void evadingExecution(List<Actions> t_actions)
     {
+        GameObject myEnemy = GameObject.FindGameObjectWithTag("Player");
         if (t_actions[0] == Actions.MOVE)
         {
-            if (!(transform.position.x - enemy.transform.position.x <= 4.0f) ||
-                enemy.transform.position.x - transform.position.x >= 4.0f)
+            if (!(transform.position.x - myEnemy.transform.position.x <= 8.0f) ||
+                myEnemy.transform.position.x - transform.position.x >= 8.0f)
             {
                 if (enemy.transform.position.x < transform.position.x)
                     transform.position += Vector3.right * speed * Time.deltaTime;
@@ -262,15 +182,15 @@ public class AIScript : MonoBehaviour
                 if (distance < tempBest)
                 {
                     tempBest = distance;
-                    Debug.Log("ID: " + i.ToString());
+                    //Debug.Log("ID: " + i.ToString());
                     ID = i;
                 }
             }
 
             float distanceToPlayer = Vector2.Distance(transform.position, enemy.transform.position);
 
-            Debug.Log("Distance to Player: " + distanceToPlayer.ToString());
-            Debug.Log("Closest platform: " + tempBest.ToString());
+            //Debug.Log("Distance to Player: " + distanceToPlayer.ToString());
+            //Debug.Log("Closest platform: " + tempBest.ToString());
 
             /// If the player is on the ground, it looks if the player is closer to the AI or is the
             /// platform closer to the AI, which will decide if the AI jumps on the platform.
@@ -283,14 +203,14 @@ public class AIScript : MonoBehaviour
                     if (transform.position.x - allPlatforms[ID].transform.position.x < 0)
                     {
                         grounded = false;
-                        rb.AddForce(Vector2.up * 10.0f, ForceMode2D.Impulse);
+                        rb.AddForce(Vector2.up * 5.0f, ForceMode2D.Impulse);
 
                         StartCoroutine(platformJumpRight());
                     }
                     else
                     {
                         grounded = false;
-                        rb.AddForce(Vector2.up * 10.0f, ForceMode2D.Impulse);
+                        rb.AddForce(Vector2.up * 5.0f, ForceMode2D.Impulse);
 
                         StartCoroutine(platformJumpLeft());
                     }
@@ -313,11 +233,12 @@ public class AIScript : MonoBehaviour
 
     void chasingExecution(List<Actions> t_actions)
     {
-        //Debug.Log("Im here");
+        GameObject myEnemy = GameObject.FindGameObjectWithTag("Player");
+        Debug.Log(myEnemy.transform.position);
         if (t_actions[0] == Actions.MOVE)
         {
-            if (!(transform.position.x - enemy.transform.position.x <= 4.0f) ||
-                enemy.transform.position.x - transform.position.x >= 4.0f)
+            if (!(transform.position.x - myEnemy.transform.position.x <= 8.0f) ||
+                myEnemy.transform.position.x - transform.position.x >= 8.0f)
             {
                 if (enemy.transform.position.x < transform.position.x)
                     transform.position -= Vector3.right * speed * Time.deltaTime;
@@ -334,7 +255,6 @@ public class AIScript : MonoBehaviour
         {
             if (grounded)
             {
-                //Debug.Log("HELLLOOOOO");
                 rb.AddForce(Vector2.up * 6.0f, ForceMode2D.Impulse);
                 grounded = false;
                 t_actions.RemoveAt(0);
@@ -343,8 +263,7 @@ public class AIScript : MonoBehaviour
             else
             {
                 t_actions.RemoveAt(0);
-            }
-            
+            }   
         }
 
         if (t_actions[0] == Actions.TILT)
@@ -444,7 +363,9 @@ public class AIScript : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     float evaluateDistance()
-    { 
+    {
+        allGameObjects.Clear();
+
 
         int IDOfEntity = 0;
         var players = GameObject.FindGameObjectsWithTag("Player");
@@ -456,7 +377,7 @@ public class AIScript : MonoBehaviour
         fillListWithPlatforms(platforms);
         fillListWithAI(otherAI);
 
-        int numberOfEntities = players.Length + platforms.Length + otherAI.Length;
+        int numberOfEntities = players.Length + platforms.Length + otherAI.Length - 1;
 
         float closestValue = float.MaxValue;
 
@@ -468,7 +389,7 @@ public class AIScript : MonoBehaviour
             {
                 closestValue = distance;
                 IDOfEntity = i;
-                Debug.Log("Closest Entity ID: " + IDOfEntity.ToString());
+                //Debug.Log("Closest Entity ID: " + IDOfEntity.ToString());
             }
         }
 
@@ -479,17 +400,15 @@ public class AIScript : MonoBehaviour
 
         if (allGameObjects[IDOfEntity].tag == "Player")
         {
-            return closestValue / 50;
+            return closestValue * 2;
         }
 
         if (allGameObjects[IDOfEntity].tag == "AI")
         {
-            return closestValue;
+            return closestValue * 10;
         }
 
-
-        return 0.0f;
-        
+        return 0.0f;     
     }
 
     void fillListWithPlayers(GameObject[] t_players)
@@ -512,32 +431,17 @@ public class AIScript : MonoBehaviour
     {
         for (int i = 0; i < t_AI.Length; i++)
         {
-            allGameObjects.Add(t_AI[i]);
+            if (t_AI[i] == this.gameObject)
+            {
+
+            }
+            else
+            {
+                allGameObjects.Add(t_AI[i]);
+            }
+            
         }
     }
-
-    /// REFACTOR THIS CODE
-
-
-    //int getClosestEntity(ref List<GameObject> t_allObjects)
-    //{
-    //    int IDOfEntity = 0;
-    //    float closestValue = float.MaxValue;
-
-    //    for (int i = 0; i < t_allObjects.Count; i++)
-    //    {
-    //        float distance = Vector2.Distance(transform.position, t_allObjects[i].transform.position);
-
-    //        if (distance < closestValue)
-    //        {
-    //            closestValue = distance;
-    //            IDOfEntity = i;
-    //            Debug.Log("Closest Entity ID: " + IDOfEntity.ToString());
-    //        }
-    //    }
-
-    //    return IDOfEntity;
-    //}
 
     ///Takes the AI health and uses it in deciding what Aciton should the AI Take
     float evaluateHealth()
@@ -589,10 +493,31 @@ public class AIScript : MonoBehaviour
     void choosingBehaviour()
     {
         float weight = 0.0f;
-
+        
         weight = evaluateDistance() + evaluateHealth() + evaluateShooting();
+        
+        Debug.Log("Current weight: " + weight.ToString());
+
+        if (weight < 25)
+        {
+            actions.Clear();
+            actions.Add(Actions.MOVE);
+            actions.Add(Actions.JUMP);
+            evadingExecution(actions);
+        }
 
 
+        if (weight >= 25)
+        {
+            actions.Clear();
+            actions.Add(Actions.MOVE);
+            actions.Add(Actions.JUMP);
+            actions.Add(Actions.TILT);
+            chasingExecution(actions);
+        }
+
+
+        allGameObjects.Clear();
     }
 
     

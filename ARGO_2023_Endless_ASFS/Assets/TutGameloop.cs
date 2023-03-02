@@ -128,6 +128,6 @@ public class TutGameloop : MonoBehaviour
     /// </summary>
     public void noV()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("SP Filip");
     }
 }

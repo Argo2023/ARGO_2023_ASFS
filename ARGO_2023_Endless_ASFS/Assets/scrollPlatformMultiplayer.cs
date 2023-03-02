@@ -12,6 +12,11 @@ public class scrollPlatformMultiplayer : NetworkBehaviour
     /// </summary>
     void Start()
     {
+        if (!isServer)
+        {
+            return;
+        }
+
         width = transform.localScale.x;
     }
 
@@ -21,10 +26,10 @@ public class scrollPlatformMultiplayer : NetworkBehaviour
     /// </summary>
     void FixedUpdate()
     {
-        //if (!isServer)
-        //{
-        //    return;
-        //}
+        if (!isServer)
+        {
+            return;
+        }
 
         transform.position += Vector3.left * speed * Time.deltaTime;
 

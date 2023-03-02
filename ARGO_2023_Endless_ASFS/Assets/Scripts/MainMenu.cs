@@ -38,7 +38,7 @@ public class MainMenu : MonoBehaviour
     public void settingsFunction()
     {
         Debug.Log("settings");
-        SceneManager.LoadScene("Settings");
+        SceneManager.LoadScene("Tutorial");
     }
     /// <summary>
     /// This Function will bring us out of the application

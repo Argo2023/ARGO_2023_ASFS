@@ -142,6 +142,7 @@ public class singlePlayerScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
         {
+            AudioManager.Instance.Jump.Play();
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             //animator.SetBool("isJumping", true);
             jumpCount += 1;
@@ -233,6 +234,7 @@ public class singlePlayerScript : MonoBehaviour
         timer =1;
         currentHealth -= t_damage;
         healthbar.setHealth(currentHealth);
+        AudioManager.Instance.Hit.Play();
         if (isPlayerDead())
         {
             //playerAlive = false;
@@ -241,6 +243,10 @@ public class singlePlayerScript : MonoBehaviour
             deathTextTwo.gameObject.active = true;
             cam.enabled = false;
             cam2.enabled = true;
+            AudioManager.Instance.gameMusic.Pause();
+            AudioManager.Instance.Death.Play();
+            AudioManager.Instance.end.Play();
+
         }
     }
     /// <summary>
@@ -301,11 +307,13 @@ public class singlePlayerScript : MonoBehaviour
     public void OnMoveJump()
     {
         createDust();
+
         if (isGrounded == true)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             //animator.SetBool("isJumping", true);
             jumpCount += 1;
+            AudioManager.Instance.Jump.Play();
             if (jumpCount == allowedJumps)
             {
                 isGrounded = false;

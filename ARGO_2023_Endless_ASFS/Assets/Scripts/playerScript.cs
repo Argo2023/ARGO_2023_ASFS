@@ -4,6 +4,7 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class playerScript : NetworkBehaviour
 {
@@ -26,6 +27,12 @@ public class playerScript : NetworkBehaviour
     Vector2 savedlocalScale;
     public bool resetJump = false;
     public bool isPlayerAlive = true;
+
+    [Header("Health Related Vars")]
+    public int health = 3;
+    public bool alive = true;
+    public Text winText;
+    public Text loseText;
 
     [SerializeField] private float cooldown = 5;
 
@@ -71,6 +78,8 @@ public class playerScript : NetworkBehaviour
         playerInput = GetComponent<PlayerInput>();
 
         eventSystem = FindObjectOfType<EventSystem>();
+
+
     }
 
     // Update is called once per frame
@@ -210,7 +219,17 @@ public class playerScript : NetworkBehaviour
         {
             isPlayerAlive = false;
             Destroy(collision.gameObject);
+            health -= 1;
+
+            if(health <= 0)
+            {
+                Debug.Log("The Player has died");
+                //Destroy(this.gameObject);
+                //alive = false;
+            }
         }
+
+
 
     }
 
