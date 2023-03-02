@@ -212,18 +212,18 @@ public class singlePlayerScript : MonoBehaviour
 
     public void TakeDamage(int t_damage)
     {
-        timer =1;
-        currentHealth -= t_damage;
-        healthbar.setHealth(currentHealth);
-        if (isPlayerDead())
-        {
-            //playerAlive = false;
-            gameObject.transform.position = new Vector2(20.12f, 4.11f);
-            deathText.gameObject.active = true;
-            deathTextTwo.gameObject.active = true;
-            cam.enabled = false;
-            cam2.enabled = true;
-        }
+        //timer =1;
+        //currentHealth -= t_damage;
+        //healthbar.setHealth(currentHealth);
+        //if (isPlayerDead())
+        //{
+        //    //playerAlive = false;
+        //    gameObject.transform.position = new Vector2(20.12f, 4.11f);
+        //    deathText.gameObject.active = true;
+        //    deathTextTwo.gameObject.active = true;
+        //    cam.enabled = false;
+        //    cam2.enabled = true;
+        //}
     }
 
     public bool isPlayerDead() // checks if the player is dead

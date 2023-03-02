@@ -66,9 +66,9 @@ public class gameManager : MonoBehaviour
             spawnWall();
         }
 
-        if (enemySpawnNum >= 125)
+        if (enemySpawnNum == 125)
         {
-            enemySpawnNum = 0;
+            //enemySpawnNum = 0;
             spawnEnemy();          
         }
 
