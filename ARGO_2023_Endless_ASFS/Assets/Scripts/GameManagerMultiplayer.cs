@@ -22,8 +22,10 @@ public class GameManagerMultiplayer : NetworkBehaviour
     [SyncVar]
     public Vector3 syncPosition;
  
-
-    // Start is called before the first frame update
+    /// <summary>
+    /// calls SpawnPlatform, sets up an off screen pos
+    /// Pulls in the playerScript
+    /// </summary>
     void Start()
     {
         //if (!isServer)
@@ -46,7 +48,9 @@ public class GameManagerMultiplayer : NetworkBehaviour
 
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// spawns platforms regularly
+    /// </summary>
     void FixedUpdate()
     {
         platformSpawnNum++;
@@ -73,6 +77,9 @@ public class GameManagerMultiplayer : NetworkBehaviour
         //}
     }
 
+    /// <summary>
+    /// spawn a platform on a random Y value at offscreenPos
+    /// </summary>
     [Server]
     void spawnPlatform()
     {
@@ -94,7 +101,10 @@ public class GameManagerMultiplayer : NetworkBehaviour
     //}
 
    
-
+    /// <summary>
+    /// in order to restart the game, various things need to be reset 
+    /// All platforms walls and enemies need to be destroyed
+    /// </summary>
     void restartGame()
     {
         Debug.Log("Game Restarted");

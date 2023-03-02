@@ -56,7 +56,11 @@ public class GunController : MonoBehaviour
     public GameObject rev2;
     public GameObject rev1;
     public GameObject rev0;
-
+    /// <summary>
+    /// sets ready to shoot to true
+    /// Sets current bullets left in magazine to total magazine size
+    /// This is because at the start the magazine is full
+    /// </summary>
     private void Awake()
     {
         bulletsLeft = magazineSize;
@@ -67,8 +71,10 @@ public class GunController : MonoBehaviour
     {
         
     }
-
-    // Update is called once per frame
+    /// <summary>
+    /// check whether you touch left or right based on the phone screen
+    /// set isRight based on this 
+    /// </summary>
     void Update()
     {
         if (Input.touchCount > 0)
@@ -94,7 +100,10 @@ public class GunController : MonoBehaviour
         }
 
     }
-
+    /// <summary>
+    /// Check if you are allowed to shoot when you try fire
+    /// </summary>
+    /// <param name="value"></param>
     public void OnFire(InputValue value)
     {
         CheckCanShoot();
@@ -195,13 +204,18 @@ public class GunController : MonoBehaviour
         rev1.SetActive(false);
         rev0.SetActive(false);
     }
+    /// <summary>
+    /// muzzleflash spawning
+    /// </summary>
     private void muzzleBox()
     {
         GameObject particlespawn = Instantiate(muzzleFlash, fp1.position, fp1.rotation);
         Destroy(particlespawn, 0.1f);
 
     }
-
+    /// <summary>
+    /// Push back the player slightly every time they shoot as recoil 
+    /// </summary>
     private void pushBack()
     {
         if (isRight == true)
@@ -216,6 +230,9 @@ public class GunController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Set which revolver image to use based on the amount of bullets in the clip
+    /// </summary>
     private void clipUpdate()
     {
         if (bulletsLeft == 6)

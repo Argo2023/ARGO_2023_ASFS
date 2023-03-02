@@ -180,7 +180,10 @@ public class singlePlayerScript : MonoBehaviour
     }
         
     
-
+    /// <summary>
+    /// Check if the player is visible by the camera
+    /// If this is the case then the player should take damage
+    /// </summary>
     void FixedUpdate()
     {
         if(IsVisibleFrom(gameObject.GetComponent<Renderer>(), cam) == false)
@@ -193,6 +196,11 @@ public class singlePlayerScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Do the killcam when the player dies. 
+    /// Then wait 6 seconds before restarting the game
+    /// </summary>
+    /// <returns></returns>
     IEnumerator Killcam()
     {
         yield return new WaitForSeconds(6.0f);
@@ -200,6 +208,10 @@ public class singlePlayerScript : MonoBehaviour
         SceneManager.LoadScene("SP Filip");
     }
 
+    /// <summary>
+    /// take damage every 2 seconds when outside the screen
+    /// </summary>
+    /// <returns></returns>
     IEnumerator OutsideZone()
     {
         while (true)
@@ -210,6 +222,12 @@ public class singlePlayerScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// takes in an amount of damage integer
+    /// takes that damage from your health
+    /// healthbar reflects this 
+    /// </summary>
+    /// <param name="t_damage"></param>
     public void TakeDamage(int t_damage)
     {
         timer =1;
@@ -225,7 +243,11 @@ public class singlePlayerScript : MonoBehaviour
             cam2.enabled = true;
         }
     }
-
+    /// <summary>
+    /// checks the players current health
+    /// returns true or false depending on if the player is dead or not 
+    /// </summary>
+    /// <returns></returns>
     public bool isPlayerDead() // checks if the player is dead
     {
         if (currentHealth <= 0)
@@ -234,7 +256,11 @@ public class singlePlayerScript : MonoBehaviour
             return false;
     }
 
-
+    /// <summary>
+    /// if player collides with AI
+    /// Take 1 damage
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("AI"))
@@ -244,6 +270,12 @@ public class singlePlayerScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// checks the visibility of the player based on a passed in camera and renderer bounds
+    /// </summary>
+    /// <param name="renderer"></param>
+    /// <param name="camera"></param>
+    /// <returns></returns>
     public bool IsVisibleFrom(Renderer renderer, Camera camera)
     {
         Plane[] planes = GeometryUtility.CalculateFrustumPlanes(camera);
@@ -262,7 +294,10 @@ public class singlePlayerScript : MonoBehaviour
     //}
 
 
-
+    /// <summary>
+    /// new input system jump and create dust. 
+    /// This is called via an event which happens on jump button press
+    /// </summary>
     public void OnMoveJump()
     {
         createDust();
@@ -278,7 +313,9 @@ public class singlePlayerScript : MonoBehaviour
         }
 
     }
-
+    /// <summary>
+    /// plays the dust particle effect
+    /// </summary>
     public void createDust()
     {
         dust.Play();

@@ -10,7 +10,13 @@ public class BulletScript : MonoBehaviour
     {
         gameManager = FindObjectOfType<gameLoop>();    
     }
-
+    /// <summary>
+    /// Checks for collision between bullet and AI.
+    /// If AI is collided with, take away health from AI
+    /// If AI health is less than or equal to 0, destroy it
+    /// add 10 score to the game
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("AI"))

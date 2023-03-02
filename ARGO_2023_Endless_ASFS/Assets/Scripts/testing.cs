@@ -12,8 +12,9 @@ public class testing : MonoBehaviour
     {
         
     }
-
-    // Update is called once per frame
+    /// <summary>
+    /// spawns blood spurting out of the thing thath is hit
+    /// </summary>
     void Update()
     {
         

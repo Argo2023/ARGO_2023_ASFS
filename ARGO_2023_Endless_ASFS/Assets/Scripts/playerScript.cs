@@ -161,7 +161,10 @@ public class playerScript : NetworkBehaviour
        
     }
 
-
+    /// <summary>
+    /// is called by the jump event in new input system from the jump button
+    /// adds force and jump count. Has check for isGrounded
+    /// </summary>
     public void OnMoveJump()
     {
         if (isGrounded == true)
@@ -177,12 +180,19 @@ public class playerScript : NetworkBehaviour
 
     }
 
+    /// <summary>
+    /// passes position to the server 
+    /// </summary>
     [ClientCallback]
     void TransmitPosition()
     {
         CmdProvidePositionToServer(rb.transform.position);
     }
 
+    /// <summary>
+    /// Syncs the position for the server
+    /// </summary>
+    /// <param name="pos"></param>
     [Command]
     void CmdProvidePositionToServer(Vector3 pos)
     {
@@ -191,7 +201,7 @@ public class playerScript : NetworkBehaviour
     }
 
     /// <summary>
-
+    /// Checks for collision with bullet. Destroys bukket and sets player alive to false if collision happens
     /// </summary>
     /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)

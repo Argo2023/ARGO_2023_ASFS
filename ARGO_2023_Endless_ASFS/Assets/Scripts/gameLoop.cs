@@ -54,7 +54,14 @@ public class gameLoop : MonoBehaviour
     [Header("floor Script for speed")]
     public scroll floor;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Start sets everything up for the start of the gameloop.
+    /// It initialised allowing everything to spawn.
+    /// It sets up initial positions for the first objects to spawn.
+    /// It sets up an offscreen position to be used for spawning aswell.
+    /// sets the floor to scroll
+    /// Lastly it sets the actual score and display score to 0. (for respawn)
+    /// </summary>
     void Start()
     {
         allowSpawn = true;
@@ -75,7 +82,10 @@ public class gameLoop : MonoBehaviour
         displayScore = 0;
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// During update random spawns for objects, tumbleweeds and enemies are done.
+    /// The conversion of score to displayable score is done in here too
+    /// </summary>
     void Update()
     {
         randomSpawnNum = Random.Range(0, 5);
@@ -111,7 +121,14 @@ public class gameLoop : MonoBehaviour
 
 
 
-
+    /// <summary>
+    /// In enemies spawn the logic for both spawning enemies and changing of waves is done.
+    /// time between enemies is used here to space out enemies
+    /// If the max enemies for a wave is hit a new wave is started.
+    /// A time is taken between each wave to give the player a breather
+    /// random chance to spawn a cactus is done in hear too
+    /// </summary>
+    /// <returns></returns>
     IEnumerator EnemiesSpawn()
     {
         allowSpawnEnemies = false;
@@ -157,7 +174,10 @@ public class gameLoop : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// spawns tumbleweed off screen
+    /// </summary>
+    /// <returns></returns>
     IEnumerator SpawnTumble()
     { 
         allowSpawnTwo = false;
@@ -168,7 +188,12 @@ public class gameLoop : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// This is where the logic for spawning platforms and moving the floor
+    /// This is done in stages so over time the experience changes, but more importantly gets harder.
+    /// The floor gets much faster and the spawning rate of all objects increases.
+    /// </summary>
+    /// <returns></returns>
     IEnumerator SpawnObjects()
     {   allowSpawn = false;
         yield return new WaitForSeconds(3.0f);
