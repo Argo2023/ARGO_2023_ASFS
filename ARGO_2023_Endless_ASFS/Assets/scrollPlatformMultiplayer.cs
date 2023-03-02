@@ -7,7 +7,9 @@ public class scrollPlatformMultiplayer : NetworkBehaviour
 {
     private int speed = 2;
     private float width;
-    // Start is called before the first frame update
+    /// <summary>
+    /// sets the width of a platform to scroll 
+    /// </summary>
     void Start()
     {
         if (!isServer)
@@ -18,8 +20,10 @@ public class scrollPlatformMultiplayer : NetworkBehaviour
         width = transform.localScale.x;
     }
 
-    
-    // Update is called once per frame
+    /// <summary>
+    /// scrolls the platform to the left
+    /// if the platform goes too far left destroy it 
+    /// </summary>
     void FixedUpdate()
     {
         if (!isServer)

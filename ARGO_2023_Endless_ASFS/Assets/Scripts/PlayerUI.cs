@@ -13,26 +13,36 @@ namespace Mirror.Examples.Basic
         [Header("Child Text Objects")]
         public Text playerNameText;
         public Button buttonToReadyUp;
-
-        // Sets a highlight color for the local player
+        /// <summary>
+        /// Sets a highlight color for the local player
+        /// </summary>
         public void SetLocalPlayer()
         {
             // add a visual background for the local player in the UI
             image.color = new Color(1f, 1f, 1f, 0.1f);
         }
 
-        // This value can change as clients leave and join
+        /// <summary>
+        /// This value can change as clients leave and join
+        /// </summary>
+        /// <param name="newPlayerNumber"></param>
         public void OnPlayerNumberChanged(byte newPlayerNumber)
         {
             playerNameText.text = string.Format("Player {0:00}", newPlayerNumber);
         }
 
-        // Random color set by Player::OnStartServer
+        /// <summary>
+        /// Random color set by Player::OnStartServer
+        /// </summary>
+        /// <param name="newPlayerColor"></param>
         public void OnPlayerColorChanged(Color32 newPlayerColor)
         {
             playerNameText.color = newPlayerColor;
         }
 
+        /// <summary>
+        /// Sets the player to ready in the lobby 
+        /// </summary>
         public void SetPlayerReady()
         {
             player.GetComponent<NetworkRoomPlayer>().CmdChangeReadyState(true);

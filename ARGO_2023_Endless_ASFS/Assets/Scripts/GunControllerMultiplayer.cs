@@ -52,7 +52,11 @@ public class GunControllerMultiplayer : NetworkBehaviour
     [Header("Player Object")]
     public GameObject Player;
 
-
+    /// <summary>
+    /// sets ready to shoot to true
+    /// Sets current bullets left in magazine to total magazine size
+    /// This is because at the start the magazine is full
+    /// </summary>
     private void Awake()
     {
         bulletsLeft = magazineSize;
@@ -65,7 +69,10 @@ public class GunControllerMultiplayer : NetworkBehaviour
         
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// check whether you touch left or right based on the phone screen
+    /// set isRight based on this 
+    /// </summary>
     void Update()
     {
         if (Input.touchCount > 0)
@@ -111,7 +118,10 @@ public class GunControllerMultiplayer : NetworkBehaviour
 
         //}
     }
-
+    /// <summary>
+    /// assigns the connection to the client
+    /// </summary>
+    /// <param name="item"></param>
     void CmdPickupItem(NetworkIdentity item)
     {
         item.AssignClientAuthority(connectionToClient);
@@ -142,13 +152,18 @@ public class GunControllerMultiplayer : NetworkBehaviour
         bulletsLeft -= ammoTakenToReload;
         reloading = false;
     }
+    /// <summary>
+    /// muzzleflash spawning
+    /// </summary>
     private void muzzleBox()
     {
         GameObject particlespawn = Instantiate(muzzleFlash, fp1.position, fp1.rotation);
         Destroy(particlespawn, 0.1f);
 
     }
-
+    /// <summary>
+    /// Push back the player slightly every time they shoot as recoil 
+    /// </summary>
     void pushBack()
     {
         if (isRight == true)
@@ -201,6 +216,13 @@ public class GunControllerMultiplayer : NetworkBehaviour
 
     }
 
+    /// <summary>
+    /// spawns the bullet based on the touch position and direction
+    /// creates a vector between player pos and direction. normalizes it and
+    /// shoots at that direction. With a force 
+    /// </summary>
+    /// <param name="touchPosition"></param>
+    /// <param name="direction"></param>
     [Command]
     private void spawnBullet(Vector3 touchPosition, Vector2 direction)
     {

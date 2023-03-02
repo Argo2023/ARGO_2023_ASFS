@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class TutGameloop : MonoBehaviour
 {
+    /// <summary>
+    /// all the text objects
+    /// </summary>
     public GameObject tip1;
     public GameObject tip2;
     public GameObject tip3;
@@ -19,7 +22,9 @@ public class TutGameloop : MonoBehaviour
     public GameObject tipB;
 
 
-
+    /// <summary>
+    /// aditional objects for demonstration
+    /// </summary>
     public GameObject enemy;
     public GameObject tumbleweed;
     public GameObject cacti;
@@ -35,7 +40,9 @@ public class TutGameloop : MonoBehaviour
     {
         
     }
-
+    /// <summary>
+    /// In update we check what num variable is equal too, the text objects are dependant on that variable as it displays a certain text when certain number is assigned to num variable
+    /// </summary>
     // Update is called once per frame
     void Update()
     {
@@ -102,17 +109,23 @@ public class TutGameloop : MonoBehaviour
 
         }
     }
-
+    /// <summary>
+    /// here the num variable is incremented
+    /// </summary>
     public void tips1()
     {
         num++;
     }
-
+    /// <summary>
+    /// this function reloads the tutorial if the user chooses to replay the tutorial
+    /// </summary>
     public void yesV()
     { 
         SceneManager.LoadScene("Tutorial");
     }
-
+    /// <summary>
+    /// this function loads us back to the menu if the user does not want to replay the tutorial
+    /// </summary>
     public void noV()
     {
         SceneManager.LoadScene("SP Filip");

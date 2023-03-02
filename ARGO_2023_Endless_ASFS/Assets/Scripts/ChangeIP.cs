@@ -11,6 +11,9 @@ namespace Mirror.Examples.Basic
 {
     public class ChangeIP : MonoBehaviour
     {
+        /// <summary>
+        /// changes IP to what is filled in in the input field on the screen
+        /// </summary>
         public TextMeshProUGUI ipText;
 
         public void Start()
