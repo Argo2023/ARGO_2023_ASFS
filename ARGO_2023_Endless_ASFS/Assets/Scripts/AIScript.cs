@@ -47,11 +47,14 @@ public class AIScript : MonoBehaviour
     public float speed = 1.0f;
     public int ID = 0;
 
-    
+
+    Vector2 savedlocalScale;
+
     // Start is called before the first frame update
     void Start()
     {
         GetComponent<HealthScript>().initializePlayer(100, 10); // Initialises the player
+        savedlocalScale = transform.localScale;
     }
 
     // Update is called once per frame
@@ -74,10 +77,14 @@ public class AIScript : MonoBehaviour
         choosingBehaviour();
 
         
-        
-
-
-        //Debug.Log(rb.velocity);
+        if (rb.velocity.x > 0.001f)
+        {
+            transform.localScale = new Vector2(savedlocalScale.x, savedlocalScale.y);
+        }
+        else if (rb.velocity.x < -0.001f)
+        {
+            transform.localScale = new Vector2(-savedlocalScale.x, savedlocalScale.y);
+        }
     }
 
 

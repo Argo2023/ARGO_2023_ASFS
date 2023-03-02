@@ -142,6 +142,7 @@ public class singlePlayerScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded == true)
         {
+            AudioManager.Instance.Jump.Play();
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             //animator.SetBool("isJumping", true);
             jumpCount += 1;
@@ -212,18 +213,23 @@ public class singlePlayerScript : MonoBehaviour
 
     public void TakeDamage(int t_damage)
     {
-        //timer =1;
-        //currentHealth -= t_damage;
-        //healthbar.setHealth(currentHealth);
-        //if (isPlayerDead())
-        //{
-        //    //playerAlive = false;
-        //    gameObject.transform.position = new Vector2(20.12f, 4.11f);
-        //    deathText.gameObject.active = true;
-        //    deathTextTwo.gameObject.active = true;
-        //    cam.enabled = false;
-        //    cam2.enabled = true;
-        //}
+        timer =1;
+        currentHealth -= t_damage;
+        healthbar.setHealth(currentHealth);
+        AudioManager.Instance.Hit.Play();
+        if (isPlayerDead())
+        {
+            //playerAlive = false;
+            gameObject.transform.position = new Vector2(20.12f, 4.11f);
+            deathText.gameObject.active = true;
+            deathTextTwo.gameObject.active = true;
+            cam.enabled = false;
+            cam2.enabled = true;
+            AudioManager.Instance.gameMusic.Pause();
+            AudioManager.Instance.Death.Play();
+            AudioManager.Instance.end.Play();
+
+        }
     }
 
     public bool isPlayerDead() // checks if the player is dead
@@ -266,11 +272,13 @@ public class singlePlayerScript : MonoBehaviour
     public void OnMoveJump()
     {
         createDust();
+
         if (isGrounded == true)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             //animator.SetBool("isJumping", true);
             jumpCount += 1;
+            AudioManager.Instance.Jump.Play();
             if (jumpCount == allowedJumps)
             {
                 isGrounded = false;
