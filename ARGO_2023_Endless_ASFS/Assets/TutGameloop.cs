@@ -21,6 +21,18 @@ public class TutGameloop : MonoBehaviour
     public GameObject no;
     public GameObject tipB;
 
+    public GameObject Arrow1;
+    public GameObject Arrow2;
+    public GameObject Arrow3;
+    public GameObject Arrow4;
+
+    public GameObject Arrow6;
+
+
+    public GameObject Arrow8;
+
+
+
 
     /// <summary>
     /// aditional objects for demonstration
@@ -49,26 +61,42 @@ public class TutGameloop : MonoBehaviour
         if (num == 1)
         {
             tip1.SetActive(true);
+            
+            Arrow1.SetActive(true);
         }
         if (num == 2)
         {
             tip1.SetActive(false);
             tip2.SetActive(true);
+
+            Arrow1.SetActive(false);
+            Arrow2.SetActive(true);
+
         }
         if (num == 3)
         {
             tip2.SetActive(false);
             tip3.SetActive(true);
+
+            Arrow2.SetActive(false);
+            Arrow3.SetActive(true);
         }
         if (num == 4)
         {
             tip3.SetActive(false);
             tip4.SetActive(true);
+
+            Arrow3.SetActive(false);
+            Arrow4.SetActive(true);
+
         }
         if (num == 5)
         {
             tip4.SetActive(false);
             tip5.SetActive(true);
+
+            Arrow4.SetActive(false);
+
         }
         if (num == 6)
         {
@@ -79,11 +107,15 @@ public class TutGameloop : MonoBehaviour
                 Instantiate(enemy, transform.position, transform.rotation);
                 Ai = false;
             }
+            Arrow6.SetActive(true);
         }
         if (num == 7)
         {
             tip6.SetActive(false);
             tip7.SetActive(true);
+
+            Arrow6.SetActive(false);
+
 
         }
         if (num == 8)
@@ -98,6 +130,9 @@ public class TutGameloop : MonoBehaviour
                 Destroy(o1, 5);
                 Destroy(o2, 5);
             }
+
+            Arrow8.SetActive(true);
+
         }
         if (num == 9)
         {
@@ -106,7 +141,7 @@ public class TutGameloop : MonoBehaviour
             tip9.SetActive(true);
             yes.SetActive(true);
             no.SetActive(true);
-
+            Arrow8.SetActive(false);
         }
     }
     /// <summary>
