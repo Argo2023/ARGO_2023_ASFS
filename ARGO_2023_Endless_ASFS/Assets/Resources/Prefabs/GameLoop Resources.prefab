@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1651723266149278524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1651723266149278525}
+  - component: {fileID: 4742418597737257844}
+  - component: {fileID: -1270990839703378725}
+  m_Layer: 0
+  m_Name: GameLoop Resources
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1651723266149278525
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651723266149278524}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.72, y: 1.36, z: -0.010142743}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4742418597737257844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651723266149278524}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: effba0364269d844495c1fb973d89229, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-1270990839703378725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651723266149278524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bcc18626bd8855469950bf23007533f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Platform: {fileID: 8599006544835589896, guid: 32f74f3d20a4b2140837ebfaaae42e99, type: 3}
+  EnemyObj: {fileID: 3172975722647429651, guid: 5de2bbcddf4e0bf4a85a5a67b7083e1d, type: 3}
+  Obstacle: {fileID: 7505382837173284324, guid: 9deecf1d3509acd46aa6ee1f3efe50f6, type: 3}
+  Tumble: {fileID: 4720752310309451968, guid: 68a0119b1fa22244da223c12050e7832, type: 3}
+  randomSpawnNum: 0
+  randomSpawnTumble: 0
+  randomPlatformNum: 0
+  chanceToSpawnCactus: 0
+  timeBetweenWaves: 0
+  timeBetweenEnemies: 0
+  maxEnemiesPerWave: 0
+  enemiesSpawned: 0
+  waveNum: 0
+  nextWave: 0
+  randomSpawn: 0
+  pos1: {fileID: 3447450108559507928, guid: 74b413b553ab8084d8c01de82be98299, type: 3}
+  pos2: {fileID: 1894953997591519529, guid: f37bf5ebd10634344936e7b1e177660f, type: 3}
+  pos3: {fileID: 377994998164792246, guid: b204dd86ea4a3ce47a0b11187996320b, type: 3}
+  pos4: {fileID: 4070971257800711947, guid: ecf99bad3983a024a866ba363c28d47d, type: 3}
+  allowSpawn: 0
+  allowSpawnTwo: 0
+  allowSpawnEnemies: 0
+  displayScore: 0
+  scoreUI: {fileID: 1396918293122285649, guid: 60e587e2998eb9542a0c1c3237f82722, type: 3}
+  floor: {fileID: 0}

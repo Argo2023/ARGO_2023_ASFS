@@ -49,7 +49,11 @@ MonoBehaviour:
   Wall: {fileID: 3814523729588053463, guid: 525fb0ce7f453c14ea7bb05b2d5dc513, type: 3}
   Enemy: {fileID: 259810019018929261, guid: ba9cee8c20a75f24992ce315a737dfb0, type: 3}
   Powerup: {fileID: 86048704199508147, guid: cbceb11afdb9afc4080bb2e61fc2ae48, type: 3}
+  AlcoholPowerup: {fileID: 3838806434068058794, guid: c9a5ed17572ab654e899e6d6ae85aaf0, type: 3}
+  DynamitePowerup: {fileID: 3728903845385605910, guid: 8d5511cdb8228814f89245a2a3be4c87, type: 3}
+  DoubleDamageBullet: {fileID: 2987354462988507685, guid: 5d0ae238f44de4a499bc41b60ff59799, type: 3}
   platformSpawnNum: 0
   wallSpawnNum: 0
   enemySpawnNum: 0
   powerupSpawnNum: 0
+  doubleBullet: 0

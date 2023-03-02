@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class gameLoop : MonoBehaviour
+public class gameLoopResources : MonoBehaviour
 {
 
     [Header("Objects To Spawn")]
