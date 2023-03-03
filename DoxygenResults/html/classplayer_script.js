@@ -1,0 +1,25 @@
+var classplayer_script =
+[
+    [ "OnMoveJump", "classplayer_script.html#a103cde5fd205011cad757f01726ad54e", null ],
+    [ "alive", "classplayer_script.html#a0f2d30b91ea697a4a6cc942ef82e469e", null ],
+    [ "allowedJumps", "classplayer_script.html#a217547876d61c708a159e7c1660fa1aa", null ],
+    [ "eventSystem", "classplayer_script.html#a75f05f476b093599f20efb9a35df7026", null ],
+    [ "fallingGravityScale", "classplayer_script.html#a3fcc6c649d706c471aafd686453b3f25", null ],
+    [ "gravityScale", "classplayer_script.html#a26daa167f96e647c6a986851967e3add", null ],
+    [ "health", "classplayer_script.html#ab5eb9a92d578f42f719b5f8d77aaa3cc", null ],
+    [ "isGrounded", "classplayer_script.html#afe3855db7e1e3e63cb7adcc3579c2c5c", null ],
+    [ "isPlayerAlive", "classplayer_script.html#aba6dd5e45928c75e74906a1c0130d03e", null ],
+    [ "joystick", "classplayer_script.html#aae485eeaa63162c21ae20177b0a2f5ab", null ],
+    [ "jumpCount", "classplayer_script.html#a259dc7873dc2e712a99cde052f9781dd", null ],
+    [ "jumpForce", "classplayer_script.html#a4c672fc4822fdf5e1546ed0c92d535a8", null ],
+    [ "loseText", "classplayer_script.html#aa730e9096627b11b03a78bb3838b4483", null ],
+    [ "m_FacingLeft", "classplayer_script.html#a4c3a8be64eb96de95d162e8f5eefeb0a", null ],
+    [ "m_FacingRight", "classplayer_script.html#a87a8ff4378f0a18799ff861f5e7a6578", null ],
+    [ "playerInput", "classplayer_script.html#a5578ecbab9b01cfd858d7fc8f1e4f5a7", null ],
+    [ "playerSpeed", "classplayer_script.html#aea7b2a5a4ad6adfa492d116b7e9d9260", null ],
+    [ "rb", "classplayer_script.html#adf4435463113e7c655a406a70e7410d2", null ],
+    [ "resetJump", "classplayer_script.html#a51b024a8ff8cd641bcf4684e6ec50c9a", null ],
+    [ "syncPosition", "classplayer_script.html#acbd28a3b7465809ba5cac1e932ea01ba", null ],
+    [ "syncRotation", "classplayer_script.html#a71ebd82e59712b183b35028003e38b8a", null ],
+    [ "winText", "classplayer_script.html#a1f13d5c276e568f1b325deb766e1bd74", null ]
+];

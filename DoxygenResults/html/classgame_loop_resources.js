@@ -1,0 +1,28 @@
+var classgame_loop_resources =
+[
+    [ "allowSpawn", "classgame_loop_resources.html#a1ed72925557f09d9122e9e078fb15cd2", null ],
+    [ "allowSpawnEnemies", "classgame_loop_resources.html#a5d0f4da56273be93212343eea3a422c4", null ],
+    [ "allowSpawnTwo", "classgame_loop_resources.html#ab77adfc3ac949f10bbb50e8f459d1cf8", null ],
+    [ "chanceToSpawnCactus", "classgame_loop_resources.html#a44db8dc1c47313e3eb1f13da9840435d", null ],
+    [ "displayScore", "classgame_loop_resources.html#aaa7e52d8f5b9c8dfe6dac484efb55d6b", null ],
+    [ "enemiesSpawned", "classgame_loop_resources.html#a6ac9fc19da153adb5540567f8a63d718", null ],
+    [ "EnemyObj", "classgame_loop_resources.html#a4baa410d33e5a67f0b3fe3539a2141b0", null ],
+    [ "floor", "classgame_loop_resources.html#af671837281df6da0919f2b1a1d314154", null ],
+    [ "maxEnemiesPerWave", "classgame_loop_resources.html#ae2f622106cb593c2c44d4f69ee069942", null ],
+    [ "nextWave", "classgame_loop_resources.html#a0870bef0d8dfe5152c2ca62d6f498173", null ],
+    [ "Obstacle", "classgame_loop_resources.html#a78494f1e9fd6d5d261f13eededd518dc", null ],
+    [ "Platform", "classgame_loop_resources.html#a8b04b4359385cce9e60ae4330cdcb6e6", null ],
+    [ "pos1", "classgame_loop_resources.html#a837b4c22c18402eb300979e4e0410480", null ],
+    [ "pos2", "classgame_loop_resources.html#acd9319ce3d6514fe9f278d3eff5ea982", null ],
+    [ "pos3", "classgame_loop_resources.html#af70bf52aea030e04c17c3cfd23bccf94", null ],
+    [ "pos4", "classgame_loop_resources.html#a7153cf1cd38a9bdd345837d7134e9209", null ],
+    [ "randomPlatformNum", "classgame_loop_resources.html#ab80ce3ab0b011e8e738ce5f92bc0dd26", null ],
+    [ "randomSpawn", "classgame_loop_resources.html#ab390e58142bb7805e43a6ece7410341e", null ],
+    [ "randomSpawnNum", "classgame_loop_resources.html#adc7bae47726f05bca760dae909250adc", null ],
+    [ "randomSpawnTumble", "classgame_loop_resources.html#a5490a4277cde2862a3efca38719d1c96", null ],
+    [ "scoreUI", "classgame_loop_resources.html#ae9f22777a00a1dcebe76bb1f0cee7659", null ],
+    [ "timeBetweenEnemies", "classgame_loop_resources.html#a1b719a98ab0e78887e275a5457aff44e", null ],
+    [ "timeBetweenWaves", "classgame_loop_resources.html#aa672e8b58f22d4349f5f863dc5fb490d", null ],
+    [ "Tumble", "classgame_loop_resources.html#a066fad718e6e302831a18eeac44df885", null ],
+    [ "waveNum", "classgame_loop_resources.html#a74e360983444af7446c940d4a6dd92df", null ]
+];
