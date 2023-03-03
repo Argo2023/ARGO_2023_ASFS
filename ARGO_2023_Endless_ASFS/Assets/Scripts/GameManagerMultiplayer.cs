@@ -43,7 +43,7 @@ public class GameManagerMultiplayer : NetworkBehaviour
         offScreenPos = new Vector2(offScreen, 3.5f);
 
         multiPlayer = FindObjectOfType<playerScript>();
-        multiplayerS.Add(GameObject.FindGameObjectWithTag("Player Multiplayer"));
+        multiplayerS.Add(GameObject.FindGameObjectWithTag("Player"));
 
     }
     
