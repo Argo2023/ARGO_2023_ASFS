@@ -8,7 +8,7 @@ public class bulletMultiplayer : MonoBehaviour
     /// Collision checker that checks collisions for the bullet and other objects
     /// </summary>
     /// <param name="collision"></param>
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void OnCollisionEnter2D(Collision2D collision)
     {
         //if(collision.gameObject.CompareTag("Player Multiplayer"))
         //{

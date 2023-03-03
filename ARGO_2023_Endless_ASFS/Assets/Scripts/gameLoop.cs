@@ -120,7 +120,7 @@ public class gameLoop : MonoBehaviour
         {
             if (displayScore % 100 == 0)
             {
-                AudioManager.Instance.Score.Play();
+                //AudioManager.Instance.Score.Play();
 
             }
             displayScore = score;
