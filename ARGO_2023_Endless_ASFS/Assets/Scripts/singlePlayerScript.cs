@@ -168,11 +168,11 @@ public class singlePlayerScript : MonoBehaviour
             StartCoroutine(Killcam());
         }
 
-        // if(IsVisibleFrom(gameObject.GetComponent<Renderer>(), cam) == false)
-        // {
-        //     Debug.Log("Player should take damage he is outside the camera view");
-        //     TakeDamage(1);
-        // }
+        //if (IsVisibleFrom(gameObject.GetComponent<Renderer>(), cam) == false)
+        //{
+        //    Debug.Log("Player should take damage he is outside the camera view");
+        //    TakeDamage(1);
+        //}
 
         if (timer > 0)
         {
