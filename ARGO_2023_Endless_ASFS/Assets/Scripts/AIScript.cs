@@ -32,6 +32,7 @@ public class AIScript : MonoBehaviour
 {
     public GameObject enemy;
     public GameObject platforms;
+    public GameObject bulletObj;
     List<Actions> actions = new List<Actions>();
     List<GameObject> allPlatforms = new List<GameObject>();
     List<GameObject> allGameObjects = new List<GameObject>();
@@ -48,6 +49,10 @@ public class AIScript : MonoBehaviour
     public int ID = 0;
 
 
+    public Transform fp1;
+    public float bulletSpeed;
+    private bool shotFire;
+
     Vector2 savedlocalScale;
 
     // Start is called before the first frame update
@@ -55,12 +60,21 @@ public class AIScript : MonoBehaviour
     {
         GetComponent<HealthScript>().initializePlayer(5, 10); // Initialises the player
         savedlocalScale = transform.localScale;
+        shotFire = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log(rb.velocity.x);
+        if (rb.velocity.x > 0.0001f)
+        {
+            transform.localScale = new Vector2(savedlocalScale.x, savedlocalScale.y);
+        }
+        else if (rb.velocity.x < -0.0001f)
+        {
+            transform.localScale = new Vector2(-savedlocalScale.x, savedlocalScale.y);
+        }
         getPlatforms();
 
         var tempBest = 0.0f;
@@ -77,14 +91,6 @@ public class AIScript : MonoBehaviour
         choosingBehaviour();
 
         
-        if (rb.velocity.x > 0.001f)
-        {
-            transform.localScale = new Vector2(savedlocalScale.x, savedlocalScale.y);
-        }
-        else if (rb.velocity.x < -0.001f)
-        {
-            transform.localScale = new Vector2(-savedlocalScale.x, savedlocalScale.y);
-        }
     }
 
 
@@ -161,10 +167,20 @@ public class AIScript : MonoBehaviour
             if (!(transform.position.x - myEnemy.transform.position.x <= 8.0f) ||
                 myEnemy.transform.position.x - transform.position.x >= 8.0f)
             {
-                if (enemy.transform.position.x < transform.position.x)
-                    transform.position += Vector3.right * speed * Time.deltaTime;
-                if (enemy.transform.position.x > transform.position.x)
-                    transform.position -= Vector3.right * speed * Time.deltaTime;
+                if (myEnemy.transform.position.x < transform.position.x)
+                {
+                    Vector2 velocity = rb.velocity;
+                    velocity.x = speed;
+                    rb.velocity = velocity;
+                   // transform.position += Vector3.right * speed * Time.deltaTime;
+                }
+                if (myEnemy.transform.position.x > transform.position.x)
+                {
+                    //   transform.position -= Vector3.right * speed * Time.deltaTime;
+                    Vector2 velocity = rb.velocity;
+                    velocity.x = -speed;
+                    rb.velocity = velocity;
+                }
             }
         }
 
@@ -241,9 +257,19 @@ public class AIScript : MonoBehaviour
                 myEnemy.transform.position.x - transform.position.x >= 8.0f)
             {
                 if (enemy.transform.position.x < transform.position.x)
-                    transform.position -= Vector3.right * speed * Time.deltaTime;
-                if(enemy.transform.position.x > transform.position.x)
-                    transform.position += Vector3.right * speed * Time.deltaTime;
+                {
+                    Vector2 velocity = rb.velocity;
+                    velocity.x = -speed;
+                    rb.velocity = velocity;
+                    //transform.position -= Vector3.right * speed * Time.deltaTime;
+                }
+                if (enemy.transform.position.x > transform.position.x)
+                {
+                    //transform.position += Vector3.right * speed * Time.deltaTime;
+                    Vector2 velocity = rb.velocity;
+                    velocity.x = speed;
+                    rb.velocity = velocity;
+                }
             }
             else
             {
@@ -289,9 +315,30 @@ public class AIScript : MonoBehaviour
 
     }
 
-    void attackingExecution(List<Actions> t_actions)
+    void attackingExecution()
     {
+        if (shotFire == false)
+        {
+            StartCoroutine(fireBullet());
+        }
 
+    }
+
+    IEnumerator fireBullet()
+    {
+        shotFire = true;
+
+            GameObject myEnemy = GameObject.FindGameObjectWithTag("Player");
+
+            GameObject bulletspawn = Instantiate(bulletObj, fp1.position, fp1.rotation);
+            Rigidbody2D rbBullet = bulletspawn.GetComponent<Rigidbody2D>();
+
+            Vector2 shootDirection = (myEnemy.transform.position - transform.position).normalized;
+            rbBullet.AddForce(shootDirection * bulletSpeed, ForceMode2D.Impulse);
+            Destroy(bulletspawn, 2.0f);
+            yield return new WaitForSeconds(1.0f);
+
+        shotFire = false;
     }
     
     string syncActions()
@@ -456,34 +503,9 @@ public class AIScript : MonoBehaviour
     /// <returns></returns>
     float evaluateShooting()
     {
-        float closestValue = float.MaxValue;
+        GameObject playaz = GameObject.FindGameObjectWithTag("Player");
 
-        for (int i = 0; i < allGameObjects.Count; i++)
-        {
-            float distance = Vector2.Distance(transform.position, allGameObjects[i].transform.position);
-
-            if (distance < closestValue)
-            {
-                closestValue = distance;
-            }
-        }
-
-        if (closestValue > 0 && closestValue < 2.0f)
-        {
-            return closestValue / 100;
-        }
-
-        if (closestValue >= 2.0f && closestValue < 10.0f)
-        {
-            return closestValue * 2;
-        }
-
-        if (closestValue > 10)
-        {
-            return closestValue * 20;
-        }
-
-        return 0.0f;
+        return Vector2.Distance(transform.position, playaz.transform.position); ;
     }
 
     /// <summary>
@@ -493,12 +515,14 @@ public class AIScript : MonoBehaviour
     void choosingBehaviour()
     {
         float weight = 0.0f;
-        
-        weight = evaluateDistance() + evaluateHealth() + evaluateShooting();
+        float shouldAIShoot = evaluateShooting();
+        weight = evaluateDistance() + evaluateHealth();
+
+
         
         Debug.Log("Current weight: " + weight.ToString());
 
-        if (weight < 25)
+        if (weight < 18)
         {
             actions.Clear();
             actions.Add(Actions.MOVE);
@@ -507,13 +531,18 @@ public class AIScript : MonoBehaviour
         }
 
 
-        if (weight >= 25)
+        if (weight >= 18)
         {
             actions.Clear();
             actions.Add(Actions.MOVE);
             actions.Add(Actions.JUMP);
             actions.Add(Actions.TILT);
             chasingExecution(actions);
+        }
+
+        if (shouldAIShoot <= 15f)
+        {
+            attackingExecution();
         }
 
 

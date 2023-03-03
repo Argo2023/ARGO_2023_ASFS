@@ -54,6 +54,10 @@ public class gameLoop : MonoBehaviour
     [Header("floor Script for speed")]
     public scroll floor;
 
+    public int powerupSpawnNum = 0;
+    Vector2 aboveScreenPos;
+    public GameObject Powerup;
+
     /// <summary>
     /// Start sets everything up for the start of the gameloop.
     /// It initialised allowing everything to spawn.
@@ -73,6 +77,7 @@ public class gameLoop : MonoBehaviour
         ThirdPlatformInRow = new Vector2(20.0f, 1.5f);
         Third2PlatformInRow = new Vector2(20.0f, -1.0f);
 
+        aboveScreenPos = new Vector2(0, 9);
 
         floor = FindObjectOfType<scroll>();
 
@@ -123,6 +128,26 @@ public class gameLoop : MonoBehaviour
         }
 
        
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        powerupSpawnNum++;
+        if (powerupSpawnNum >= 600)
+        {
+            powerupSpawnNum = 0;
+            spawnPowerup();
+        }
+
+    }
+
+    void spawnPowerup()
+    {
+        float randNum2 = 0.0f;
+        randNum2 = Random.Range(-6.5f, 6.5f);
+        Vector3 pos2 = new Vector3(randNum2, aboveScreenPos.y, 0);
+        Instantiate(Powerup, pos2, Quaternion.identity);
     }
 
 

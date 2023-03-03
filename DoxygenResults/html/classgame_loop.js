@@ -1,0 +1,28 @@
+var classgame_loop =
+[
+    [ "allowSpawn", "classgame_loop.html#a11df18d161c905d181322264dc128e1c", null ],
+    [ "allowSpawnEnemies", "classgame_loop.html#ae3cd28cecf6ece97ca35389ebca145c2", null ],
+    [ "allowSpawnTwo", "classgame_loop.html#af0519cc644fff406002c60d3fb05ea21", null ],
+    [ "chanceToSpawnCactus", "classgame_loop.html#ab48629d519f89952d9ee5833173d8726", null ],
+    [ "displayScore", "classgame_loop.html#a8d0d0707b976d72e7e38615737ff3fb5", null ],
+    [ "enemiesSpawned", "classgame_loop.html#aa084be6dd238d64917c681467b97066c", null ],
+    [ "EnemyObj", "classgame_loop.html#a76c63860e86333b99afcec0c0056c25c", null ],
+    [ "floor", "classgame_loop.html#a6aae363df544c2d26f8a5382c3e9d73a", null ],
+    [ "maxEnemiesPerWave", "classgame_loop.html#aeb825f78b8be9d406a97ece23d130138", null ],
+    [ "nextWave", "classgame_loop.html#a00be954d8bf97b37a7aaf88bfe250b1b", null ],
+    [ "Obstacle", "classgame_loop.html#a1fc4f96b82022f1224279b6c862e0c64", null ],
+    [ "Platform", "classgame_loop.html#a6e7e385d0c9cbcf92b0c2312f3a575ca", null ],
+    [ "pos1", "classgame_loop.html#aa170c43cc31807da3bf767cb0112a7ec", null ],
+    [ "pos2", "classgame_loop.html#a06767b445742182723ab5b740f8bb6c1", null ],
+    [ "pos3", "classgame_loop.html#ab0ddc13357edad3a93bc4497d68f06c0", null ],
+    [ "pos4", "classgame_loop.html#a5c69695673d8867b7398f7a3c8a012b3", null ],
+    [ "randomPlatformNum", "classgame_loop.html#a2aafa0d31bbe03ccf9a3df918ea8709a", null ],
+    [ "randomSpawn", "classgame_loop.html#a937e3a3ac67626f981032aaa35dc9cf4", null ],
+    [ "randomSpawnNum", "classgame_loop.html#a050cf8cc374ee38fa1173cb8aa01974a", null ],
+    [ "randomSpawnTumble", "classgame_loop.html#a39b0a3808fd4a0c4c986eecfe86a6e7d", null ],
+    [ "scoreUI", "classgame_loop.html#a52287f11cabab833ed141029cf04c7d2", null ],
+    [ "timeBetweenEnemies", "classgame_loop.html#a8fea01d8b88439dbd531caec0ee7064e", null ],
+    [ "timeBetweenWaves", "classgame_loop.html#ad044dc6de02efe096b35c1c0d73a377f", null ],
+    [ "Tumble", "classgame_loop.html#a576dd2a06a5da94e9d2d22aad2956fd8", null ],
+    [ "waveNum", "classgame_loop.html#a8d411764a8dd1c980dc9b4063e0f913f", null ]
+];

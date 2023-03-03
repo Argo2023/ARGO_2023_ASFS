@@ -17,6 +17,8 @@ TagManager:
   - DoubleDamage
   - Explosion
   - BulletImpact
+  - Joystick
+  - BulletAI
   layers:
   - Default
   - TransparentFX
@@ -65,4 +67,7 @@ TagManager:
     locked: 0
   - name: 4
     uniqueID: 3793033879
+    locked: 0
+  - name: 5
+    uniqueID: 99844679
     locked: 0

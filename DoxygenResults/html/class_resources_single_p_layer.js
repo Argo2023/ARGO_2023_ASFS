@@ -1,0 +1,25 @@
+var class_resources_single_p_layer =
+[
+    [ "createDust", "class_resources_single_p_layer.html#ae96033186842e5a0430ce802b066c77a", null ],
+    [ "isPlayerDead", "class_resources_single_p_layer.html#a5efaab85fd662faca2115b640d38872e", null ],
+    [ "IsVisibleFrom", "class_resources_single_p_layer.html#a4f4fa86251db6d611d16c0177450628b", null ],
+    [ "OnMoveJump", "class_resources_single_p_layer.html#a56d767c63ff5878cabf4ffc54c3d630f", null ],
+    [ "TakeDamage", "class_resources_single_p_layer.html#a8decea668037c67a3e60f959a0a56c07", null ],
+    [ "allowedJumps", "class_resources_single_p_layer.html#aaaa13475f31512ccf7686b33e8d2d73b", null ],
+    [ "currentHealth", "class_resources_single_p_layer.html#a222384010b785a41d8cca4aea97c705b", null ],
+    [ "dust", "class_resources_single_p_layer.html#a241845377ee4835cb6eba61123a61b97", null ],
+    [ "fallingGravityScale", "class_resources_single_p_layer.html#a93238ea59d93209ffa769b446b2760f3", null ],
+    [ "gravityScale", "class_resources_single_p_layer.html#a073d0e5f121e6c02bec5f4607336705e", null ],
+    [ "healthbar", "class_resources_single_p_layer.html#ac768bd77cf077de4b1624cdbd4ebb47c", null ],
+    [ "isGrounded", "class_resources_single_p_layer.html#a51ecbd43165f87fa1e5dcd3486c4708b", null ],
+    [ "joystick", "class_resources_single_p_layer.html#a8c4792de29e11b89780f549dc20c7e2a", null ],
+    [ "jumpCount", "class_resources_single_p_layer.html#adba8dd31bdd0c188597935fc6ff06906", null ],
+    [ "jumpForce", "class_resources_single_p_layer.html#a1b054c37cbad1b0dfbbb17fb59d62d00", null ],
+    [ "m_FacingLeft", "class_resources_single_p_layer.html#a49f0755a9366af781b52a55bfbe0d4df", null ],
+    [ "m_FacingRight", "class_resources_single_p_layer.html#a059d8a2a67cbf494dcb83cc4d2f961ee", null ],
+    [ "maxHealth", "class_resources_single_p_layer.html#a6bb666633ac7ac6a0ac452ba34435438", null ],
+    [ "playerAlive", "class_resources_single_p_layer.html#a692e86dca41796133314e6ea0da1e3b0", null ],
+    [ "playerSpeed", "class_resources_single_p_layer.html#aaadc5c0e55b0988706901a490014f6ee", null ],
+    [ "rb", "class_resources_single_p_layer.html#af852dac93d30b42daee460bc7b7779c1", null ],
+    [ "resetJump", "class_resources_single_p_layer.html#a55884983e516999d5de219fa8e6b8f70", null ]
+];
