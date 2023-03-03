@@ -1964,7 +1964,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 543, y: -248}
+  m_AnchoredPosition: {x: 529, y: -229}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1108767656
@@ -2611,11 +2611,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 74
+      value: 113
       objectReference: {fileID: 0}
     - target: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 70
+      value: 85
       objectReference: {fileID: 0}
     - target: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3174,6 +3174,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6081134607157703894, guid: 276228c63c3fa844ba5921ed2a6c09c3, type: 3}
+      propertyPath: m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 4beb055f07aaff244873dec698d0363e, type: 3}
+    - target: {fileID: 6081134607157703895, guid: 276228c63c3fa844ba5921ed2a6c09c3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4beb055f07aaff244873dec698d0363e, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 276228c63c3fa844ba5921ed2a6c09c3, type: 3}
 --- !u!102 &1840685350 stripped
@@ -3482,6 +3490,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2020306544225617416, guid: 61bf1aa09d4037d4db4bcd493f28cbb7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 4beb055f07aaff244873dec698d0363e, type: 3}
+    - target: {fileID: 2020306544225617417, guid: 61bf1aa09d4037d4db4bcd493f28cbb7, type: 3}
+      propertyPath: m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 4beb055f07aaff244873dec698d0363e, type: 3}
     - target: {fileID: 2020306544225617419, guid: 61bf1aa09d4037d4db4bcd493f28cbb7, type: 3}
       propertyPath: m_Name
       value: Death Text 2

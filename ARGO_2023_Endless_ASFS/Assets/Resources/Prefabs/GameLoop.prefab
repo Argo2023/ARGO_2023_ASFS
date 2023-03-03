@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1651723266149278524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1651723266149278525}
+  - component: {fileID: 7077704666264515611}
+  - component: {fileID: 4742418597737257844}
+  m_Layer: 0
+  m_Name: GameLoop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1651723266149278525
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651723266149278524}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.72, y: 1.36, z: -0.010142743}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7077704666264515611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651723266149278524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d3b561737dffa74a9f145b6da5c0e7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Platform: {fileID: 8599006544835589896, guid: d521d919200003a46a36948253ffbfd6, type: 3}
+  EnemyObj: {fileID: 259810019018929261, guid: ba9cee8c20a75f24992ce315a737dfb0, type: 3}
+  Obstacle: {fileID: 7505382837173284324, guid: e119360c637ad4d409f92b582a95dce8, type: 3}
+  Tumble: {fileID: 4720752310309451968, guid: 9bd19310b43c28b449038af594292127, type: 3}
+  randomSpawnNum: 0
+  randomSpawnTumble: 0
+  randomPlatformNum: 0
+  chanceToSpawnCactus: 0
+  timeBetweenWaves: 4
+  timeBetweenEnemies: 1
+  maxEnemiesPerWave: 3
+  enemiesSpawned: 0
+  waveNum: 0
+  nextWave: 0
+  randomSpawn: 0
+  pos1: {fileID: 0}
+  pos2: {fileID: 0}
+  pos3: {fileID: 0}
+  pos4: {fileID: 0}
+  allowSpawn: 0
+  allowSpawnTwo: 0
+  allowSpawnEnemies: 0
+  displayScore: 0
+  scoreUI: {fileID: 1396918293122285649, guid: 60e587e2998eb9542a0c1c3237f82722, type: 3}
+  floor: {fileID: 3376618700247106827, guid: ea9e064d9aa8cbf47b34f17edb3326fc, type: 3}
+--- !u!114 &4742418597737257844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651723266149278524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: effba0364269d844495c1fb973d89229, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -25,7 +25,6 @@ public class scrollPlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         transform.position += Vector3.left * floor.speed *200 * Time.deltaTime;
 
         if (transform.position.x + width / 2 <= -12)
