@@ -274,6 +274,12 @@ public class singlePlayerScript : MonoBehaviour
             //playerAlive = false;
             TakeDamage(1);
         }
+        if (collision.gameObject.CompareTag("BulletAI"))
+        {
+            //playerAlive = false;
+            Destroy(collision.gameObject);
+            TakeDamage(1);
+        }
     }
 
     /// <summary>

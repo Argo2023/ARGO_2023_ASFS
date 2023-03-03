@@ -146,6 +146,7 @@ public class GunController : MonoBehaviour
         Vector2 direction = new Vector3(x, y);
         GameObject bulletspawn = Instantiate(Projectile, fp1.position, fp1.rotation);
         Rigidbody2D rbBullet = bulletspawn.GetComponent<Rigidbody2D>();
+
         Vector2 shootDirection = (touchPosition - transform.position).normalized;
         shootDirection = shootDirection + direction;
         rbBullet.AddForce(shootDirection * bulletSpeed, ForceMode2D.Impulse);
