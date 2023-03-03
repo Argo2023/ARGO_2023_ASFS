@@ -53,7 +53,7 @@ public class AIScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<HealthScript>().initializePlayer(100, 10); // Initialises the player
+        GetComponent<HealthScript>().initializePlayer(5, 10); // Initialises the player
         savedlocalScale = transform.localScale;
     }
 
