@@ -32,10 +32,10 @@ public class TestFilip
         GameObject platform = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Platform"));
         // Use the Assert class to test conditions.
         // Use yield to skip a frame.
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(10.0f);
 
 
-        Assert.Less(platform.transform.position.x, 3.74f);
+        Assert.Less(platform.transform.position.x, 0f);
         
     }
 
@@ -48,10 +48,10 @@ public class TestFilip
         GameObject cactus = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/cactus"));
         // Use the Assert class to test conditions.
         // Use yield to skip a frame.
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(10.0f);
 
 
-        Assert.Less(cactus.transform.position.x, 3.74f);
+        Assert.Less(cactus.transform.position.x, 0f);
 
     }
 
@@ -63,16 +63,16 @@ public class TestFilip
         GameObject Tumble = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Tumble"));
         // Use the Assert class to test conditions.
         // Use yield to skip a frame.
-        yield return new WaitForSeconds(10.0f);
+        yield return new WaitForSeconds(20.0f);
 
-        Assert.Less(Tumble.transform.position.x, 18.9f);
+        Assert.Less(Tumble.transform.position.x, 0f);
 
     }
 
     [UnityTest]
     public IEnumerator EnemiesSpawnMove()
     {
-    
+
         GameObject floor = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/floor"));
         GameObject enemy = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/ZeAIFIFI"));
         // Use the Assert class to test conditions.
@@ -80,6 +80,5 @@ public class TestFilip
         yield return new WaitForSeconds(4.0f);
 
         Assert.Less(enemy.transform.position.x, 3.74f);
-
     }
 }
